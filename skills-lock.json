@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "oura": {
+      "source": "jjenkins/agent-oura",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/oura/SKILL.md",
+      "computedHash": "b60eba2de23cb14e34ffc9e3e4ff3172ed55ccb54ff4a5eddb91525c3e519d70"
+    }
+  }
+}
