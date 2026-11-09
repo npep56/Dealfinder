@@ -1,0 +1,276 @@
+{
+  "date": "2026-11-09",
+  "run": "daily",
+  "time": "08:55",
+  "headline": "Rothy's sitewide code FORYOU26 ($40 off $150+) would bring the Chestnut Casual Clog to $120, under target; little else moved.",
+  "sources": [
+    {
+      "name": "Southern Savers: Kroger weekly ad",
+      "covers": "11/4–11/10",
+      "url": "https://www.southernsavers.com/kroger-weekly-ad-11-4-11-10/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Publix weekly ad",
+      "covers": "11/4–11/10 or 11/5–11/11",
+      "url": "https://www.southernsavers.com/publix-weekly-ad-11-4-11-10-or-11-5-11-11/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Kroger unadvertised deals",
+      "covers": "11/4–11/10",
+      "url": "https://www.southernsavers.com/kroger-unadvertised-deals-11-4-11-10/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Publix unadvertised deals",
+      "covers": "11/4–11/10",
+      "url": "https://www.southernsavers.com/publix-unadvertised-deals-11-4-11-10/",
+      "ok": true
+    },
+    {
+      "name": "Costco savings book",
+      "covers": "10/19–11/15",
+      "url": "https://costco97.com/coupon-book/november-2026/",
+      "ok": true
+    },
+    {
+      "name": "costco.com Warehouse & Holiday Savings",
+      "covers": "10/30–11/15",
+      "url": "https://www.costco.com/warehouse-savings.html",
+      "ok": true
+    },
+    {
+      "name": "costco.com product pages",
+      "url": "https://www.costco.com",
+      "ok": false
+    },
+    {
+      "name": "rothys.com",
+      "url": "https://rothys.com/products/womens-casual-clog-chestnut",
+      "ok": true
+    },
+    {
+      "name": "Anthropologie",
+      "url": "https://www.anthropologie.com/shop/rothys-the-casual-clogs",
+      "ok": true
+    },
+    {
+      "name": "Nordstrom",
+      "url": "https://www.nordstrom.com",
+      "ok": false
+    },
+    {
+      "name": "wolaco.com",
+      "url": "https://www.wolaco.com/collections/for-the-runner/products/distance-half-tight-black",
+      "ok": true
+    },
+    {
+      "name": "fitcamx.com",
+      "url": "https://fitcamx.com/collections/for-hyundai/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "ok": true
+    },
+    {
+      "name": "Newegg",
+      "url": "https://www.newegg.com/p/0PD-00Y7-000D2",
+      "ok": true
+    },
+    {
+      "name": "janji.com",
+      "url": "https://janji.com/collections/all/products/ms-8-trail-half-tight-lined",
+      "ok": true
+    },
+    {
+      "name": "dyson.com",
+      "url": "https://www.dyson.com/vacuum-cleaners/cordless/v15/detect-yellow",
+      "ok": true
+    },
+    {
+      "name": "Best Buy",
+      "url": "https://www.bestbuy.com/site/product/6539476.p",
+      "ok": true
+    },
+    {
+      "name": "Target",
+      "url": "https://www.target.com",
+      "ok": true
+    },
+    {
+      "name": "Student Beans US: Dyson",
+      "url": "https://www.studentbeans.com/student-discount/us/dyson",
+      "ok": true
+    },
+    {
+      "name": "Whole Foods online",
+      "url": "https://www.wholefoodsmarket.com",
+      "ok": true
+    },
+    {
+      "name": "aloha.com",
+      "url": "https://aloha.com/collections/all/products/peanut-butter-cup-protein-bar",
+      "ok": true
+    },
+    {
+      "name": "chomps.com",
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "ok": true
+    },
+    {
+      "name": "Amazon",
+      "url": "https://www.amazon.com",
+      "ok": false
+    },
+    {
+      "name": "Slickdeals",
+      "url": "https://slickdeals.net",
+      "ok": true
+    }
+  ],
+  "observations": [
+    {
+      "item": "rothys-casual-clog",
+      "store": "rothys.com",
+      "price": 120,
+      "regular_price": 160,
+      "url": "https://rothys.com/products/womens-casual-clog-chestnut",
+      "code": "FORYOU26",
+      "final_sale": false,
+      "note": "Chestnut lists at $160; site banner code FORYOU26 is $40 off $150+ (no exclusions or end date shown) — confirm it applies at checkout. Not final sale. Size 10 stock unclear on the page."
+    },
+    {
+      "item": "wolaco-distance-half-tight",
+      "store": "wolaco.com",
+      "price": 128,
+      "regular_price": 128,
+      "url": "https://www.wolaco.com/collections/for-the-runner/products/distance-half-tight-black",
+      "code": "",
+      "in_stock": true,
+      "note": "No sale. WELCOME15 is 15% off first order only (~$108.80)."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "fitcamx.com",
+      "price": 189,
+      "regular_price": 189,
+      "url": "https://fitcamx.com/collections/for-hyundai/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "in_stock": true,
+      "note": "Front 4K 64GB at its usual $189 (site shows $219 compare-at). Newsletter 5% off would be ~$179.55."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112,
+      "regular_price": 112,
+      "url": "https://janji.com/collections/all/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "No sale. No color named black (Midnight/Carbon are closest). Collective membership 15% off would be $95.20, still above target."
+    },
+    {
+      "item": "dyson-v15-detect",
+      "store": "dyson.com",
+      "price": 849.99,
+      "regular_price": 849.99,
+      "url": "https://www.dyson.com/vacuum-cleaners/cordless/v15/detect-yellow",
+      "in_stock": false,
+      "note": "Base V15 Detect (Yellow/Iron) full price; buy box shows Notify me. Only V15 deals on dyson.com are Absolute models (excluded)."
+    },
+    {
+      "item": "dyson-v15-detect",
+      "store": "Target",
+      "price": 849.99,
+      "regular_price": 849.99,
+      "url": "https://www.target.com/s/dyson+v15+detect",
+      "note": "Base V15 Detect Yellow, no sale."
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger",
+      "price": 3.99,
+      "size": 8,
+      "regular_price": null,
+      "assessment": "close",
+      "url": "https://www.southernsavers.com/kroger-weekly-ad-11-4-11-10/",
+      "ends": "2026-11-10",
+      "code": "",
+      "note": "Same ad price as yesterday; ends tomorrow."
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "Whole Foods",
+      "price": 26.99,
+      "size": 12,
+      "regular_price": null,
+      "url": "https://www.wholefoodsmarket.com/product/aloha-peanut-butter-cup-protein-bar-1-each-b08zvhh13j",
+      "note": "12-pack, no sale shown.",
+      "assessment": "none"
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "aloha.com",
+      "price": 34.99,
+      "size": 12,
+      "regular_price": null,
+      "url": "https://aloha.com/collections/all/products/peanut-butter-cup-protein-bar",
+      "note": "12-bar box, no sale; Autoship saves 10–25%.",
+      "assessment": "none"
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Target",
+      "price": 5.59,
+      "size": 11.5,
+      "regular_price": null,
+      "url": "https://www.target.com/p/nature-s-path-love-crunch-dark-chocolate-and-peanut-butter/-/A-94797933",
+      "in_stock": true,
+      "note": "Full-price sighting ($0.49/oz)."
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods",
+      "price": 16.99,
+      "size": 24,
+      "regular_price": null,
+      "url": "https://www.wholefoodsmarket.com/grocery/product/24-ounce-pack-of-1-b01kl4hwws",
+      "note": "Pacific Rim 24 oz, no sale shown. Buzz Free Decaf price didn't load."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Target",
+      "price": 18.49,
+      "size": 8,
+      "regular_price": null,
+      "url": "https://www.target.com/p/-/A-87802842",
+      "in_stock": true,
+      "note": "8-ct, $2.31/stick, no sale."
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 54.99,
+      "size": 24,
+      "regular_price": null,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "note": "24-pack, $2.29/stick. 10-pack $25.60 ($23.04 subscribe)."
+    }
+  ],
+  "notes": [
+    "Rothy's FORYOU26 is a sitewide banner code, not a Chestnut markdown — check that it applies to the clog at checkout.",
+    "Anthropologie carries the Casual Clog only in Neutral, Cream and Black (no Chestnut).",
+    "Newegg FitcamX P6000 listing is the front+rear bundle ($529.18) — doesn't count.",
+    "Best Buy V15 Detect 8-accessory bundle (447261-01) page showed conflicting $649.99–$788 prices; not recorded.",
+    "No V15 Detect Plus current price found; newest Slickdeals post (Amazon $599.99) is from March 2026.",
+    "Student Beans US: Dyson offer covers accessories only, no V15. UNiDAYS showed only UK offers.",
+    "Kroger: Califia Cold Brew 48 oz $3.99 (not Toasted Coconut); Chomplings minis $5.49 after Ibotta (not Original sticks).",
+    "ALOHA PB Cup 12-pk Amazon Slickdeals post ($16.09) still marked expired.",
+    "Costco savings book and holiday savings (through 11/15) have none of the watchlist items; next holiday event starts 11/16.",
+    "No new Kroger/Publix 11/11 ad posted yet."
+  ],
+  "gaps": [
+    "costco.com product pages load prices with JavaScript — no Costco prices for Kerrygold, Just Bare, Kirkland nuts or Chomps.",
+    "Amazon pages couldn't be read; no current Amazon prices or live Slickdeals posts.",
+    "Walmart: search snippets showed no prices and no Slickdeals posts, so nothing recorded.",
+    "Whole Foods online showed no prices for refrigerated items (Stonyfield, Califia, Natural Bliss, Cedar's, Back to Nature).",
+    "Nordstrom: no Casual Clog listing found; dyson.com Detect Plus page failed to load.",
+    "Southern Savers pages were read via a summarizer; small misses possible."
+  ]
+}
