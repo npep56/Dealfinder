@@ -1,0 +1,208 @@
+{
+  "settings": {
+    "timezone": "America/New_York",
+    "default_student_discount": 0.2,
+    "grocery_deal_pct": 0.15,
+    "grocery_close_pct": 0.05,
+    "want_close_margin": 0.1,
+    "deal_stale_days": 3,
+    "dashboard_url": "https://claude.ai/artifact/E4gmQ9GaoJxnwuKJBM5qW7"
+  },
+  "items": [
+    {
+      "id": "rothys-casual-clog",
+      "name": "Rothy's The Casual Clog",
+      "variant": "Chestnut, women's 10",
+      "kind": "want",
+      "unit": "item",
+      "regular_price": 160,
+      "target_price": 127,
+      "target_reason": "Beats the 20% student discount ($128)",
+      "stores": ["rothys.com", "Anthropologie", "Nordstrom", "Slickdeals"],
+      "notes": "Say if the sale is final sale. Only Chestnut counts."
+    },
+    {
+      "id": "wolaco-distance-half-tight",
+      "name": "Wolaco Distance Half Tight",
+      "variant": "Men's, black, L, 8\" inseam",
+      "kind": "want",
+      "unit": "item",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "No student discount: any real sale below regular price",
+      "stores": ["wolaco.com", "Retailers", "Slickdeals"],
+      "notes": ""
+    },
+    {
+      "id": "fitcamx-p6000",
+      "name": "FitcamX 4K front dash cam",
+      "variant": "Hyundai Santa Fe 2024–2026, part P6000",
+      "kind": "want",
+      "unit": "item",
+      "regular_price": 189,
+      "target_price": 160,
+      "target_reason": "Your alert price",
+      "stores": ["Amazon", "Walmart", "Newegg", "fitcamx.com", "Slickdeals"],
+      "notes": "Front-only 4K. Dual front+rear bundles do not count."
+    },
+    {
+      "id": "janji-trail-half-tight-lined",
+      "name": "Janji Trail Half Tight, lined",
+      "variant": "Men's, black, L, 8\" inseam",
+      "kind": "want",
+      "unit": "item",
+      "regular_price": 112,
+      "target_price": 90,
+      "target_reason": "Your alert price (beats 20% student discount)",
+      "stores": ["janji.com", "REI", "Running retailers"],
+      "notes": "Must be the LINED version. REI's unlined version does not count."
+    },
+    {
+      "id": "dyson-v15-detect",
+      "name": "Dyson V15 Detect",
+      "variant": "New, base V15 Detect or Detect Plus",
+      "kind": "want",
+      "unit": "item",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "No verified US student offer: any real sale below dyson.com regular price",
+      "stores": ["dyson.com", "Amazon", "Best Buy", "Target", "Walmart", "Costco", "Kohl's", "Slickdeals"],
+      "notes": "Not refurbished/open-box; not Absolute, Extra or Submarine. Re-check Student Beans US / UNiDAYS US each run; if a V15 student offer is confirmed, only flag deals that beat it. Note model and included attachments."
+    },
+    {
+      "id": "kerrygold-butter",
+      "name": "Kerrygold salted butter",
+      "variant": "Any size, compare per oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Costco", "Walmart"]
+    },
+    {
+      "id": "stonyfield-vanilla-yogurt",
+      "name": "Stonyfield low-fat vanilla yogurt",
+      "variant": "32 oz tub",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "natural-bliss-sweet-cream",
+      "name": "Natural Bliss Sweet Cream creamer",
+      "variant": "32 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "califia-toasted-coconut",
+      "name": "Califia Toasted Coconut almondmilk",
+      "variant": "48 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "simply-lemonade",
+      "name": "Simply Lemonade",
+      "variant": "52 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "cedars-hommus",
+      "name": "Cedar's organic hommus",
+      "variant": "10 oz: Hot Honey, Original, Garlic",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "just-bare-chunks",
+      "name": "Just Bare Lightly Breaded Chicken Chunks",
+      "variant": "Original, compare per oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Costco", "Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "simple-truth-pb",
+      "name": "Simple Truth Organic Creamy Peanut Butter",
+      "variant": "40 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger"]
+    },
+    {
+      "id": "smash-kitchen-chips",
+      "name": "Smash Kitchen Organic Yellow Corn Tortilla Chips",
+      "variant": "10 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Walmart"]
+    },
+    {
+      "id": "back-to-nature-crackers",
+      "name": "Back to Nature Classic Round Crackers",
+      "variant": "6.5 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+    },
+    {
+      "id": "aloha-pb-cup-bars",
+      "name": "ALOHA Peanut Butter Cup protein bars",
+      "variant": "12-pack, compare per bar",
+      "kind": "grocery",
+      "unit": "bar",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart", "Amazon", "Costco", "Target", "aloha.com"]
+    },
+    {
+      "id": "love-crunch-granola",
+      "name": "Nature's Path Love Crunch Dark Choc & PB granola",
+      "variant": "11.5 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart", "Amazon", "Costco", "Target"]
+    },
+    {
+      "id": "kirkland-mixed-nuts",
+      "name": "Kirkland Extra Fancy Salted Mixed Nuts",
+      "variant": "40 oz",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Costco"]
+    },
+    {
+      "id": "wf365-coffee",
+      "name": "365 Whole Foods ground coffee",
+      "variant": "24 oz: Buzz Free Decaf, Pacific Rim",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": ["Whole Foods", "Amazon"]
+    },
+    {
+      "id": "chomps-original",
+      "name": "Chomps Original Beef Sticks",
+      "variant": "Mild, 1.15 oz sticks, compare per stick",
+      "kind": "grocery",
+      "unit": "stick",
+      "typical_unit_price": null,
+      "stores": ["Costco", "Amazon", "Walmart", "Target", "Kroger", "Publix", "Whole Foods", "chomps.com"]
+    }
+  ]
+}

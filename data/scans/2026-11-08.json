@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-08",
+  "run": "daily",
+  "headline": "No notable deals today.",
+  "sources": [
+    {"name": "Southern Savers: Kroger weekly ad", "covers": "11/4–11/10", "url": "https://www.southernsavers.com/kroger-weekly-ad-11-4-11-10/", "ok": true},
+    {"name": "Southern Savers: Publix weekly ad", "covers": "11/4–11/10 or 11/5–11/11", "url": "https://www.southernsavers.com/", "ok": true},
+    {"name": "Costco savings book", "covers": "10/19–11/15", "url": "https://costrefund.com/costco-coupon-book/november-2026", "ok": true},
+    {"name": "rothys.com", "url": "https://rothys.com", "ok": true},
+    {"name": "fitcamx.com", "url": "https://fitcamx.com", "ok": true},
+    {"name": "dyson.com", "url": "https://www.dyson.com", "ok": false}
+  ],
+  "observations": [
+    {"item": "rothys-casual-clog", "store": "rothys.com", "price": 160, "regular_price": 160, "url": "https://rothys.com", "note": "Chestnut at full price. The 32% markdown covers other colors only (Chocolate Crochet $119, final sale)."},
+    {"item": "fitcamx-p6000", "store": "fitcamx.com", "price": 189, "regular_price": 189, "url": "https://fitcamx.com", "note": "Newegg lists only a front+rear bundle ($529)."},
+    {"item": "janji-trail-half-tight-lined", "store": "janji.com", "price": 112, "regular_price": 112, "url": "https://janji.com", "note": "No sale. REI carries only the unlined version ($98)."},
+    {"item": "kerrygold-butter", "store": "Kroger", "price": 3.99, "size": 8, "regular_price": null, "assessment": "close", "url": "https://www.southernsavers.com/kroger-weekly-ad-11-4-11-10/", "ends": "2026-11-10", "note": "Modest cut; still more per oz than Costco."}
+  ],
+  "notes": [
+    "Chomps on sale at Kroger only as Chomplings minis ($6.99 for 6, $5.49 after Ibotta) — not your Original 1.15 oz sticks.",
+    "ALOHA 12-pack $16.09 Amazon deal on Slickdeals has expired.",
+    "Dyson V15: $599.99 Detect Plus listings found were from March 2026 and 2024. No US student offer seen."
+  ],
+  "gaps": [
+    "dyson.com did not load.",
+    "End of the Kroger weekly ad post could not be read word for word (mostly household items)."
+  ]
+}
