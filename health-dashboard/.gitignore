@@ -1,5 +1,0 @@
-test/node_modules/
-test/test.html
-test/*.png
-# Never commit your own health data or plan
-my-*
