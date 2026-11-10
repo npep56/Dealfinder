@@ -47,19 +47,22 @@ Costco, one for the "want" items, one for Amazon/Target/Slickdeals groceries).
 
 ## 2. Record the run
 
-Write `data/scans/<today>.json` (America/New_York date). For an extra run on a day that
-already has a file, use `data/scans/<today>-<run>.json` (e.g. `2026-11-27-noon.json`)
-and set `"run"` and `"time"`.
+Write `data/scans/<today>.json` (America/New_York date). An extra run on a day that
+already has a file goes in `data/scans/<today>-<run>-<HHMM>.json` (e.g.
+`2026-11-27-bf-1244.json`) with `"run"` and `"time"` set; when a day has several runs
+with the same `run` name, each needs its own `time`.
 
 Record an observation for **every item you found a current price for, deal or not** —
 full-price sightings are what the dashboard uses to learn normal prices and show how
 close each item is to its target.
 
-```json
+The comments below explain each field; the real file is plain JSON without them.
+
+```jsonc
 {
   "date": "2026-11-09",
-  "run": "daily",                 // or "black-friday-noon", etc.
-  "time": "08:50",                // optional, local time
+  "run": "daily",                 // or "black-friday"
+  "time": "08:50",                // local time, HH:MM
   "headline": "One short sentence on the run.",
   "sources": [
     {"name": "Southern Savers: Kroger weekly ad", "covers": "11/11–11/17", "url": "…", "ok": true}
@@ -76,8 +79,9 @@ close each item is to its target.
       "code": "",                   // coupon/promo code or "digital coupon" / "Ibotta $1"
       "final_sale": false,
       "in_stock": true,             // false = sold out in the wanted variant/size (skipped)
-      "assessment": "close",        // optional: deal | close | none — used only when no
-                                    // baseline price is known (no regular_price yet)
+      "assessment": "close",        // optional: deal | close | none. Decides when no target
+                                    // or normal price is known; for groceries "deal" or
+                                    // "close" also flags a deal the numbers can't show (BOGO)
       "note": "Short context, e.g. 'Costco is cheaper per oz'."
     }
   ],
@@ -103,6 +107,9 @@ When you learn an item's normal price with confidence, you may set
      `source: {kind: "file", url: <returned url>, name: "<name>.json", format: "json"}`,
      `updated: {at: <UTC ISO now>, by: "Daily deal scan"}`,
      `edit: {via: "claude", at: <UTC ISO now>}`.
+   - Once that batch succeeds, delete each dataset's previous file (the 32-hex id from
+     its old `source.url`) with the Artifact tool: `action: delete, url: <dashboard_url>,
+     path: <old id>`.
    - Do not change the dashboard page or anything else in it.
 3. Commit `data/scans/…` (and any `watchlist.json` change) with message
    `Deal scan <date>` on top of `claude/deal-checks-interface-rz1xgl` (the branch that
