@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-10",
+  "run": "daily",
+  "time": "08:50",
+  "headline": "Quiet day: only full-price sightings; Southern Savers was unreachable so no Kroger/Publix ad data.",
+  "sources": [
+    {"name": "Southern Savers: Kroger/Publix weekly ads", "covers": "", "url": "https://www.southernsavers.com/", "ok": false},
+    {"name": "rothys.com Chestnut Casual Clog", "covers": "current", "url": "https://rothys.com/products/womens-casual-clog-chestnut", "ok": true},
+    {"name": "Walmart FitcamX P6000 (search snippet)", "covers": "current", "url": "https://www.walmart.com/ip/8203719365", "ok": true}
+  ],
+  "observations": [
+    {"item": "rothys-casual-clog", "store": "rothys.com", "price": 160, "regular_price": 160, "url": "https://rothys.com/products/womens-casual-clog-chestnut", "final_sale": false, "in_stock": true, "note": "Chestnut at full price; other colors (Star Studded, Clay, Dune) are on sale but don't count."},
+    {"item": "fitcamx-p6000", "store": "Walmart", "price": 170.10, "regular_price": 189, "url": "https://www.walmart.com/ip/8203719365", "final_sale": false, "in_stock": true, "note": "Search snippet shows $170.10 (was $189), 4K w/ 64GB card; above $160 target. Variant seen only via snippet."}
+  ],
+  "notes": [
+    "Wolaco: only women's Distance Half Tight (Navy, $102.40 from $128, final sale) seen; men's black L not confirmed.",
+    "Janji: no lined Trail Half Tight found on sale; sale listings are unlined or used (Geartrade).",
+    "Dyson V15 Detect: only undated/old price snippets ($500-$650); nothing current recorded.",
+    "Slickdeals: no November 2026 posts found for Kerrygold, Kirkland nuts, Chomps or Just Bare."
+  ],
+  "gaps": [
+    "southernsavers.com is not in the session's allowed network domains (DNS failure) — no Kroger or Publix weekly ad data; it needs to be allowed.",
+    "Costco, Amazon, Walmart (beyond one snippet) and Whole Foods prices not readable.",
+    "Searches were snippet-based; no individual retailer pages fetched."
+  ]
+}
