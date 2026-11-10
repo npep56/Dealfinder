@@ -1,0 +1,13 @@
+{
+  "title": "Recent Strava activities",
+  "description": "Your 100 most recent Strava activities, in miles.",
+  "source": {
+    "kind": "call",
+    "connector": "Strava",
+    "tool": "list_activities",
+    "args": {
+      "first": 100,
+      "use_preferred_units": true
+    }
+  }
+}

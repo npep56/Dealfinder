@@ -1,0 +1,21 @@
+{
+  "title": "Oura via Freddy (last 7 days)",
+  "description": "Your most recent week of Oura readiness, sleep score, sleep, HRV, lowest heart rate, steps and VO2 max, through Freddy.",
+  "source": {
+    "kind": "call",
+    "connector": "Freddy - Oura",
+    "tool": "query_metrics",
+    "args": {
+      "metrics": [
+        "daily_readiness_score",
+        "daily_sleep_score",
+        "sleep_total_sleep_duration",
+        "sleep_average_hrv",
+        "sleep_lowest_heart_rate",
+        "daily_activity_steps",
+        "vo2_max_vo2_max"
+      ],
+      "days": 7
+    }
+  }
+}

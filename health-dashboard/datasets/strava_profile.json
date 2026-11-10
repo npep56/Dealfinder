@@ -1,0 +1,10 @@
+{
+  "title": "Strava training focus",
+  "description": "Your current Strava goal and its end date.",
+  "source": {
+    "kind": "call",
+    "connector": "Strava",
+    "tool": "get_athlete_profile",
+    "args": {}
+  }
+}

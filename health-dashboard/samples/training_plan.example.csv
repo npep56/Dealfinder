@@ -1,0 +1,22 @@
+date,day,week_of,week_type,planned_mi,workout,week_total
+2027-03-01,Mon,2027-03-01,Build,5,5 mi easy,35
+2027-03-02,Tue,2027-03-01,Build,3,3 mi easy,35
+2027-03-03,Wed,2027-03-01,Build,7,7 mi w/ 4 x 1 mi @ 10K pace,35
+2027-03-04,Thu,2027-03-01,Build,3,3 mi easy,35
+2027-03-05,Fri,2027-03-01,Build,5,5 mi easy,35
+2027-03-06,Sat,2027-03-01,Build,12,"12 mi long run, easy",35
+2027-03-07,Sun,2027-03-01,Build,,Rest,35
+2027-03-08,Mon,2027-03-08,Build,5,5 mi easy,38
+2027-03-09,Tue,2027-03-08,Build,3,3 mi easy,38
+2027-03-10,Wed,2027-03-08,Build,8,8 mi w/ 5 mi tempo,38
+2027-03-11,Thu,2027-03-08,Build,3,3 mi easy,38
+2027-03-12,Fri,2027-03-08,Build,5,5 mi easy,38
+2027-03-13,Sat,2027-03-08,Build,14,"14 mi long run, last 3 at marathon pace",38
+2027-03-14,Sun,2027-03-08,Build,,Rest,38
+2027-03-15,Mon,2027-03-15,Cutback,4,4 mi easy,30
+2027-03-16,Tue,2027-03-15,Cutback,3,3 mi easy,30
+2027-03-17,Wed,2027-03-15,Cutback,6,6 mi easy w/ strides,30
+2027-03-18,Thu,2027-03-15,Cutback,3,3 mi easy,30
+2027-03-19,Fri,2027-03-15,Cutback,4,4 mi easy,30
+2027-03-20,Sat,2027-03-15,Cutback,10,"10 mi long run, easy",30
+2027-03-21,Sun,2027-03-15,Cutback,,Rest,30

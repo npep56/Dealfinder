@@ -1,0 +1,11 @@
+{
+  "title": "Training plan",
+  "description": "Your training schedule, one row per day.",
+  "source": {
+    "kind": "file",
+    "url": "<UPLOADED_ASSET_URL>",
+    "name": "training_plan.csv",
+    "format": "csv"
+  },
+  "schedule": "Replaced by hand when the plan changes."
+}

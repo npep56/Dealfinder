@@ -1,0 +1,901 @@
+<meta name="dash-one-writer">
+<!--
+  Training Health: a training + recovery dashboard (Strava + Oura via Freddy + your plan).
+  Rename the <h1> below and dash/meta.title to make it yours.
+  Sources (datasets): strava_acts, strava_profile (Strava connector), freddy_oura (Freddy - Oura connector),
+  oura_history (saved JSON file, kept up to date by a daily scheduled task), training_plan (CSV file).
+  Script 1 turns source answers into rows and works out every number (loaders + calcs).
+  Script 2 holds thresholds, status rules and chart helpers (window.HB).
+  Script 3 draws each data-draw element.
+-->
+<style>
+/* ---------- Layout and base components ---------- */
+.hb { --hb-good: var(--color-ok); --hb-warn: var(--color-warn); --hb-bad: var(--color-bad);
+  --hb-good-tint: color-mix(in srgb, var(--color-ok) 13%, var(--color-panel));
+  --hb-warn-tint: color-mix(in srgb, var(--color-warn) 15%, var(--color-panel));
+  --hb-bad-tint: color-mix(in srgb, var(--color-bad) 13%, var(--color-panel));
+  display: grid; gap: 40px; font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+.hb-hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 1fr); gap: var(--cds-gap-xl); align-items: stretch; }
+@media (max-width: 640px) { .hb-hero { grid-template-columns: 1fr; } }
+.hb-head { display: grid; gap: 14px; align-content: center; min-width: 0; }
+.hb-eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-fg-muted); }
+.hb-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.hb-lede { margin: 0; color: var(--color-fg-muted); max-width: 60ch; line-height: 1.6; font-size: 15px; }
+.hb-lede b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); font-variant-numeric: tabular-nums; }
+.hb-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.hb-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.hb-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
+.hb-dot.good { background: var(--hb-good); } .hb-dot.warn { background: var(--hb-warn); } .hb-dot.bad { background: var(--hb-bad); }
+
+.hb-today { border-radius: 14px; padding: 20px 22px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; border: 1px solid var(--color-border-line); background: var(--color-panel); transition: background-color .3s; }
+.hb-today.good { background: var(--hb-good-tint); border-color: color-mix(in srgb, var(--hb-good) 35%, transparent); }
+.hb-today.warn { background: var(--hb-warn-tint); border-color: color-mix(in srgb, var(--hb-warn) 40%, transparent); }
+.hb-today.bad { background: var(--hb-bad-tint); border-color: color-mix(in srgb, var(--hb-bad) 35%, transparent); }
+.hb-gauge { position: relative; width: 112px; height: 112px; }
+.hb-gauge-ring { position: absolute; inset: 0; } .hb-gauge-ring svg { display: block; }
+.hb-gauge-num { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; font-family: var(--font-anthropic-serif); font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
+.hb-gauge-num small { display: block; font-family: var(--font-anthropic-sans); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-fg-muted); margin-top: 4px; }
+.hb-call { display: grid; gap: 6px; min-width: 0; }
+.hb-call-label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-fg-muted); }
+.hb-call h2 { margin: 0; font-size: 20px; font-weight: var(--cds-font-weight-medium); }
+.hb-call p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--color-fg-muted); }
+
+.hb-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.hb-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 12px; padding: 16px 16px 12px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.hb-tile-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.hb-tile-label { font-size: 12px; color: var(--color-fg-muted); }
+.hb-tile-num { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 34px; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.hb-tile-num small { font-family: var(--font-anthropic-sans); font-size: 13px; color: var(--color-fg-muted); margin-left: 3px; }
+.hb-tile-sub { font-size: 12px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.hb-spark { height: 38px; margin-top: 4px; }
+.hb-spark svg { display: block; overflow: visible; }
+.hb-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: var(--cds-font-weight-medium); padding: 2px 8px 2px 7px; border-radius: 999px; white-space: nowrap; background: var(--color-bg); color: var(--color-fg-muted); }
+.hb-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.hb-chip.good { background: var(--hb-good-tint); color: var(--hb-good); }
+.hb-chip.warn { background: var(--hb-warn-tint); color: color-mix(in srgb, var(--hb-warn) 75%, var(--color-fg)); }
+.hb-chip.bad { background: var(--hb-bad-tint); color: var(--hb-bad); }
+.hb-good { color: var(--hb-good); } .hb-bad { color: var(--hb-bad); } .hb-flat { color: var(--color-fg-muted); }
+.hb-src { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-fg-muted); }
+
+.hb-strip { display: grid; gap: 12px; }
+.hb-race { display: grid; gap: 10px; }
+.hb-race-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.hb-race-row .hb-tile-num { font-size: 40px; }
+.hb-bar { height: 8px; border-radius: 999px; background: var(--cds-chart-grid); overflow: hidden; }
+.hb-bar > div { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, color-mix(in srgb, var(--hb-good) 55%, transparent), var(--hb-good)); }
+.hb-bar-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-fg-muted); }
+
+.hb-sec { display: grid; gap: 10px; min-width: 0; }
+.hb-sec-head { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; }
+.hb-sec h2 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 24px; margin: 0; text-wrap: balance; }
+.hb-note { margin: 0; color: var(--color-fg-muted); font-size: 13px; max-width: 72ch; line-height: 1.55; }
+.hb-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 12px; padding: 16px; min-width: 0; }
+.hb-chart { position: relative; min-height: 220px; }
+.hb-chart.tall { min-height: 290px; }
+.hb-chart svg { display: block; overflow: visible; }
+.hb-chart text { fill: var(--cds-text-secondary); font-size: 11px; font-family: var(--font-anthropic-sans); }
+.hb-chart .hb-plabel { fill: var(--color-fg); font-weight: var(--cds-font-weight-medium); font-size: 12px; }
+.hb-chart .hb-zone { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.hb-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: 10px; padding: 9px 11px; font-size: 12px; line-height: 1.55; min-width: 160px; z-index: 2; font-variant-numeric: tabular-nums; }
+.hb-tip b { display: block; margin-bottom: 3px; }
+.hb-tip div { display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+.hb-tip span { color: var(--cds-text-secondary); }
+.hb-tip i { font-style: normal; display: inline-flex; align-items: center; gap: 5px; }
+.hb-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.hb-rec { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.hb-rec .hb-tile { padding: 16px; }
+.hb-rec .hb-tile.good { background: var(--hb-good-tint); } .hb-rec .hb-tile.warn { background: var(--hb-warn-tint); } .hb-rec .hb-tile.bad { background: var(--hb-bad-tint); }
+.hb-meter { height: 6px; border-radius: 999px; background: var(--cds-chart-grid); position: relative; margin-top: 6px; }
+.hb-meter > div { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; }
+
+.hb-tablewrap { overflow-x: auto; }
+.hb-table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+.hb-table th, .hb-table td { padding: 8px 10px; border-bottom: 1px solid var(--color-border-line); text-align: right; white-space: nowrap; }
+.hb-table th:nth-child(-n+2), .hb-table td:nth-child(-n+2) { text-align: left; }
+.hb-table td:nth-child(2) { white-space: normal; min-width: 170px; }
+.hb-table th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); font-size: 12px; }
+.hb-table tbody tr:hover td { background: color-mix(in srgb, var(--color-fg) 4%, transparent); }
+.hb-table td.c-good, .hb-table td.c-warn, .hb-table td.c-bad { font-weight: var(--cds-font-weight-medium); }
+.hb-table td.c-good { color: var(--hb-good); } .hb-table td.c-bad { color: var(--hb-bad); } .hb-table td.c-warn { color: color-mix(in srgb, var(--hb-warn) 80%, var(--color-fg)); }
+.hb-table td.c-hard { font-weight: var(--cds-font-weight-medium); }
+.hb-table td.c-hard::after { content: " ●"; color: var(--hb-warn); font-size: 9px; vertical-align: 2px; }
+.hb-fail { color: var(--color-fg-muted); font-size: 13px; padding: 24px 0; }
+/* ---------- Training plan day cards ---------- */
+.hb-plan-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.hb-plan-sum { margin: 0; font-size: 15px; color: var(--color-fg-muted); }
+.hb-plan-sum b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); font-variant-numeric: tabular-nums; }
+.hb-week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 760px) { .hb-week { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); } }
+.hb-day { border: 1px solid var(--color-border-line); background: var(--color-panel); border-radius: 12px; padding: 12px; display: grid; gap: 6px; align-content: start; min-width: 0; min-height: 132px; }
+.hb-day-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--color-fg-muted); }
+.hb-day-top b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+.hb-day-mi { font-family: var(--font-anthropic-serif); font-size: 26px; line-height: 1; font-variant-numeric: tabular-nums; }
+.hb-day-mi small { font-family: var(--font-anthropic-sans); font-size: 12px; color: var(--color-fg-muted); margin-left: 2px; }
+.hb-day-what { font-size: 12px; line-height: 1.4; color: var(--color-fg); overflow-wrap: anywhere; }
+.hb-day-st { margin-top: auto; font-size: 12px; font-weight: var(--cds-font-weight-medium); display: flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
+.hb-day.done { background: var(--hb-good-tint); border-color: color-mix(in srgb, var(--hb-good) 35%, transparent); } .hb-day.done .hb-day-st { color: var(--hb-good); }
+.hb-day.partial, .hb-day.extra { background: var(--hb-warn-tint); border-color: color-mix(in srgb, var(--hb-warn) 40%, transparent); } .hb-day.partial .hb-day-st, .hb-day.extra .hb-day-st { color: color-mix(in srgb, var(--hb-warn) 75%, var(--color-fg)); }
+.hb-day.missed { background: var(--hb-bad-tint); border-color: color-mix(in srgb, var(--hb-bad) 35%, transparent); } .hb-day.missed .hb-day-st { color: var(--hb-bad); }
+.hb-day.rest { background: transparent; border-style: dashed; } .hb-day.rest .hb-day-mi { color: var(--color-fg-muted); font-size: 20px; }
+.hb-day.today { border: 2px solid var(--color-fg); }
+.hb-day.upcoming .hb-day-st { color: var(--color-fg-muted); font-weight: 400; }
+.hb-day-flag { font-size: 11px; line-height: 1.35; padding: 5px 7px; border-radius: 8px; background: var(--hb-warn-tint); color: color-mix(in srgb, var(--hb-warn) 75%, var(--color-fg)); }
+.hb-day-flag.ok { background: var(--hb-good-tint); color: var(--hb-good); }
+.hb-week.next .hb-day { min-height: 110px; }
+.hb-day-run { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 11px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.hb-day-run .hard { color: color-mix(in srgb, var(--hb-warn) 75%, var(--color-fg)); font-weight: var(--cds-font-weight-medium); }
+.hb-snap { display: grid; gap: 3px; padding-top: 6px; border-top: 1px dashed var(--color-border-line); }
+.hb-pill { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.hb-pill i { font-style: normal; color: var(--color-fg-muted); display: inline-flex; align-items: center; gap: 5px; }
+.hb-pill i::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cds-chart-muted); }
+.hb-pill.good i::before { background: var(--hb-good); } .hb-pill.warn i::before { background: var(--hb-warn); } .hb-pill.bad i::before { background: var(--hb-bad); }
+.hb-pill b { font-weight: var(--cds-font-weight-medium); }
+.hb-sub { font-size: 16px; font-weight: var(--cds-font-weight-medium); margin: 10px 0 0; }
+/* ---------- Color layer: topic hues come from dash.colors (set in script 3) ---------- */
+.hb { --hb-c0: var(--color-fg-muted); --hb-c1: var(--color-fg-muted); --hb-c2: var(--color-fg-muted); --hb-c3: var(--color-fg-muted); }
+.hb-hero { padding: 26px 26px 24px; border-radius: 20px; border: 1px solid var(--color-border-line);
+  background: radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--hb-c0) 22%, transparent) 0%, transparent 55%),
+              radial-gradient(120% 140% at 100% 100%, color-mix(in srgb, var(--hb-c2) 22%, transparent) 0%, transparent 55%),
+              var(--color-panel); }
+.hb-eyebrow { color: var(--hb-c0); font-weight: var(--cds-font-weight-medium); }
+.hb-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: var(--cds-font-weight-medium); padding: 3px 9px; border-radius: 999px; }
+.hb-tag.train { color: var(--hb-c0); background: color-mix(in srgb, var(--hb-c0) 14%, transparent); }
+.hb-tag.recover { color: var(--hb-c2); background: color-mix(in srgb, var(--hb-c2) 14%, transparent); }
+.hb-tag.plan { color: var(--hb-c1); background: color-mix(in srgb, var(--hb-c1) 14%, transparent); }
+.hb-tile.good { background: var(--hb-good-tint); border-color: color-mix(in srgb, var(--hb-good) 30%, transparent); }
+.hb-tile.warn { background: var(--hb-warn-tint); border-color: color-mix(in srgb, var(--hb-warn) 35%, transparent); }
+.hb-tile.bad { background: var(--hb-bad-tint); border-color: color-mix(in srgb, var(--hb-bad) 30%, transparent); }
+.hb-tiles .hb-tile.good .hb-tile-num > span { color: var(--hb-good); }
+.hb-tiles .hb-tile.warn .hb-tile-num > span { color: color-mix(in srgb, var(--hb-warn) 80%, var(--color-fg)); }
+.hb-tiles .hb-tile.bad .hb-tile-num > span { color: var(--hb-bad); }
+.hb-strip .hb-card { border: none; color: var(--color-fg);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--hb-c0) 26%, var(--color-panel)) 0%, color-mix(in srgb, var(--hb-c1) 22%, var(--color-panel)) 55%, color-mix(in srgb, var(--hb-c2) 26%, var(--color-panel)) 100%); }
+.hb-strip .hb-tile-num { color: var(--hb-c0); }
+.hb-bar { background: color-mix(in srgb, var(--color-fg) 10%, transparent); height: 10px; }
+.hb-bar > div { background: linear-gradient(90deg, var(--hb-c0), var(--hb-c1), var(--hb-c2)); }
+.hb-day.upcoming.wt-build { background: color-mix(in srgb, var(--hb-c0) 9%, var(--color-panel)); border-color: color-mix(in srgb, var(--hb-c0) 30%, transparent); }
+.hb-day.upcoming.wt-dopey { background: color-mix(in srgb, var(--hb-c1) 11%, var(--color-panel)); border-color: color-mix(in srgb, var(--hb-c1) 35%, transparent); }
+.hb-day.upcoming.wt-easy { background: color-mix(in srgb, var(--hb-c2) 9%, var(--color-panel)); border-color: color-mix(in srgb, var(--hb-c2) 30%, transparent); }
+.hb-day.upcoming.wt-race { background: color-mix(in srgb, var(--hb-c3) 14%, var(--color-panel)); border-color: color-mix(in srgb, var(--hb-c3) 40%, transparent); }
+.hb-day.upcoming.hard .hb-day-mi { color: var(--hb-c1); }
+.hb-table td.c-good, .hb-table td.c-warn, .hb-table td.c-bad { background-clip: padding-box; }
+.hb-table td.c-good { background: var(--hb-good-tint); } .hb-table td.c-warn { background: var(--hb-warn-tint); } .hb-table td.c-bad { background: var(--hb-bad-tint); }
+.hb-rec .hb-tile-num { color: var(--color-fg); }
+[data-dash-source-state=refreshing] { opacity: .5; }
+details.hb-defs { border-top: 1px solid var(--color-border-line); padding-top: 14px; }
+details.hb-defs summary { cursor: pointer; color: var(--color-fg-muted); font-size: 13px; }
+details.hb-defs dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 18px; font-size: 13px; margin: 12px 0 0; }
+@media (max-width: 520px) { details.hb-defs dl { grid-template-columns: 1fr; } }
+details.hb-defs dt { font-weight: var(--cds-font-weight-medium); }
+details.hb-defs dd { margin: 0; color: var(--color-fg-muted); line-height: 1.5; }
+@media (prefers-reduced-motion: no-preference) { .hb-bar > div, .hb-meter > div { transition: width var(--cds-dur-slow) var(--cds-ease-out); } }
+</style>
+
+<div class="hb">
+  <header class="hb-hero" id="summary">
+    <div class="hb-head">
+      <div class="hb-eyebrow">Training from Strava · Recovery from Oura via Freddy</div>
+      <h1 class="hb-title">Training Health</h1>
+      <p class="hb-lede">Last 7 days: <b data-draw="k-run" data-source="kpis" data-where="metric=run_mi" data-field="current">—</b> miles run, readiness averaging <b data-draw="k-ready" data-source="kpis" data-where="metric=readiness" data-field="current">—</b> (change on the week before: <span data-draw="k-ready-dir">—</span>), and <b data-draw="k-sleep" data-source="kpis" data-where="metric=sleep_h" data-field="current">—</b> hours of sleep a night.</p>
+      <div class="hb-legend" aria-label="Color key"><span><i class="hb-dot good"></i>Good</span><span><i class="hb-dot warn"></i>Watch</span><span><i class="hb-dot bad"></i>Needs attention</span></div>
+    </div>
+    <div class="hb-today" id="today">
+      <div class="hb-gauge">
+        <div class="hb-gauge-ring" data-draw="gauge" data-source="kpis"></div>
+        <div class="hb-gauge-num"><span data-draw="today-score" data-source="kpis" data-where="metric=today" data-field="current">—</span><small>Readiness</small></div>
+      </div>
+      <div class="hb-call">
+        <div class="hb-call-label" data-draw="today-date">—</div>
+        <div class="hb-call-opt" data-call="good"><h2>Ready to push</h2><p>Your body is recovered. A good day for speed work or a long run.</p></div>
+        <div class="hb-call-opt" data-call="warn" hidden><h2>Train as planned</h2><p>Recovery is fair. Keep easy days easy and don't add extra intensity.</p></div>
+        <div class="hb-call-opt" data-call="bad" hidden><h2>Take it easy</h2><p>Readiness is low. Swap hard work for an easy run, rest or extra sleep.</p></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hb-tiles" id="tiles" aria-label="Last 7 days">
+    <div class="hb-tile" id="tile-sleep-score">
+      <div class="hb-tile-top"><span class="hb-tile-label">Sleep score · 7-day avg</span><span class="hb-chip" data-draw="c-sscore">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-sscore" data-source="kpis" data-where="metric=sleep_score" data-field="current">—</span></div>
+      <div class="hb-tile-sub" data-draw="t-sscore-chg" data-source="kpis" data-where="metric=sleep_score" data-field="change">—</div>
+      <div class="hb-spark" data-draw="s-sscore" data-source="daily"></div>
+    </div>
+    <div class="hb-tile" id="tile-ready">
+      <div class="hb-tile-top"><span class="hb-tile-label">Readiness · 7-day avg</span><span class="hb-chip" data-draw="c-ready">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-ready" data-source="kpis" data-where="metric=readiness" data-field="current">—</span></div>
+      <div class="hb-tile-sub" data-draw="t-ready-chg" data-source="kpis" data-where="metric=readiness" data-field="change">—</div>
+      <div class="hb-spark" data-draw="s-ready" data-source="daily"></div>
+    </div>
+    <div class="hb-tile" id="tile-sleep">
+      <div class="hb-tile-top"><span class="hb-tile-label">Sleep · nightly avg</span><span class="hb-chip" data-draw="c-sleep">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-sleep" data-source="kpis" data-where="metric=sleep_h" data-field="current">—</span><small>h</small></div>
+      <div class="hb-tile-sub">Goal <span data-draw="g-sleep">—</span> h · <span data-draw="t-sleep-chg" data-source="kpis" data-where="metric=sleep_h" data-field="change">—</span></div>
+      <div class="hb-spark" data-draw="s-sleep" data-source="daily"></div>
+    </div>
+    <div class="hb-tile" id="tile-hrv">
+      <div class="hb-tile-top"><span class="hb-tile-label">Overnight HRV · last night</span><span class="hb-chip" data-draw="c-hrv">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-hrv" data-source="kpis" data-where="metric=hrv" data-field="current">—</span><small>ms</small></div>
+      <div class="hb-tile-sub">Your 7-day avg <span data-draw="b-hrv" data-source="kpis" data-where="metric=hrv" data-field="baseline">—</span> ms</div>
+      <div class="hb-spark" data-draw="s-hrv" data-source="daily"></div>
+    </div>
+    <div class="hb-tile" id="tile-rhr">
+      <div class="hb-tile-top"><span class="hb-tile-label">Lowest night HR · last night</span><span class="hb-chip" data-draw="c-rhr">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-rhr" data-source="kpis" data-where="metric=lowest_hr" data-field="current">—</span><small>bpm</small></div>
+      <div class="hb-tile-sub">Your 7-day avg <span data-draw="b-rhr" data-source="kpis" data-where="metric=lowest_hr" data-field="baseline">—</span> bpm</div>
+      <div class="hb-spark" data-draw="s-rhr" data-source="daily"></div>
+    </div>
+    <div class="hb-tile" id="tile-vo2">
+      <div class="hb-tile-top"><span class="hb-tile-label">VO₂ max · latest</span><span class="hb-chip" data-draw="c-vo2">—</span></div>
+      <div class="hb-tile-num"><span data-draw="t-vo2" data-source="kpis" data-where="metric=vo2max" data-field="current">—</span><small>ml/kg/min</small></div>
+      <div class="hb-tile-sub" data-draw="t-vo2-sub" data-source="kpis" data-where="metric=vo2max" data-field="change">—</div>
+      <div class="hb-spark" data-draw="s-vo2" data-source="daily"></div>
+    </div>
+  </section>
+
+  <section class="hb-strip" id="race">
+    <div class="hb-card hb-race">
+      <div class="hb-tile-top"><span class="hb-tile-label">Countdown to <span data-draw="race-goal" data-source="race" data-field="goal" data-row="0">—</span></span><span class="hb-src">Strava</span></div>
+      <div class="hb-race-row"><span class="hb-tile-num" data-draw="race-days" data-source="race" data-field="days" data-row="0">—</span><span class="hb-tile-sub" data-draw="race-date">—</span></div>
+      <div class="hb-bar" data-draw="race-bar" data-source="race"></div>
+      <div class="hb-bar-ends"><span><span data-draw="block-weeks">—</span>-week build began <span data-draw="block-start">—</span></span><span>Race day</span></div>
+    </div>
+  </section>
+
+  <section class="hb-sec" id="plan">
+    <div class="hb-sec-head">
+      <div class="hb-plan-head"><h2>This week's plan</h2><span class="hb-tag plan">Plan</span><span class="hb-chip" data-draw="plan-type-this" data-source="plan_totals" data-where="week=this" data-field="week_type">—</span></div>
+      <div class="hb-legend"><span><i class="hb-dot good"></i>Done</span><span><i class="hb-dot warn"></i>Partly done or unplanned</span><span><i class="hb-dot bad"></i>Missed</span></div>
+    </div>
+    <p class="hb-plan-sum"><b data-draw="plan-done" data-source="plan_totals" data-where="week=this" data-field="actual">—</b> of <b data-draw="plan-planned" data-source="plan_totals" data-where="week=this" data-field="planned">—</b> planned miles done so far.</p>
+    <div class="hb-week" data-draw="plan-this" data-source="plan_days"></div>
+    <div class="hb-plan-head"><h3 class="hb-sub">Next week · <span data-draw="plan-next-total" data-source="plan_totals" data-where="week=next" data-field="planned">—</span> mi</h3><span class="hb-chip" data-draw="plan-type-next" data-source="plan_totals" data-where="week=next" data-field="week_type">—</span></div>
+    <div class="hb-week next" data-draw="plan-next" data-source="plan_days"></div>
+    <div class="hb-plan-head"><h3 class="hb-sub">Last week · <span data-draw="plan-last-sum" data-source="plan_totals" data-where="week=last" data-field="actual">—</span></h3><span class="hb-chip" data-draw="plan-type-last" data-source="plan_totals" data-where="week=last" data-field="week_type">—</span></div>
+    <div class="hb-week" data-draw="plan-last" data-source="plan_days"></div>
+    <p class="hb-note">Each day shows the plan, what Strava recorded (pace of the main run and relative effort), and that morning's Oura readiness, sleep score and HRV. From the training schedule you uploaded, checked against your Strava runs. When the plan changes, replace the file in Sources or send me a new copy.</p>
+  </section>
+
+
+  <section class="hb-sec" id="mileage">
+    <div class="hb-sec-head"><h2>Weekly run mileage <span class="hb-tag train">Training</span></h2><div class="hb-legend"><span><i class="hb-dot" style="background: var(--hb-good)"></i>Steady build</span><span><i class="hb-dot warn"></i>Jump over <span data-draw="th-ramp">—</span>%</span><span><i class="hb-dot" style="background: var(--cds-chart-muted)"></i>This week so far</span></div></div>
+    <p class="hb-note">Total run miles per Monday-start week since your block began, with the long run underneath. Amber weeks rose fast on the week before, which is when overuse injuries tend to show up.</p>
+    <div class="hb-card"><div class="hb-chart" data-draw="weekly" data-source="weekly" role="img" aria-label="Weekly run mileage since September"></div></div>
+  </section>
+
+  <section class="hb-sec" id="load-vs-readiness">
+    <div class="hb-sec-head"><h2>Readiness against training load <span class="hb-tag recover">Recovery</span></h2><div class="hb-legend"><span><i class="hb-dot good"></i>Optimal <span data-draw="th-ready-good">—</span>+</span><span><i class="hb-dot warn"></i>Fair</span><span><i class="hb-dot bad"></i>Low, under <span data-draw="th-ready-warn">—</span></span></div></div>
+    <p class="hb-note">Top: your Oura readiness each morning, on its green, amber and red zones. Bottom: that day's Strava relative effort, with hard days (<span data-draw="th-hard">—</span>+) in amber. Look for readiness dipping the morning after.</p>
+    <div class="hb-card"><div class="hb-chart tall" data-draw="load" data-source="daily" role="img" aria-label="Daily Oura readiness above daily Strava relative effort"></div></div>
+  </section>
+
+  <section class="hb-sec" id="recovery">
+    <h2>How you bounce back <span class="hb-tag recover">Recovery</span></h2>
+    <p class="hb-note">Your average readiness the morning after each kind of day, over every day with both ring and training data.</p>
+    <div class="hb-rec">
+      <div class="hb-tile" id="rec-hard">
+        <div class="hb-tile-top"><span class="hb-tile-label">After a hard day</span><span class="hb-tile-sub"><span data-draw="rec-hard-n" data-source="recovery" data-where="group=hard" data-field="days">—</span> <span data-draw="rec-hard-unit">—</span></span></div>
+        <div class="hb-tile-num" data-draw="rec-hard" data-source="recovery" data-where="group=hard" data-field="avg_next">—</div>
+        <div class="hb-meter" data-draw="rec-hard-m"></div>
+      </div>
+      <div class="hb-tile" id="rec-easy">
+        <div class="hb-tile-top"><span class="hb-tile-label">After an easy day</span><span class="hb-tile-sub"><span data-draw="rec-easy-n" data-source="recovery" data-where="group=easy" data-field="days">—</span> <span data-draw="rec-easy-unit">—</span></span></div>
+        <div class="hb-tile-num" data-draw="rec-easy" data-source="recovery" data-where="group=easy" data-field="avg_next">—</div>
+        <div class="hb-meter" data-draw="rec-easy-m"></div>
+      </div>
+      <div class="hb-tile" id="rec-rest">
+        <div class="hb-tile-top"><span class="hb-tile-label">After a rest day</span><span class="hb-tile-sub"><span data-draw="rec-rest-n" data-source="recovery" data-where="group=rest" data-field="days">—</span> <span data-draw="rec-rest-unit">—</span></span></div>
+        <div class="hb-tile-num" data-draw="rec-rest" data-source="recovery" data-where="group=rest" data-field="avg_next">—</div>
+        <div class="hb-meter" data-draw="rec-rest-m"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hb-two">
+    <section class="hb-sec" id="sleep">
+      <div class="hb-sec-head"><h2>Sleep each night <span class="hb-tag recover">Recovery</span></h2></div>
+      <p class="hb-note">Hours asleep in each night's main sleep (naps left out). Green meets the <span data-draw="g-sleep2">—</span> h goal, amber is close, red is under <span data-draw="th-sleep-warn">—</span> h.</p>
+      <div class="hb-card"><div class="hb-chart tall" data-draw="sleep" data-source="nightly" role="img" aria-label="Nightly sleep score and hours asleep"></div></div>
+    </section>
+    <section class="hb-sec" id="hrv">
+      <div class="hb-sec-head"><h2>HRV and resting heart rate <span class="hb-tag recover">Recovery</span></h2></div>
+      <p class="hb-note">The dashed line is your own average. HRV above it and heart rate below it (green) mean you're absorbing the training well.</p>
+      <div class="hb-card"><div class="hb-chart tall" data-draw="hrv" data-source="nightly" role="img" aria-label="Nightly HRV and lowest heart rate against your averages"></div></div>
+    </section>
+  </div>
+
+  <section class="hb-sec" id="recent">
+    <h2>Last 14 days <span class="hb-tag train">Training</span> <span class="hb-tag recover">Recovery</span></h2>
+    <div class="hb-card hb-tablewrap">
+      <table class="hb-table" data-source="daily" data-row-key="date">
+        <thead><tr>
+          <th>Date</th><th data-field="activity">Main activity</th><th data-field="run_mi">Run mi</th><th data-field="effort">Effort</th><th data-field="readiness">Readiness</th><th data-field="sleep_h">Sleep h</th><th data-field="hrv">HRV</th><th data-field="steps">Steps</th>
+        </tr></thead>
+        <tbody data-draw="recent"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details class="hb-defs" id="definitions">
+    <summary>What these numbers and colors mean</summary>
+    <dl>
+      <dt>Readiness</dt><dd>Oura's 0–100 morning score from HRV, resting heart rate, temperature, sleep and recent activity. Green from <span data-draw="th-ready-good2">—</span>, red under <span data-draw="th-ready-warn2">—</span>.</dd>
+      <dt>Sleep</dt><dd>Green at <span data-draw="g-sleep3">—</span> h or more, a common target in marathon training. Red under <span data-draw="th-sleep-warn2">—</span> h.</dd>
+      <dt>HRV and lowest HR</dt><dd>Last night judged against your own average over the past week, never against other people. HRV within 10% below it, or heart rate up to 3 bpm above it, shows amber.</dd><dt>Oura data</dt><dd>Comes from Freddy, which serves the last 7 days. A daily scheduled task saves each day into your history file, so charts and week-to-week comparisons grow as days add up.</dd>
+      <dt>Sleep score</dt><dd>Oura's 0–100 score for the night, from duration, efficiency, deep and REM sleep, and timing. Same colors as readiness.</dd>
+      <dt>Relative effort</dt><dd>Strava's heart-rate based score for how hard a workout was. Easy runs usually land around 10–30 and hard sessions 70 or more.</dd>
+      <dt>VO₂ max</dt><dd>Oura's estimate of your aerobic fitness in ml/kg/min, updated every few days. Green while it holds or rises against the estimate a week earlier, amber for a dip of up to 2, red for more.</dd>
+      <dt>Countdown</dt><dd>Counted to the end date of your current Strava training focus. When you set a new goal race as your training focus in Strava, the countdown switches to it.</dd>
+    </dl>
+  </details>
+</div>
+
+<script>
+/* ===== 1. Sources and numbers ===== */
+
+/* Loaders: turn each connector's answer into rows. */
+dash.loader('strava_acts', { description: 'Flattens Strava activities into one row per activity, in miles and minutes.', fn: ({ answer }) => {
+  const acts = (answer && answer.activities) || [];
+  const rows = acts.map((a) => ({
+    id: String(a.id), date: a.start_local.slice(0, 10), name: a.name, sport: a.sport_type,
+    miles: a.summary.distance ?? 0, moving_min: Math.round((a.summary.moving_time ?? 0) / 60),
+    elev_ft: Math.round(a.summary.elevation_gain ?? 0), pace: a.summary.avg_pace_display ?? null,
+    effort: a.summary.relative_effort ?? 0, calories: a.summary.total_calories ?? null,
+  }));
+  return { data: rows, columns: ['id','date','name','sport','miles','moving_min','elev_ft','pace','effort','calories'], cut: !!answer.has_next_page };
+}});
+dash.loader('strava_profile', { description: 'Keeps the current training focus from the Strava profile.', fn: ({ answer }) => {
+  const f = answer.current_focus || {};
+  return [{ goal: f.open_text || 'race day', end_date: (f.expires_at_local || '').slice(0, 10), weight_lb: answer.weight_display || null }];
+}});
+dash.loader('freddy_oura', { description: 'Reads the text freddy returns into one row per day: readiness, sleep score, main sleep minutes, overnight HRV, lowest heart rate, steps and VO₂ max. Where a day has several sleep periods, the longest is the main sleep.', fn: ({ answer }) => {
+  const text = typeof answer === 'string' ? answer
+    : Array.isArray(answer) ? answer.map((a) => typeof a === 'string' ? a : (a && a.text) || '').join('\n')
+    : (answer && (answer.text || answer.content)) || '';
+  if (!/^\d{4}-\d{2}-\d{2}:/m.test(text)) {
+    if (/No (health )?data|no records/i.test(text)) return { data: [], columns: ['date'] };
+    throw new Error(String(text).slice(0, 300) || 'freddy returned no data');
+  }
+  const days = {}; let cur = null;
+  for (const line of text.split('\n')) {
+    const d = line.match(/^(\d{4}-\d{2}-\d{2}):\s*$/);
+    if (d) { cur = days[d[1]] || (days[d[1]] = { date: d[1], readiness: null, sleep_score: null, sleep_min: null, hrv: null, lowest_hr: null, steps: null, vo2max: null }); continue; }
+    const m = line.match(/^\s+([a-z0-9_]+):\s*(-?[\d.]+)/);
+    if (!m || !cur) continue;
+    const v = Number(m[2]);
+    if (m[1] === 'daily_readiness_score') cur.readiness = v;
+    else if (m[1] === 'daily_sleep_score') cur.sleep_score = v;
+    else if (m[1] === 'sleep_total_sleep_duration') cur.sleep_min = Math.max(cur.sleep_min || 0, Math.round(v / 60));
+    else if (m[1] === 'sleep_average_hrv') cur.hrv = v;
+    else if (m[1] === 'sleep_lowest_heart_rate') cur.lowest_hr = v;
+    else if (m[1] === 'daily_activity_steps') cur.steps = v;
+    else if (m[1] === 'vo2_max_vo2_max') cur.vo2max = v;
+  }
+  return { data: Object.values(days).sort((a, b) => a.date < b.date ? -1 : 1), columns: ['date', 'readiness', 'sleep_score', 'sleep_min', 'hrv', 'lowest_hr', 'steps', 'vo2max'] };
+}});
+
+/* Calcs: every figure on the page is worked out here, so readers can see the formula in Sources. */
+dash.calc('oura_all', { title: 'Oura days, saved and live', description: 'Your saved Oura history joined with Freddy\'s live last 7 days. For a day in both, Freddy\'s live value wins where it has one.', inputs: ['oura_history', 'freddy_oura'], fn: (history, live) => {
+  const by = {};
+  const keys = ['readiness', 'sleep_score', 'sleep_min', 'hrv', 'lowest_hr', 'steps', 'vo2max'];
+  const num = (v) => v == null || v === '' ? null : Number(v);
+  for (const r of history) by[r.date] = Object.fromEntries([['date', r.date], ...keys.map((k) => [k, num(r[k])])]);
+  for (const r of live) {
+    const row = by[r.date] || (by[r.date] = Object.fromEntries([['date', r.date], ...keys.map((k) => [k, null])]));
+    for (const k of keys) if (r[k] != null) row[k] = r[k];
+  }
+  return Object.values(by).sort((a, b) => a.date < b.date ? -1 : 1);
+}});
+
+dash.calc('nightly', { title: 'Main sleep per night', description: 'Sleep score, hours in the main sleep (naps left out), overnight HRV and lowest heart rate for each night on record.', inputs: ['oura_all'], fn: (oura) => oura
+  .filter((f) => f.sleep_min != null || f.sleep_score != null || f.hrv != null)
+  .map((f) => ({ date: f.date, hours: f.sleep_min != null ? Math.round(f.sleep_min / 6) / 10 : null, score: f.sleep_score, hrv: f.hrv, lowest_hr: f.lowest_hr })) });
+
+dash.calc('daily', { title: 'Day by day', description: 'Every day from your first saved Oura day (or 14 days back, whichever is earlier) to today: Strava activities joined with Oura readiness, sleep score, sleep hours, HRV and steps.', inputs: ['strava_acts', 'nightly', 'oura_all'], fn: (activities, nightly, oura) => {
+  const ymd = (d) => d.toISOString().slice(0, 10);
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const start = new Date(today + 'T00:00:00Z'); start.setUTCDate(start.getUTCDate() - 13);
+  const first = oura.length ? new Date(oura[0].date + 'T00:00:00Z') : start;
+  if (first < start) start.setTime(first.getTime());
+  const rows = [];
+  for (const d = start; ymd(d) <= today; d.setUTCDate(d.getUTCDate() + 1)) {
+    const k = ymd(d);
+    const day = activities.filter((a) => a.date === k);
+    const runs = day.filter((a) => /Run/.test(a.sport));
+    const main = [...day].sort((a, b) => b.moving_min - a.moving_min)[0];
+    const n = nightly.find((x) => x.date === k), f = oura.find((x) => x.date === k);
+    rows.push({
+      date: k, activity: main ? main.name : 'Rest',
+      run_mi: Math.round(runs.reduce((t, a) => t + a.miles, 0) * 10) / 10,
+      effort: day.reduce((t, a) => t + (a.effort || 0), 0),
+      readiness: f ? f.readiness : null, sleep_score: n ? n.score : null, sleep_h: n ? n.hours : null, hrv: n ? n.hrv : null, lowest_hr: n ? n.lowest_hr : null,
+      steps: f ? f.steps : null, vo2max: f ? f.vo2max : null,
+    });
+  }
+  return rows;
+}});
+
+dash.calc('kpis', { title: 'Last 7 days vs the 7 before', description: 'Totals and averages for the last 7 days (today included) and the 7 days before (compared only when that week has at least 4 days of data). HRV and lowest heart rate: last night against your average over the last 7 days. VO₂ max: the latest Oura estimate against the one from a week or more before.', inputs: ['daily'], fn: (days) => {
+  const n = days.length;
+  const cur = days.slice(Math.max(0, n - 7)), prev = days.slice(Math.max(0, n - 14), Math.max(0, n - 7)), last28 = days.slice(Math.max(0, n - 28));
+  const avg = (rows, f, min = 1) => { const v = rows.map((r) => r[f]).filter((x) => x != null); return v.length >= min ? v.reduce((a, b) => a + b, 0) / v.length : null; };
+  const lastOf = (f) => { const r = [...days].reverse().find((x) => x[f] != null); return r ? r[f] : null; };
+  const sum = (rows, f) => rows.reduce((t, r) => t + (r[f] || 0), 0);
+  const rnd = (x, p) => x == null ? null : Math.round(x * 10 ** p) / 10 ** p;
+  const m = (metric, c, p, b, dp) => ({ metric, current: rnd(c, dp), prior: rnd(p, dp), change: c == null || p == null ? null : rnd(rnd(c, dp) - rnd(p, dp), dp), baseline: rnd(b, dp), date: null });
+  const latest = [...days].reverse().find((r) => r.readiness != null);
+  return [
+    m('run_mi', sum(cur, 'run_mi'), sum(prev, 'run_mi'), last28.length ? sum(last28, 'run_mi') / (last28.length / 7) : null, 1),
+    m('readiness', avg(cur, 'readiness'), avg(prev, 'readiness', 4), avg(days, 'readiness'), 0),
+    m('sleep_h', avg(cur, 'sleep_h'), avg(prev, 'sleep_h', 4), avg(days, 'sleep_h'), 1),
+    m('sleep_score', avg(cur, 'sleep_score'), avg(prev, 'sleep_score', 4), avg(days, 'sleep_score'), 0),
+    m('hrv', lastOf('hrv'), null, avg(cur, 'hrv'), 0),
+    m('lowest_hr', lastOf('lowest_hr'), null, avg(cur, 'lowest_hr'), 0),
+    (() => {
+      const withV = days.filter((r) => r.vo2max != null);
+      const last = withV[withV.length - 1];
+      if (!last) return { metric: 'vo2max', current: null, prior: null, change: null, baseline: null, date: null };
+      const cut = new Date(last.date + 'T00:00:00Z'); cut.setUTCDate(cut.getUTCDate() - 7);
+      const before = withV.filter((r) => r.date <= cut.toISOString().slice(0, 10)).pop();
+      return { metric: 'vo2max', current: last.vo2max, prior: before ? before.vo2max : null, change: before ? rnd(last.vo2max - before.vo2max, 1) : null, baseline: null, date: last.date };
+    })(),
+    { metric: 'today', current: latest ? latest.readiness : null, prior: null, change: null, baseline: null, date: latest ? latest.date : null },
+  ];
+}});
+
+dash.calc('plan_days', { title: 'Plan vs done, last week to next week', description: 'Each day of this week and next from your training plan, with the run miles, pace and effort Strava recorded that day, whether the day was done, and that morning\'s Oura readiness, sleep score and HRV.', inputs: ['training_plan', 'strava_acts', 'daily'], fn: (plan, activities, days) => {
+  const ymd = (d) => d.toISOString().slice(0, 10);
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const mon = new Date(today + 'T00:00:00Z'); mon.setUTCDate(mon.getUTCDate() - (mon.getUTCDay() + 6) % 7);
+  const rows = [];
+  for (let i = -7; i < 14; i++) {
+    const d = new Date(mon); d.setUTCDate(d.getUTCDate() + i); const k = ymd(d);
+    const p = plan.find((r) => r.date === k);
+    const planned = p && p.planned_mi !== null && p.planned_mi !== '' ? Number(p.planned_mi) : null;
+    const runs = activities.filter((a) => a.date === k && /Run/.test(a.sport));
+    const actual = Math.round(runs.reduce((t, a) => t + a.miles, 0) * 10) / 10;
+    const mainRun = [...runs].sort((a, b) => b.miles - a.miles)[0];
+    const workout = p ? p.workout : 'Not in plan';
+    let status;
+    if (k > today) status = planned == null ? 'rest' : 'upcoming';
+    else if (planned == null) status = actual > 0 ? 'extra' : 'rest';
+    else if (actual >= planned * 0.85) status = 'done';
+    else if (actual > 0) status = 'partial';
+    else status = k === today ? 'today' : 'missed';
+    const day = days.find((r) => r.date === k);
+    rows.push({ date: k, week: i < 0 ? 'last' : i < 7 ? 'this' : 'next', week_type: p ? p.week_type : null, planned_mi: planned, workout, actual_mi: actual, status, is_today: k === today,
+      hard: planned != null && (/@|hard|pace|tempo|800m/i.test(workout) || planned >= 12), readiness: day ? day.readiness : null,
+      sleep_score: day ? day.sleep_score : null, hrv: day ? day.hrv : null, pace: mainRun ? mainRun.pace : null, effort: day && day.effort ? day.effort : null });
+  }
+  return rows;
+}});
+
+dash.calc('plan_totals', { title: 'Planned and done miles by week', description: 'Planned miles for last week, this week and next, and run miles done in each.', inputs: ['plan_days'], fn: (planDays) => ['last', 'this', 'next'].map((week) => {
+  const w = planDays.filter((r) => r.week === week);
+  return { week, week_type: (w.find((r) => r.week_type) || {}).week_type || null,
+    planned: Math.round(w.reduce((t, r) => t + (r.planned_mi || 0), 0) * 10) / 10,
+    actual: Math.round(w.reduce((t, r) => t + (r.actual_mi || 0), 0) * 10) / 10 };
+}) });
+
+dash.calc('weekly', { title: 'Run miles by week', description: 'Run, trail run and treadmill miles per Monday-start week, with the longest run. The oldest week is left out because the activity list may start partway through it.', inputs: ['strava_acts'], fn: (activities) => {
+  const runs = activities.filter((a) => /Run/.test(a.sport));
+  const monday = (s) => { const t = new Date(s + 'T00:00:00Z'); t.setUTCDate(t.getUTCDate() - (t.getUTCDay() + 6) % 7); return t.toISOString().slice(0, 10); };
+  const weeks = {};
+  for (const a of runs) { const w = monday(a.date); (weeks[w] ||= { week: w, miles: 0, runs: 0, long_run: 0, effort: 0 }); const x = weeks[w]; x.miles += a.miles; x.runs += 1; x.long_run = Math.max(x.long_run, a.miles); x.effort += a.effort || 0; }
+  return Object.values(weeks).sort((a, b) => a.week < b.week ? -1 : 1).slice(1).map((x) => ({ ...x, miles: Math.round(x.miles * 10) / 10, long_run: Math.round(x.long_run * 10) / 10 }));
+}});
+
+dash.calc('recovery', { title: 'Readiness the morning after', description: 'Average Oura readiness the day after a hard day (effort 60+), an easy day (1-59) or a rest day (0).', inputs: ['daily'], fn: (days) => {
+  const groups = { hard: [], easy: [], rest: [] };
+  for (let i = 0; i < days.length - 1; i++) {
+    const next = days[i + 1].readiness;
+    if (next == null) continue;
+    const e = days[i].effort;
+    groups[e >= 60 ? 'hard' : e > 0 ? 'easy' : 'rest'].push(next);
+  }
+  return Object.entries(groups).map(([group, v]) => ({ group, avg_next: v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null, days: v.length }));
+}});
+
+dash.calc('race', { title: 'Days to goal race', description: 'Days from today to the end date of the current Strava training focus.', inputs: ['strava_profile'], fn: (profile) => {
+  const p = profile[0];
+  if (!p || !p.end_date) return [];
+  const now = new Date();
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const end = Date.parse(p.end_date + 'T00:00:00Z');
+  return [{ goal: p.goal, end_date: p.end_date, days: Math.round((end - today) / 86400000) }];
+}});
+</script>
+
+<script>
+/* ===== 2. Thresholds, status rules and chart helpers ===== */
+window.HB = (() => {
+  // Thresholds you can tune. Every place that shows one reads it from here.
+  const T = { readyGood: 85, readyWarn: 70, sleepGood: 7.5, sleepWarn: 6.5, hard: 60, ramp: 15, blockWeeks: 18 };
+  const SC = { good: 'var(--color-ok)', warn: 'var(--color-warn)', bad: 'var(--color-bad)' };
+  const st = {
+    ready: (v) => v == null ? null : v >= T.readyGood ? 'good' : v >= T.readyWarn ? 'warn' : 'bad',
+    sleep: (v) => v == null ? null : v >= T.sleepGood ? 'good' : v >= T.sleepWarn ? 'warn' : 'bad',
+    hrv: (v, b) => v == null || b == null ? null : v >= b ? 'good' : v >= b * 0.9 ? 'warn' : 'bad',
+    rhr: (v, b) => v == null || b == null ? null : v <= b ? 'good' : v <= b + 3 ? 'warn' : 'bad',
+  };
+  const labels = {
+    ready: { good: 'Optimal', warn: 'Fair', bad: 'Low' },
+    sleep: { good: 'On goal', warn: 'A bit short', bad: 'Short' },
+    hrv: { good: 'At or above avg', warn: 'Slightly low', bad: 'Low' },
+    rhr: { good: 'Normal', warn: 'Slightly up', bad: 'Elevated' },
+  };
+  const parse = (s) => new Date(s + 'T00:00:00Z');
+  const day = d3.utcFormat('%a %b %-d');
+  const short = d3.utcFormat('%b %-d');
+  const ok = (id) => dash.data(id).status === 'ok';
+  const kpi = (metric) => { const d = dash.data('kpis'); return d.status === 'ok' ? (d.data || []).find((r) => r.metric === metric) : null; };
+  const fail = (el, id) => {
+    const s = dash.data(id).status;
+    el.replaceChildren();
+    if (s === 'error' || s === 'missing') { const p = document.createElement('div'); p.className = 'hb-fail'; p.textContent = 'Failed to load'; el.append(p); }
+  };
+  const tip = (el) => { const t = document.createElement('div'); t.className = 'hb-tip'; t.hidden = true; el.append(t); return t; };
+  const showTip = (el, t, x, y, title, lines) => {
+    t.replaceChildren();
+    const b = document.createElement('b'); b.textContent = title; t.append(b);
+    for (const [k, v, s] of lines) {
+      const row = document.createElement('div'); const kk = document.createElement('span'); kk.textContent = k;
+      const vv = document.createElement('i');
+      if (s) { const d = document.createElement('em'); d.className = 'hb-dot ' + s; vv.append(d); }
+      vv.append(document.createTextNode(v)); row.append(kk, vv); t.append(row);
+    }
+    t.hidden = false;
+    const w = t.offsetWidth, W = el.clientWidth;
+    t.style.left = Math.max(0, Math.min(W - w, x - w / 2)) + 'px';
+    t.style.top = Math.max(0, y - t.offsetHeight - 14) + 'px';
+  };
+
+  // Stacked panels sharing one date axis.
+  const panels = (el, rows, specs, tipLines) => {
+    el.replaceChildren();
+    if (!rows.length) { const p = document.createElement('div'); p.className = 'hb-fail'; p.textContent = 'No data yet'; el.append(p); return; }
+    const W = Math.max(280, el.clientWidth);
+    const ph = 96, gap = 34, top = 22, bottom = 22;
+    const H = top + specs.length * ph + (specs.length - 1) * gap + bottom;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', el.getAttribute('aria-label') || '');
+    const ys = specs.map((s) => d3.scaleLinear(s.domain || [0, d3.max(rows, (r) => r[s.field]) || 1], [1, 0]).nice().domain());
+    const probe = svg.append('text').text(String(Math.round(d3.max(ys.flat()))));
+    const ml = Math.ceil(probe.node().getComputedTextLength() || 18) + 10; probe.remove();
+    const x = d3.scaleBand(rows.map((r) => r.date), [ml, W - 4]).padding(0.28);
+    const cx = (r) => x(r.date) + x.bandwidth() / 2;
+    const hl = svg.append('rect').attr('y', top - 8).attr('height', H - top - bottom + 8).attr('width', x.step()).attr('rx', 4).style('fill', 'var(--cds-chart-grid)').style('opacity', 0.6).attr('visibility', 'hidden');
+    specs.forEach((s, i) => {
+      const y0 = top + i * (ph + gap);
+      const y = d3.scaleLinear(ys[i], [y0 + ph, y0]);
+      const g = svg.append('g');
+      for (const b of s.bands || []) {
+        const a = y(Math.min(b.to, ys[i][1])), z = y(Math.max(b.from, ys[i][0]));
+        if (z <= a) continue;
+        g.append('rect').attr('x', ml).attr('width', W - 4 - ml).attr('y', a).attr('height', z - a).style('fill', SC[b.st]).style('opacity', 0.09);
+      }
+      g.append('text').attr('class', 'hb-plabel').attr('x', ml).attr('y', y0 - 8).text(s.label);
+      for (const t of y.ticks(3)) {
+        g.append('line').attr('x1', ml).attr('x2', W - 4).attr('y1', y(t)).attr('y2', y(t)).style('stroke', 'var(--cds-chart-grid)');
+        g.append('text').attr('x', ml - 6).attr('y', y(t)).attr('dy', '0.32em').attr('text-anchor', 'end').text(t);
+      }
+      if (s.ref && s.ref.value != null) {
+        g.append('line').attr('x1', ml).attr('x2', W - 4).attr('y1', y(s.ref.value)).attr('y2', y(s.ref.value)).style('stroke', 'var(--cds-chart-reference)').style('stroke-dasharray', '4 3').style('stroke-width', 1.25);
+        g.append('text').attr('x', W - 4).attr('y', y(s.ref.value) - 4).attr('text-anchor', 'end').text(s.ref.label);
+      }
+      const pts = rows.filter((r) => r[s.field] != null);
+      if (s.type === 'bar') {
+        g.selectAll('rect.bar').data(pts).join('rect').attr('class', 'bar').attr('x', (r) => x(r.date)).attr('width', x.bandwidth()).attr('y', (r) => y(r[s.field])).attr('height', (r) => Math.max(0, y(ys[i][0]) - y(r[s.field]))).attr('rx', 2)
+          .style('fill', (r) => s.color(r));
+      } else {
+        const line = d3.line().defined((r) => r[s.field] != null).x(cx).y((r) => y(r[s.field]));
+        g.append('path').datum(rows).attr('d', line).style('fill', 'none').style('stroke', s.stroke || 'var(--cds-chart-muted)').style('stroke-width', 2).style('opacity', 0.75);
+        g.selectAll('circle').data(pts).join('circle').attr('cx', cx).attr('cy', (r) => y(r[s.field])).attr('r', (r, j) => j === pts.length - 1 ? 5 : 3.2)
+          .style('fill', (r) => s.dot(r)).style('stroke', 'var(--color-panel)').style('stroke-width', 1.5);
+        const last = pts[pts.length - 1];
+        if (last) g.append('text').attr('class', 'hb-plabel').attr('x', W - 4).attr('y', y0 - 8).attr('text-anchor', 'end').text(`Latest ${s.fmt(last[s.field])}`);
+      }
+    });
+    const every = Math.max(1, Math.ceil(rows.length / Math.max(2, Math.floor((W - ml) / 64))));
+    rows.forEach((r, i) => { if (i % every === 0) svg.append('text').attr('x', cx(r)).attr('y', H - 4).attr('text-anchor', 'middle').text(short(parse(r.date))); });
+    const t = tip(el);
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.date) - x.step() * x.paddingInner() / 2).attr('width', x.step()).attr('y', 0).attr('height', H).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => {
+        hl.attr('x', x(r.date) - x.step() * x.paddingInner() / 2).attr('visibility', 'visible');
+        showTip(el, t, cx(r) * el.clientWidth / W, d3.pointer(ev, el)[1], day(parse(r.date)), tipLines(r));
+      })
+      .on('pointerleave', () => { t.hidden = true; hl.attr('visibility', 'hidden'); });
+  };
+
+  // Tiny trend line for a tile: last 14 days, each dot in its status color.
+  const spark = (el, rows, field, status, asBars) => {
+    el.replaceChildren();
+    const pts = rows.slice(-14);
+    const W = Math.max(120, el.clientWidth), H = 38;
+    const vals = pts.map((r) => r[field]).filter((v) => v != null);
+    if (!vals.length) return;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('aria-hidden', 'true');
+    const x = d3.scaleBand(pts.map((r) => r.date), [2, W - 6]).padding(0.3);
+    const cx = (r) => x(r.date) + x.bandwidth() / 2;
+    if (asBars) {
+      const y = d3.scaleLinear([0, d3.max(vals) || 1], [H - 2, 3]);
+      svg.selectAll('rect').data(pts.filter((r) => r[field])).join('rect').attr('x', (r) => x(r.date)).attr('width', x.bandwidth()).attr('y', (r) => y(r[field])).attr('height', (r) => H - 2 - y(r[field])).attr('rx', 1.5)
+        .style('fill', (r) => status(r) === 'warn' ? SC.warn : 'var(--cds-chart-muted)');
+      return;
+    }
+    const [lo, hi] = d3.extent(vals); const pad = Math.max(1, (hi - lo) * 0.15);
+    const y = d3.scaleLinear([lo - pad, hi + pad], [H - 4, 4]);
+    svg.append('path').datum(pts).attr('d', d3.area().defined((r) => r[field] != null).x(cx).y0(H).y1((r) => y(r[field]))).style('fill', dash.colors[2]).style('opacity', 0.12);
+    svg.append('path').datum(pts).attr('d', d3.line().defined((r) => r[field] != null).x(cx).y((r) => y(r[field]))).style('fill', 'none').style('stroke', dash.colors[2]).style('stroke-width', 1.75).style('opacity', 0.8);
+    const p = pts.filter((r) => r[field] != null);
+    svg.selectAll('circle').data(p).join('circle').attr('cx', cx).attr('cy', (r) => y(r[field])).attr('r', (r, j) => j === p.length - 1 ? 3.6 : 2.2).style('fill', (r) => SC[status(r)] || 'var(--cds-chart-muted)');
+  };
+  return { T, SC, st, labels, parse, day, short, ok, kpi, fail, panels, spark, tip, showTip };
+})();
+</script>
+
+<script>
+/* ===== 3. Drawings ===== */
+(() => {
+  const { T, SC, st, labels, kpi } = HB;
+  const base = (m) => { const r = kpi(m); return r ? r.baseline : null; };
+
+  for (const el of document.querySelectorAll('.hb')) dash.colors.slice(0, 4).forEach((c, i) => el.style.setProperty('--hb-c' + i, c));
+
+  // Status classes on containers (onData may set classes and hidden).
+  dash.onData(() => {
+    const tileSt = {
+      'tile-sleep-score': () => { const r = kpi('sleep_score'); return r && st.ready(r.current); },
+      'tile-ready': () => { const r = kpi('readiness'); return r && st.ready(r.current); },
+      'tile-sleep': () => { const r = kpi('sleep_h'); return r && st.sleep(r.current); },
+      'tile-hrv': () => { const r = kpi('hrv'); return r && st.hrv(r.current, r.baseline); },
+      'tile-rhr': () => { const r = kpi('lowest_hr'); return r && st.rhr(r.current, r.baseline); },
+      'tile-vo2': () => { const r = kpi('vo2max'); return !r || r.change == null ? null : r.change >= 0 ? 'good' : r.change >= -2 ? 'warn' : 'bad'; },
+    };
+    for (const [id, fn] of Object.entries(tileSt)) for (const el of document.querySelectorAll('#' + id)) { el.classList.remove('good', 'warn', 'bad'); const s = fn(); if (s) el.classList.add(s); }
+    const today = kpi('today');
+    const s = today ? st.ready(today.current) : null;
+    for (const el of document.querySelectorAll('#today')) { el.classList.remove('good', 'warn', 'bad'); if (s) el.classList.add(s); }
+    for (const el of document.querySelectorAll('.hb-call-opt')) el.hidden = el.dataset.call !== (s || 'good');
+    const rec = dash.data('recovery');
+    for (const g of ['hard', 'easy', 'rest']) {
+      const r = rec.status === 'ok' ? rec.data.find((x) => x.group === g) : null;
+      for (const el of document.querySelectorAll('#rec-' + g)) { el.classList.remove('good', 'warn', 'bad'); const c = r ? st.ready(r.avg_next) : null; if (c) el.classList.add(c); }
+    }
+  });
+
+  // Words and numbers
+  const num = (name, metric, dp, field = 'current') => dash.draw(name, (el) => { const r = kpi(metric); el.textContent = r && r[field] != null ? r[field].toFixed(dp) : '—'; });
+  num('k-run', 'run_mi', 1); num('k-ready', 'readiness', 0); num('k-sleep', 'sleep_h', 1);
+  num('t-sscore', 'sleep_score', 0); num('t-vo2', 'vo2max', 0); num('t-ready', 'readiness', 0); num('t-sleep', 'sleep_h', 1); num('t-hrv', 'hrv', 0); num('t-rhr', 'lowest_hr', 0);
+num('b-hrv', 'hrv', 0, 'baseline'); num('b-rhr', 'lowest_hr', 0, 'baseline');
+  num('today-score', 'today', 0);
+  dash.draw('today-date', (el) => { const r = kpi('today'); el.textContent = r && r.date ? `Today's call · ${d3.utcFormat('%A, %b %-d')(HB.parse(r.date))}` : "Today's call"; });
+  dash.draw('k-ready-dir', (el) => { const r = kpi('readiness'); el.textContent = !r ? '—' : r.change == null ? 'none saved yet' : r.change > 0 ? `up ${r.change}` : r.change < 0 ? `down ${-r.change}` : 'level'; });
+  const chg = (name, metric, up, unit, dp) => dash.draw(name, (el) => {
+    const r = kpi(metric); el.classList.remove('hb-good', 'hb-bad', 'hb-flat');
+    if (!r) { el.textContent = '—'; return; }
+    if (r.change == null) { el.textContent = 'No earlier week saved yet'; el.classList.add('hb-flat'); return; }
+    const c = r.change;
+    el.textContent = (c > 0 ? '+' : c < 0 ? '−' : '±') + Math.abs(c).toFixed(dp) + unit + ' vs week before';
+    el.classList.add(c === 0 ? 'hb-flat' : (c > 0) === up ? 'hb-good' : 'hb-bad');
+  });
+  chg('t-ready-chg', 'readiness', true, '', 0); chg('t-sscore-chg', 'sleep_score', true, '', 0); chg('t-sleep-chg', 'sleep_h', true, ' h', 1);
+
+  const chip = (name, fn) => dash.draw(name, (el) => {
+    const out = fn(); el.className = 'hb-chip' + (out ? ' ' + out[0] : '');
+    el.textContent = out ? out[1] : '—';
+  });
+  chip('c-vo2', () => { const r = kpi('vo2max'); if (!r || r.current == null) return null; if (r.change == null) return ['', 'Oura estimate']; return r.change > 0 ? ['good', 'Rising'] : r.change === 0 ? ['good', 'Holding'] : r.change >= -2 ? ['warn', 'Dipping'] : ['bad', 'Dropping']; });
+  dash.draw('t-vo2-sub', (el) => {
+    const r = kpi('vo2max'); el.classList.remove('hb-good', 'hb-bad', 'hb-flat');
+    if (!r || r.current == null) { el.textContent = '—'; return; }
+    const when = d3.utcFormat('%b %-d')(HB.parse(r.date));
+    if (r.change == null) { el.textContent = `Estimated ${when}`; el.classList.add('hb-flat'); return; }
+    el.textContent = `${r.change > 0 ? '+' : r.change < 0 ? '−' : '±'}${Math.abs(r.change)} vs a week earlier · ${when}`;
+    el.classList.add(r.change > 0 ? 'hb-good' : r.change < 0 ? 'hb-bad' : 'hb-flat');
+  });
+  chip('c-sscore', () => { const r = kpi('sleep_score'); const s = r && st.ready(r.current); return s ? [s, labels.ready[s]] : null; });
+  chip('c-ready', () => { const r = kpi('readiness'); const s = r && st.ready(r.current); return s ? [s, labels.ready[s]] : null; });
+  chip('c-sleep', () => { const r = kpi('sleep_h'); const s = r && st.sleep(r.current); return s ? [s, labels.sleep[s]] : null; });
+  chip('c-hrv', () => { const r = kpi('hrv'); const s = r && st.hrv(r.current, r.baseline); return s ? [s, labels.hrv[s]] : null; });
+  chip('c-rhr', () => { const r = kpi('lowest_hr'); const s = r && st.rhr(r.current, r.baseline); return s ? [s, labels.rhr[s]] : null; });
+
+  // Thresholds drawn where the words mention them
+  const fixed = (names, v) => { for (const n of names) dash.draw(n, (el) => { el.textContent = String(v); }); };
+  fixed(['g-sleep', 'g-sleep2', 'g-sleep3'], T.sleepGood); fixed(['th-sleep-warn', 'th-sleep-warn2'], T.sleepWarn);
+  fixed(['th-ready-good', 'th-ready-good2'], T.readyGood); fixed(['th-ready-warn', 'th-ready-warn2'], T.readyWarn);
+  fixed(['th-hard'], T.hard); fixed(['th-ramp'], T.ramp); fixed(['block-weeks'], T.blockWeeks);
+
+  // Sparklines
+  const daily = () => HB.ok('daily') ? dash.data('daily').data : null;
+  const sp = (name, field, status, bars) => dash.draw(name, (el) => { const d = daily(); if (!d) { el.replaceChildren(); return; } HB.spark(el, d, field, status, bars); });
+  sp('s-sscore', 'sleep_score', (r) => st.ready(r.sleep_score));
+  sp('s-vo2', 'vo2max', () => 'good');
+  sp('s-ready', 'readiness', (r) => st.ready(r.readiness));
+  sp('s-sleep', 'sleep_h', (r) => st.sleep(r.sleep_h));
+  sp('s-hrv', 'hrv', (r) => st.hrv(r.hrv, base('hrv')));
+  sp('s-rhr', 'lowest_hr', (r) => st.rhr(r.lowest_hr, base('lowest_hr')));
+
+  // Readiness gauge
+  dash.draw('gauge', (el) => {
+    el.replaceChildren();
+    const s = d3.select(el).append('svg').attr('viewBox', '0 0 112 112').attr('width', 112).attr('height', 112).attr('role', 'img').attr('aria-label', "Today's readiness out of 100");
+    const r = kpi('today'); const v = r ? r.current : null;
+    const arc = d3.arc().innerRadius(46).outerRadius(54).cornerRadius(5).startAngle(0);
+    const g = s.append('g').attr('transform', 'translate(56,56)');
+    g.append('path').attr('d', arc({ endAngle: 2 * Math.PI })).style('fill', 'var(--cds-chart-grid)');
+    if (v != null) g.append('path').attr('d', arc({ endAngle: 2 * Math.PI * Math.min(1, v / 100) })).style('fill', SC[st.ready(v)]);
+  });
+
+  // Countdown
+  const race = () => { const d = dash.data('race'); return d.status === 'ok' && d.data && d.data[0]; };
+  dash.draw('race-goal', (el) => { const r = race(); el.textContent = r ? r.goal : 'your goal race'; });
+  dash.draw('race-days', (el) => { const r = race(); el.textContent = !r ? '—' : r.days > 0 ? `${r.days} days` : r.days === 0 ? 'Race day!' : 'Done'; });
+  dash.draw('race-date', (el) => {
+    const r = race(); if (!r) { el.textContent = 'Set a goal race as your training focus in Strava'; return; }
+    const when = d3.utcFormat('%A, %B %-d, %Y')(HB.parse(r.end_date));
+    el.textContent = r.days >= 0 ? `${when} · ${Math.floor(r.days / 7)} weeks, ${r.days % 7} days` : `${when} has passed. Set your next goal race as your Strava training focus.`;
+  });
+  const blockStart = (r) => { const d = HB.parse(r.end_date); d.setUTCDate(d.getUTCDate() - T.blockWeeks * 7); return d; };
+  dash.draw('block-start', (el) => { const r = race(); el.textContent = r ? HB.short(blockStart(r)) : '—'; });
+  dash.draw('race-bar', (el) => {
+    const r = race(); el.replaceChildren(); const fill = document.createElement('div'); el.append(fill);
+    const total = T.blockWeeks * 7; fill.style.width = r ? Math.max(0, Math.min(100, (1 - r.days / total) * 100)) + '%' : '0%';
+  });
+
+  // Training plan
+  const totals = (week) => { const d = dash.data('plan_totals'); return d.status === 'ok' ? d.data.find((r) => r.week === week) : null; };
+  const typeChip = (name, week) => dash.draw(name, (el) => {
+    const t = totals(week); const v = t && t.week_type;
+    el.className = 'hb-chip' + (!v ? '' : /Taper|Cutback|Recovery/.test(v) ? ' good' : /Race|Dopey|Simulation/.test(v) ? ' warn' : '');
+    el.textContent = v || '—';
+  });
+  typeChip('plan-type-this', 'this'); typeChip('plan-type-next', 'next');
+  dash.draw('plan-done', (el) => { const t = totals('this'); el.textContent = t ? t.actual.toFixed(1) : '—'; });
+  dash.draw('plan-planned', (el) => { const t = totals('this'); el.textContent = t ? String(t.planned) : '—'; });
+  dash.draw('plan-next-total', (el) => { const t = totals('next'); el.textContent = t ? String(t.planned) : '—'; });
+  const stText = { done: (r) => `✓ Ran ${r.actual_mi} mi`, partial: (r) => `Ran ${r.actual_mi} of ${r.planned_mi}`, missed: () => 'Missed', extra: (r) => `Unplanned ${r.actual_mi} mi`, rest: () => 'Rest day', today: () => 'Up today', upcoming: () => 'Upcoming' };
+  const week = (name, which) => dash.draw(name, (el) => {
+    el.replaceChildren();
+    const d = dash.data('plan_days');
+    if (d.status !== 'ok') { if (d.status === 'error') { const p = document.createElement('div'); p.className = 'hb-fail'; p.textContent = 'Failed to load'; el.append(p); } return; }
+    const mk = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+    for (const r of d.data.filter((x) => x.week === which)) {
+      const wt = !r.week_type ? '' : /Race/.test(r.week_type) ? ' wt-race' : /Dopey|Simulation/.test(r.week_type) ? ' wt-dopey' : /Taper|Cutback|Recovery/.test(r.week_type) ? ' wt-easy' : ' wt-build';
+      const card = mk('div', 'hb-day ' + r.status + (r.is_today ? ' today' : '') + wt + (r.hard ? ' hard' : ''));
+      const top = mk('div', 'hb-day-top'); top.append(mk('b', '', HB.parse(r.date).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' })), mk('span', '', HB.short(HB.parse(r.date))));
+      card.append(top);
+      const mi = mk('div', 'hb-day-mi');
+      if (r.planned_mi == null) mi.textContent = 'Rest';
+      else { const n = mk('span', '', String(r.planned_mi)); n.dataset.source = 'plan_days'; n.dataset.where = 'date=' + r.date; n.dataset.field = 'planned_mi'; mi.append(n, mk('small', '', 'mi')); }
+      card.append(mi);
+      if (r.planned_mi != null && !/^\d+(\.\d+)? mi easy$/.test(r.workout)) card.append(mk('div', 'hb-day-what', r.workout));
+      else if (r.planned_mi != null) card.append(mk('div', 'hb-day-what', 'Easy'));
+      if (r.is_today && r.readiness != null && r.hard) {
+        const s = HB.st.ready(r.readiness);
+        card.append(mk('div', 'hb-day-flag' + (s === 'good' ? ' ok' : ''), s === 'good' ? `Readiness ${r.readiness}: good day for it` : s === 'warn' ? `Readiness ${r.readiness}: go by feel` : `Readiness ${r.readiness}: consider swapping for easy`));
+      }
+      if (r.pace || r.effort) {
+        const det = mk('div', 'hb-day-run');
+        if (r.pace) { const p = mk('span', '', r.pace); p.dataset.source = 'plan_days'; p.dataset.where = 'date=' + r.date; p.dataset.field = 'pace'; det.append(p); }
+        if (r.effort) { const e = mk('span', r.effort >= HB.T.hard ? 'hard' : '', `effort ${r.effort}`); e.dataset.source = 'plan_days'; e.dataset.where = 'date=' + r.date; e.dataset.field = 'effort'; det.append(e); }
+        card.append(det);
+      }
+      if (r.readiness != null || r.sleep_score != null || r.hrv != null) {
+        const bh = (HB.kpi('hrv') || {}).baseline;
+        const snap = mk('div', 'hb-snap');
+        const pill = (label, v, s, field, unit) => {
+          if (v == null) return;
+          const p = mk('span', 'hb-pill ' + (s || ''));
+          const n = mk('b', '', String(v) + (unit || '')); n.dataset.source = 'plan_days'; n.dataset.where = 'date=' + r.date; n.dataset.field = field;
+          p.append(mk('i', '', label), n); snap.append(p);
+        };
+        pill('Ready', r.readiness, HB.st.ready(r.readiness), 'readiness');
+        pill('Sleep score', r.sleep_score, HB.st.ready(r.sleep_score), 'sleep_score');
+        pill('HRV', r.hrv, HB.st.hrv(r.hrv, bh), 'hrv');
+        card.append(snap);
+      }
+      const st = mk('div', 'hb-day-st', stText[r.status](r));
+      if (['done', 'partial', 'extra'].includes(r.status)) { st.dataset.source = 'plan_days'; st.dataset.where = 'date=' + r.date; st.dataset.field = 'actual_mi'; }
+      card.append(st);
+      el.append(card);
+    }
+  });
+  week('plan-this', 'this'); week('plan-next', 'next'); week('plan-last', 'last');
+  typeChip('plan-type-last', 'last');
+  dash.draw('plan-last-sum', (el) => { const t = totals('last'); el.textContent = t ? `${t.actual.toFixed(1)} of ${t.planned} mi` : '—'; });
+
+  // Recovery
+  const recRow = (g) => { const d = dash.data('recovery'); return d.status === 'ok' ? d.data.find((x) => x.group === g) : null; };
+  for (const g of ['hard', 'easy', 'rest']) {
+    dash.draw(`rec-${g}`, (el) => { const r = recRow(g); el.textContent = !r ? '—' : r.avg_next != null ? String(r.avg_next) : 'Not yet'; });
+    dash.draw(`rec-${g}-n`, (el) => { const r = recRow(g); el.textContent = r ? String(r.days) : '—'; });
+    dash.draw(`rec-${g}-unit`, (el) => { const r = recRow(g); el.textContent = r && r.days === 1 ? 'day' : 'days'; });
+    dash.draw(`rec-${g}-m`, (el) => {
+      const r = recRow(g); el.replaceChildren(); const f = document.createElement('div'); el.append(f);
+      f.style.width = r && r.avg_next != null ? r.avg_next + '%' : '0%';
+      f.style.background = r && r.avg_next != null ? SC[st.ready(r.avg_next)] : 'transparent';
+    });
+  }
+
+  // Weekly mileage
+  dash.draw('weekly', (el) => {
+    if (!HB.ok('weekly')) return HB.fail(el, 'weekly');
+    const rows = dash.data('weekly').data; el.replaceChildren();
+    if (!rows.length) { const p = document.createElement('div'); p.className = 'hb-fail'; p.textContent = 'No runs yet'; el.append(p); return; }
+    const W = Math.max(280, el.clientWidth), H = 230, top = 24, bottom = 40, ml = 4;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Weekly run mileage');
+    const x = d3.scaleBand(rows.map((r) => r.week), [ml, W - 4]).padding(0.22);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.miles) || 1], [H - bottom, top]).nice();
+    for (const t of y.ticks(3)) svg.append('line').attr('x1', ml).attr('x2', W - 4).attr('y1', y(t)).attr('y2', y(t)).style('stroke', 'var(--cds-chart-grid)');
+    const now = rows[rows.length - 1];
+    const ramp = (r, i) => i > 0 && rows[i - 1].miles > 0 && r.miles > rows[i - 1].miles * (1 + T.ramp / 100);
+    const fill = (r, i) => r === now ? 'var(--cds-chart-muted)' : ramp(r, i) ? SC.warn : SC.good;
+    svg.selectAll('rect.b').data(rows).join('rect').attr('class', 'b').attr('x', (r) => x(r.week)).attr('width', x.bandwidth()).attr('y', (r) => y(r.miles)).attr('height', (r) => H - bottom - y(r.miles)).attr('rx', 3)
+      .style('fill', fill).style('opacity', (r) => r === now ? 1 : 0.85);
+    const showVals = x.bandwidth() > 24;
+    if (showVals) svg.selectAll('text.v').data(rows).join('text').attr('class', 'v hb-plabel').attr('x', (r) => x(r.week) + x.bandwidth() / 2).attr('y', (r) => y(r.miles) - 6).attr('text-anchor', 'middle').text((r) => Math.round(r.miles));
+    const every = Math.max(1, Math.ceil(rows.length / Math.floor((W - ml) / 56)));
+    rows.forEach((r, i) => {
+      if (i % every) return;
+      svg.append('text').attr('x', x(r.week) + x.bandwidth() / 2).attr('y', H - bottom + 15).attr('text-anchor', 'middle').text(HB.short(HB.parse(r.week)));
+      if (showVals) svg.append('text').attr('x', x(r.week) + x.bandwidth() / 2).attr('y', H - bottom + 30).attr('text-anchor', 'middle').text(`LR ${r.long_run}`);
+    });
+    const t = HB.tip(el);
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.week)).attr('width', x.bandwidth()).attr('y', 0).attr('height', H).style('fill', 'transparent')
+      .on('pointerenter pointermove', (ev, r) => {
+        const i = rows.indexOf(r); const prev = rows[i - 1];
+        const pct = prev && prev.miles ? Math.round((r.miles / prev.miles - 1) * 100) : null;
+        HB.showTip(el, t, (x(r.week) + x.bandwidth() / 2) * el.clientWidth / W, d3.pointer(ev, el)[1], `Week of ${HB.short(HB.parse(r.week))}${r === now ? ' (so far)' : ''}`,
+          [['Miles', r.miles.toFixed(1)], ['Runs', String(r.runs)], ['Long run', r.long_run.toFixed(1) + ' mi'], ['vs week before', pct == null ? '—' : (pct > 0 ? '+' : '') + pct + '%', r === now ? null : ramp(r, i) ? 'warn' : 'good']]);
+      })
+      .on('pointerleave', () => { t.hidden = true; });
+  });
+
+  dash.draw('load', (el) => {
+    if (!HB.ok('daily')) return HB.fail(el, 'daily');
+    HB.panels(el, dash.data('daily').data, [
+      { field: 'readiness', type: 'line', label: 'Readiness', domain: [50, 100], stroke: dash.colors[2], fmt: (v) => v, dot: (r) => SC[st.ready(r.readiness)],
+        bands: [{ from: T.readyGood, to: 100, st: 'good' }, { from: T.readyWarn, to: T.readyGood, st: 'warn' }, { from: 0, to: T.readyWarn, st: 'bad' }] },
+      { field: 'effort', type: 'bar', label: 'Relative effort', color: (r) => r.effort >= T.hard ? SC.warn : dash.colors[0], ref: { value: T.hard, label: `Hard ${T.hard}+` } },
+    ], (r) => [['Readiness', r.readiness ?? '—', st.ready(r.readiness)], ['Effort', String(r.effort), r.effort >= T.hard ? 'warn' : null], ['Run', r.run_mi ? r.run_mi + ' mi' : '—'], [r.activity, '']]);
+  });
+  dash.draw('sleep', (el) => {
+    if (!HB.ok('nightly')) return HB.fail(el, 'nightly');
+    HB.panels(el, dash.data('nightly').data, [
+      { field: 'score', type: 'line', label: 'Sleep score', domain: [40, 100], stroke: dash.colors[2], fmt: (v) => v, dot: (r) => SC[st.ready(r.score)],
+        bands: [{ from: T.readyGood, to: 100, st: 'good' }, { from: T.readyWarn, to: T.readyGood, st: 'warn' }, { from: 0, to: T.readyWarn, st: 'bad' }] },
+      { field: 'hours', type: 'bar', label: 'Hours asleep', domain: [0, 9], color: (r) => SC[st.sleep(r.hours)], ref: { value: T.sleepGood, label: `Goal ${T.sleepGood} h` } },
+    ], (r) => [['Asleep', r.hours != null ? r.hours + ' h' : 'not synced yet', st.sleep(r.hours)], ['Score', r.score != null ? String(r.score) : '—', st.ready(r.score)], ['HRV', r.hrv != null ? r.hrv + ' ms' : '—'], ['Lowest HR', r.lowest_hr != null ? r.lowest_hr + ' bpm' : '—']]);
+  });
+  dash.draw('hrv', (el) => {
+    if (!HB.ok('nightly')) return HB.fail(el, 'nightly');
+    const rows = dash.data('nightly').data;
+    const bh = base('hrv'), br = base('lowest_hr');
+    const hrs = rows.map((r) => r.lowest_hr).filter((v) => v != null);
+    HB.panels(el, rows, [
+      { field: 'hrv', type: 'line', label: 'HRV (ms)', stroke: dash.colors[2], domain: [40, Math.max(110, d3.max(rows, (r) => r.hrv) || 0)], fmt: (v) => v + ' ms', dot: (r) => SC[st.hrv(r.hrv, bh)] || 'var(--cds-chart-muted)', ref: { value: bh, label: bh != null ? `Your avg ${bh}` : '' } },
+      { field: 'lowest_hr', type: 'line', label: 'Lowest HR (bpm)', stroke: dash.colors[3], domain: [Math.min(...hrs, 40) - 2, Math.max(...hrs, 50) + 2], fmt: (v) => v + ' bpm', dot: (r) => SC[st.rhr(r.lowest_hr, br)] || 'var(--cds-chart-muted)', ref: { value: br, label: br != null ? `Your avg ${br}` : '' } },
+    ], (r) => [['HRV', r.hrv != null ? r.hrv + ' ms' : '—', st.hrv(r.hrv, bh)], ['Lowest HR', r.lowest_hr != null ? r.lowest_hr + ' bpm' : '—', st.rhr(r.lowest_hr, br)]]);
+  });
+
+  dash.draw('recent', (tb) => {
+    tb.replaceChildren();
+    if (!HB.ok('daily')) return;
+    const bh = base('hrv');
+    const rows = dash.data('daily').data.slice(-14).reverse();
+    const f = (v, dp) => v == null ? '—' : dp == null ? String(v) : v.toFixed(dp);
+    for (const r of rows) {
+      const tr = document.createElement('tr'); tr.dataset.key = r.date;
+      const cells = [
+        [HB.day(HB.parse(r.date))], [r.activity], [r.run_mi ? f(r.run_mi, 1) : '—'], [f(r.effort), r.effort >= T.hard ? 'c-hard' : ''],
+        [f(r.readiness), r.readiness != null ? 'c-' + st.ready(r.readiness) : ''], [f(r.sleep_h, 1), r.sleep_h != null ? 'c-' + st.sleep(r.sleep_h) : ''],
+        [f(r.hrv), r.hrv != null && bh != null ? 'c-' + st.hrv(r.hrv, bh) : ''], [r.steps == null ? '—' : d3.format(',')(r.steps)],
+      ];
+      for (const [text, cls] of cells) { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.append(td); }
+      tb.append(tr);
+    }
+  });
+})();
+</script>
