@@ -16,7 +16,8 @@ digital coupons and promo codes on every item in `watchlist.json`, at the stores
 listed for it. Also check Walmart for every item Walmart carries (except store brands
 sold elsewhere).
 
-Use subagents in parallel where available (e.g. one for Kroger/Publix ads, one for
+Read pages with WebFetch and WebSearch, not curl: direct downloads from Bash are
+blocked for most retail sites. Use subagents in parallel where available (e.g. one for Kroger/Publix ads, one for
 Costco, one for the "want" items, one for Amazon/Target/Slickdeals groceries).
 
 ### Weekly ad sources (Kroger & Publix)
@@ -101,8 +102,11 @@ When you learn an item's normal price with confidence, you may set
      `updated: {at: <UTC ISO now>, by: "Daily deal scan"}`,
      `edit: {via: "claude", at: <UTC ISO now>}`.
    - Do not change the dashboard page or anything else in it.
-3. Commit `data/scans/…` (and any `watchlist.json` change) with message
-   `Deal scan <date>` and push to the branch you cloned.
+3. Save the scan file (and any `watchlist.json` change) to GitHub with the GitHub
+   connector's `create_or_update_file`: owner `npep56`, repo `Dealfinder`, branch
+   `claude/deal-checks-interface-rz1xgl`, message `Deal scan <date>`. For a file that
+   already exists, first read its `sha` with `get_file_contents` and pass it. Don't use
+   `git push`: scheduled sessions can't push to this branch.
 4. Send one PushNotification with the text of `out/summary.txt` (it already ends with the
    dashboard link). Final reply: the same summary plus any gaps.
 
