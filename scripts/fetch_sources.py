@@ -296,7 +296,7 @@ def from_wholefoods(item, cfg, settings, today):
         price = (prime if settings.get("prime_member") and prime else sale) if on_sale else regular
         o = {
             "item": item["id"],
-            "store": f"Whole Foods ({store['name']})",
+            "store": f"Whole Foods {store['name']}",
             "price": price,
             "regular_price": regular,
             "url": f"https://www.wholefoodsmarket.com/product/{p.get('slug')}",

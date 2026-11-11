@@ -1,0 +1,292 @@
+{
+  "date": "2026-11-11",
+  "run": "manual",
+  "time": "15:34",
+  "headline": "Kerrygold and Chomps are 20% off at Whole Foods with Prime and Kerrygold is BOGO at Publix; everything you want to buy is still at full price.",
+  "sources": [
+    {
+      "name": "Store product feeds (Rothy's, Wolaco, FitcamX, Janji, ALOHA, Chomps)",
+      "covers": "live",
+      "url": "",
+      "ok": true
+    },
+    {
+      "name": "Whole Foods Kennesaw product search",
+      "covers": "live",
+      "url": "https://www.wholefoodsmarket.com",
+      "ok": true
+    },
+    {
+      "name": "Flipp weekly ads near 30152",
+      "covers": "this week",
+      "url": "https://flipp.com",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals (last 14 days)",
+      "covers": "11/1–11/11",
+      "url": "https://slickdeals.net",
+      "ok": true
+    },
+    {
+      "name": "Kroger API",
+      "covers": "",
+      "url": "https://api.kroger.com",
+      "ok": false
+    },
+    {
+      "name": "Web search: Dyson, Scoop Away, FitcamX at Amazon/Walmart/Target",
+      "covers": "",
+      "url": "",
+      "ok": true
+    }
+  ],
+  "observations": [
+    {
+      "item": "rothys-casual-clog",
+      "store": "rothys.com",
+      "price": 160.0,
+      "regular_price": 160,
+      "url": "https://rothys.com/products/womens-casual-clog-chestnut",
+      "in_stock": true,
+      "note": "The Casual Clog - Chestnut: Chestnut / 10 (store product feed, 2026-11-11)."
+    },
+    {
+      "item": "wolaco-distance-half-tight",
+      "store": "wolaco.com",
+      "price": 128.0,
+      "regular_price": 128.0,
+      "url": "https://wolaco.com/products/distance-half-tight-black",
+      "note": "Distance Half Tight in Black: Black / L / 8 Inch Inseam (store product feed, 2026-11-11)."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "fitcamx.com",
+      "price": 189.0,
+      "regular_price": 189,
+      "url": "https://fitcamx.com/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "in_stock": true,
+      "note": "FITCAMX Dash Cam for Hyundai Santa Fe 2024-2026 (Rear Mirror Cover part number 96030-P6000): Front: 4K（2160P）64GB (store product feed, 2026-11-11). Store shows compare-at $219."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112.0,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "M's 8\" Trail Half Tight Lined: Midnight / L (store product feed, 2026-11-11)."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112.0,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "M's 8\" Trail Half Tight Lined: Carbon / L (store product feed, 2026-11-11)."
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-butter-sticks-8-oz-b01hxz021g",
+      "note": "Kerrygold Salted Butter Sticks, 8 OZ (Whole Foods site, 2026-11-11).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-irish-butter-8-oz-b0011ekwbq",
+      "note": "KERRYGOLD Salted Irish Butter, 8 OZ (Whole Foods site, 2026-11-11).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 9.99,
+      "regular_price": 9.99,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-irish-salted-butter-sticks-16-oz-b09xzfdrrk",
+      "note": "Kerrygold Irish Salted Butter Sticks, 16 OZ (Whole Foods site, 2026-11-11).",
+      "size": 16.0
+    },
+    {
+      "item": "stonyfield-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 6.39,
+      "regular_price": 6.39,
+      "url": "https://www.wholefoodsmarket.com/product/stonyfield-farm-organic-vanilla-low-fat-yogurt-32-oz-b00108cspq",
+      "note": "Stonyfield Farm Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-11).",
+      "size": 32.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-original-hummus-10-oz-b07rcp6sm1",
+      "note": "Cedars Mediterranean Food Organic Original Hummus, 10 OZ (Whole Foods site, 2026-11-11).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-topped-garlic-hummus-10-oz-b07fw1xgq2",
+      "note": "Cedars Mediterranean Food Organic Topped Garlic Hummus, 10 OZ (Whole Foods site, 2026-11-11).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-hot-honey-hommus-with-toppings-10-oz-b0cn9pp8qw",
+      "note": "Cedars Mediterranean Food Organic Hot Honey Hommus with Toppings, 10 OZ (Whole Foods site, 2026-11-11).",
+      "size": 10.0
+    },
+    {
+      "item": "back-to-nature-crackers",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 4.39,
+      "url": "https://www.wholefoodsmarket.com/product/back-to-nature-classic-round-crackers-65-oz-b0dd1wc81c",
+      "note": "Back to Nature Classic Round Crackers, 6.5 OZ (Whole Foods site, 2026-11-11).",
+      "size": 6.5
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "Whole Foods Kennesaw",
+      "price": 29.99,
+      "regular_price": 29.99,
+      "url": "https://www.wholefoodsmarket.com/product/aloha-organic-peanut-butter-cup-protein-bar-12pk-198-oz-b08zvhh13j",
+      "note": "Aloha Organic Peanut Butter Cup Protein Bar 12pk, 1.98 OZ (Whole Foods site, 2026-11-11).",
+      "size": 12.0
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "aloha.com",
+      "price": 34.99,
+      "regular_price": 34.99,
+      "url": "https://aloha.com/products/peanut-butter-cup-protein-bar",
+      "in_stock": true,
+      "note": "Peanut Butter Cup - Protein Bars: 12-Bar Box (store product feed, 2026-11-11).",
+      "size": 12
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Whole Foods Kennesaw",
+      "price": 6.29,
+      "regular_price": 6.29,
+      "url": "https://www.wholefoodsmarket.com/product/natures-path-organic-peanut-butter-dark-chocolate-love-crunch-granola-115-oz-b01b395dda",
+      "note": "Natures Path Organic Peanut Butter Dark Chocolate Love Crunch Granola, 11.5 OZ (Whole Foods site, 2026-11-11).",
+      "size": 11.5
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 16.99,
+      "regular_price": 16.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-pacific-rim-ground-coffee-24-oz-b01kl4hwws",
+      "note": "365 by Whole Foods Market Pacific Rim Ground Coffee, 24 OZ (Whole Foods site, 2026-11-11).",
+      "size": 24.0
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 19.99,
+      "regular_price": 19.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-buzz-free-decaf-ground-coffee-24-oz-b06xz25cmk",
+      "note": "365 by Whole Foods Market Buzz Free Decaf Ground Coffee, 24 OZ (Whole Foods site, 2026-11-11).",
+      "size": 24.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 15.59,
+      "regular_price": 19.49,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-8-count-115-oz-b08z9nbc77",
+      "note": "Chomps Original Beef Stick 8 Count, 1.15 OZ (Whole Foods site, 2026-11-11).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 2.38,
+      "regular_price": 2.99,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-sgl-115-oz-grassfed-and-finished-beef-stick-with-zero-sugar-keto-and-paleo-friendly-whole30-lowcarb-snack-10g-protein-b07l6r17ds",
+      "note": "Chomps Original Beef Stick Sgl, 1.15 OZ | Grass-Fed And Finished Beef Stick With Zero Sugar, Keto And Paleo Friendly, Whole30, Low-Carb Snack, 10G Protein (Whole Foods site, 2026-11-11).",
+      "ends": "2026-11-17",
+      "size": 1
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 25.6,
+      "regular_price": 25.6,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 10 Pack (store product feed, 2026-11-11).",
+      "size": 10
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 54.99,
+      "regular_price": 54.99,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 24 Pack (store product feed, 2026-11-11).",
+      "size": 24
+    },
+    {
+      "item": "wf365-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.79,
+      "regular_price": 4.79,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-organic-vanilla-low-fat-yogurt-32-oz-b074h5y3tm",
+      "note": "365 by Whole Foods Market Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-11).",
+      "size": 32.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Publix",
+      "price": 2.65,
+      "size": 8,
+      "regular_price": 5.29,
+      "url": "https://flipp.com/en-us/item/1052630009",
+      "ends": "2026-11-17",
+      "code": "BOGO (buy 2)",
+      "note": "Kerrygold Pure Irish Butter 8 oz BOGO in this week's Publix ad (Flipp); about $2.65 each when buying 2. Ad doesn't say salted vs unsalted."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "Walmart",
+      "price": 170.1,
+      "regular_price": 189,
+      "url": "https://www.walmart.com/ip/8203719365",
+      "note": "Search result only (walmart.com can't be read): front-only 4K P6000 with 64GB card, $170.10 was $189. Above the $160 target."
+    }
+  ],
+  "notes": [
+    "Target ad: Kerrygold 8 oz 10% off and select ALOHA bars 10% off through 11/15 (shelf prices not listed).",
+    "Publix: Just Bare Chicken Breast Fillets BOGO, not your Lightly Breaded Chunks.",
+    "Walgreens: Simply Lemonade 2/$5 with myWalgreens starts 11/15 (size not listed). Scoop Away 14 lb $7.99 ($0.57/lb) is above your $0.40/lb normal price.",
+    "Dyson V15 Detect: only refurbished deals on Slickdeals ($300); new base model still $849.99 list. Past lows $499.99–$649.99 during Cyber Week.",
+    "Scoop Away 42 lb: BJ's lists the Plus 42 lb at $16.49 (in-club); a Costco tracker shows $11.99–$13.89 at times (undated).",
+    "Whole Foods Prime prices: Kerrygold 8 oz $4.39 and Chomps Original 8-ct $15.59 (both 20% off), through 11/17.",
+    "Chomps per stick: Whole Foods 8-ct with Prime $1.95; chomps.com 24-pack $2.29; 10-pack $2.56."
+  ],
+  "gaps": [
+    "Kroger prices: the Kroger API keys aren't set as environment variables yet.",
+    "Amazon, Walmart online and Costco online prices: no structured source; search snippets only.",
+    "Natural Bliss, Califia Toasted Coconut, Simply Lemonade 52 oz, Just Bare Chunks, Simple Truth PB, Smash Kitchen, Kirkland nuts: no current price found."
+  ]
+}
