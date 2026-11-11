@@ -143,7 +143,13 @@
       ],
       "notes": "Not refurbished/open-box; not Absolute, Extra or Submarine. Re-check Student Beans US / UNiDAYS US each run; if a V15 student offer is confirmed, only flag deals that beat it. Note model and included attachments.",
       "sources": {
-        "slickdeals": "dyson v15 detect"
+        "slickdeals": "dyson v15 detect",
+        "flipp": {
+          "query": "dyson v15",
+          "match": [
+            "dyson"
+          ]
+        }
       }
     },
     {
@@ -519,7 +525,14 @@
         "Costco"
       ],
       "sources": {
-        "slickdeals": "kirkland mixed nuts"
+        "slickdeals": "kirkland mixed nuts",
+        "flipp": {
+          "query": "kirkland mixed nuts",
+          "match": [
+            "kirkland",
+            "nuts"
+          ]
+        }
       }
     },
     {
