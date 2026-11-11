@@ -39,6 +39,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -194,10 +195,17 @@ class Kroger:
             data=b"grant_type=client_credentials&scope=product.compact",
             headers={**UA, "Authorization": f"Basic {basic}",
                      "Content-Type": "application/x-www-form-urlencoded"})
-        with urllib.request.urlopen(req, timeout=25) as r:
-            self.token = json.loads(r.read())["access_token"]
-        stores = self.call("locations", {"filter.zipCode.near": postal_code, "filter.chain": "Kroger",
-                                         "filter.limit": 1})["data"]
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r:
+                self.token = json.loads(r.read())["access_token"]
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"Kroger sign-in refused (HTTP {e.code}): check KROGER_CLIENT_ID "
+                               "and KROGER_CLIENT_SECRET") from None
+        try:
+            stores = self.call("locations", {"filter.zipCode.near": postal_code, "filter.chain": "Kroger",
+                                             "filter.limit": 1})["data"]
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"Kroger store lookup refused (HTTP {e.code}) after sign-in worked") from None
         if not stores:
             raise LookupError(f"no Kroger store near {postal_code}")
         s = stores[0]
