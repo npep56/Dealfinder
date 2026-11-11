@@ -107,10 +107,8 @@ When you learn an item's normal price with confidence, you may set
      `source: {kind: "file", url: <returned url>, name: "<name>.json", format: "json"}`,
      `updated: {at: <UTC ISO now>, by: "Daily deal scan"}`,
      `edit: {via: "claude", at: <UTC ISO now>}`.
-   - Once that batch succeeds, delete each dataset's previous file (the 32-hex id from
-     its old `source.url`) with the Artifact tool: `action: delete, url: <dashboard_url>,
-     path: <old id>`.
-   - Do not change the dashboard page or anything else in it.
+   - Do not delete the old files or change the dashboard page or anything else in it.
+     (Deletes need a person's approval and would stall an unattended run.)
 3. Commit `data/scans/…` (and any `watchlist.json` change) with message
    `Deal scan <date>` on top of `claude/deal-checks-interface-rz1xgl` (the branch that
    holds every scan) and push it there:

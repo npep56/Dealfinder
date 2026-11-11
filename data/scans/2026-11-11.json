@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-11",
+  "run": "daily",
+  "time": "08:50",
+  "headline": "Kerrygold 8 oz is BOGO at Publix this week; everything else is at regular price or unverified, and most retailer sites were blocked.",
+  "sources": [
+    {"name": "Southern Savers: Kroger weekly ad", "covers": "11/11–11/17", "url": "https://www.southernsavers.com/kroger-weekly-ad-11-11-11-17/", "ok": true},
+    {"name": "Southern Savers: Publix weekly ad", "covers": "11/11–11/17 or 11/12–11/18", "url": "https://www.southernsavers.com/publix-weekly-ad-11-11-11-17-or-11-12-11-18/", "ok": true},
+    {"name": "Southern Savers: Kroger/Publix unadvertised deals", "covers": "", "url": "https://www.southernsavers.com/kroger-weekly-ad-deals/", "ok": false},
+    {"name": "Costco Oct–Nov 2026 savings book (Slickdeals/costco97)", "covers": "10/19–11/15", "url": "https://slickdeals.net/f/20144847-costco-october-to-november-2026-coupon-book-10-19-26-to-11-15-26", "ok": false},
+    {"name": "Retailer pages (rothys, wolaco, fitcamx, janji, dyson, amazon, target, aloha, slickdeals, costco, wholefoodsmarket)", "covers": "", "url": "", "ok": false},
+    {"name": "Walmart search snippets", "covers": "undated", "url": "https://www.walmart.com/", "ok": true}
+  ],
+  "observations": [
+    {"item": "kerrygold-butter", "store": "Publix", "price": 2.65, "size": 8, "regular_price": 5.29, "url": "https://www.southernsavers.com/publix-weekly-ad-11-11-11-17-or-11-12-11-18/", "ends": "2026-11-17", "code": "BOGO (buy 2)", "final_sale": false, "in_stock": true, "assessment": "deal", "note": "Kerrygold Pure Irish Butter 8 oz BOGO ($5.29 each, ~$2.65 when buying 2). Ad doesn't say salted vs unsalted. Ends 11/17 or 11/18 by area."},
+    {"item": "kerrygold-butter", "store": "Walmart", "price": 4.84, "size": 8, "regular_price": null, "url": "https://www.walmart.com/c/kp/butters", "in_stock": true, "note": "Search snippet only (undated): salted 8 oz foil block."},
+    {"item": "califia-toasted-coconut", "store": "Walmart", "price": 4.32, "size": 48, "regular_price": null, "url": "https://walmart.com/c/kp/milk-vegan", "in_stock": true, "note": "Search snippet only (undated)."},
+    {"item": "smash-kitchen-chips", "store": "Walmart", "price": 3.77, "size": 10, "regular_price": null, "url": "https://www.walmart.com/cp/corn-chips/9805889", "in_stock": true, "note": "Search snippet only (undated)."},
+    {"item": "love-crunch-granola", "store": "Walmart", "price": 5.22, "size": 11.5, "regular_price": null, "url": "https://www.walmart.com/ip/Love-Crunch-Organic-Granola-Dark-Chocolate-Peanut-Butter-11-5-oz-Pouch/52796498", "in_stock": true, "note": "Search snippet only (undated); one listing showed $4.97."},
+    {"item": "aloha-pb-cup-bars", "store": "Target", "price": 9.99, "size": 5, "regular_price": 10.59, "url": "https://www.target.com/p/aloha-peanut-butter-cup-nutrition-bars-9-88oz/-/A-92167763", "in_stock": true, "note": "Search snippet only; 5-count box ($2.00/bar). Target doesn't seem to carry the 12-pack."},
+    {"item": "aloha-pb-cup-bars", "store": "aloha.com", "price": 34.99, "size": 12, "regular_price": 34.99, "url": "https://aloha.com/collections/protein-bars", "in_stock": true, "note": "Search snippet only; full price. Autoship up to 30% off (~$24.49)."},
+    {"item": "wf365-coffee", "store": "Amazon", "price": 19.99, "size": 24, "regular_price": null, "url": "https://www.wholefoodsmarket.com/grocery/product/365-by-whole-foods-market-buzz-free-decaf-ground-coffee-medium-roast-24-ounce-b06xz25cmk", "in_stock": true, "note": "Search snippet only; Buzz Free Decaf 24 oz. Pacific Rim not found."},
+    {"item": "rothys-casual-clog", "store": "rothys.com", "price": 160, "regular_price": 160, "url": "https://rothys.com/products/womens-casual-clog-chestnut", "final_sale": false, "in_stock": true, "note": "Search snippet only (site blocked): Chestnut at full price; size 10 stock unconfirmed."},
+    {"item": "fitcamx-p6000", "store": "Walmart", "price": 170.10, "regular_price": 189, "url": "https://www.walmart.com/ip/18524769290", "final_sale": false, "in_stock": true, "note": "Search snippet only (undated): front-only 4K P6000 with 64GB card; another snippet shows $189. $10 above target."},
+    {"item": "janji-trail-half-tight-lined", "store": "janji.com", "price": 94, "regular_price": null, "url": "https://janji.com/collections/all/products/ms-8-trail-half-tight-lined", "final_sale": false, "in_stock": true, "note": "Search snippet only (site blocked): men's 8\" Lined at $94, $4 over target. Undated; black L stock unconfirmed. Watchlist regular of $112 may be out of date."}
+  ],
+  "notes": [
+    "Kroger ad near-misses: Califia Cold Brew 48 oz $3.99 (not Toasted Coconut); Chomplings minis $6.99 less $1.50 Ibotta (not Original sticks).",
+    "Publix ad near-misses: Just Bare Chicken Breast Fillets 18 oz BOGO (not Chunks); Publix deli hummus BOGO (not Cedar's).",
+    "Walmart Simply Lemonade 52 oz $2.97 snippet may be a flavored variant — not recorded.",
+    "Walmart ALOHA 12-pack ($23.99–$26.99) and Chomps 24-pack ($42.99–$53.88) listings look like marketplace sellers — not recorded.",
+    "Dyson V15 Detect: only old/expired Slickdeals posts ($499–$600 Detect Plus); no current qualifying sale and no US student offer confirmed.",
+    "Wolaco: regular $128 seen only for a different color/inseam; men's black L 8\" unconfirmed.",
+    "No November 2026 Slickdeals posts found for any watchlist item."
+  ],
+  "gaps": [
+    "Retailer sites not in the session's allowed network domains (DNS failure): rothys.com, wolaco.com, fitcamx.com, janji.com, dyson.com, amazon.com, target.com, aloha.com, slickdeals.net, costco.com, costco97.com, wholefoodsmarket.com — prices are search snippets only.",
+    "Costco: Oct–Nov savings book couldn't be read; no Costco prices recorded.",
+    "Whole Foods: no prices (pages need a store selected and weren't fetchable).",
+    "Kroger/Publix unadvertised-deals posts for this week aren't up until Thursday 11/12."
+  ]
+}
