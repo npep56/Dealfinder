@@ -39,6 +39,9 @@ Each item's `sources` in `watchlist.json` say where to look first:
 - **Flipp** (`flipp`): this week's printed ads for Kroger, Publix, Target, Walmart and
   more near `settings.postal_code`.
 - **Slickdeals** (`slickdeals`): posts from the last two weeks.
+- **Kroger API** (`kroger`): shelf and sale prices at the nearest Kroger. Needs the
+  `KROGER_CLIENT_ID` and `KROGER_CLIENT_SECRET` environment variables (a free app at
+  developer.kroger.com); without them this source is skipped.
 
 The scan then searches the web for whatever those don't cover (Dyson, Costco, Whole
 Foods, Amazon).

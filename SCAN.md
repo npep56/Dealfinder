@@ -17,7 +17,8 @@ Run `python3 scripts/fetch_sources.py` first (about 5 seconds). It reads the sou
 listed under each item's `"sources"` in `watchlist.json` and writes `out/sources.json`:
 
 - `observations`: exact prices and stock from the store's own product feed (Rothy's,
-  Wolaco, FitcamX, Janji, ALOHA, Chomps). Copy them into the scan file as they are.
+  Wolaco, FitcamX, Janji, ALOHA, Chomps) and shelf and sale prices from the Kroger nearest
+  `settings.postal_code` (Kroger API). Copy them into the scan file as they are.
 - `leads`: this week's printed store ads from Flipp (Kroger, Publix, Target, Walmart,
   Walgreens and more, for `settings.postal_code`) and Slickdeals posts from the last two
   weeks. Each lead is a hint, not a price: open it and confirm the exact product, size
@@ -26,7 +27,8 @@ listed under each item's `"sources"` in `watchlist.json` and writes `out/sources
 - `errors`: sources that failed. Fill those in by hand below and list them in `gaps`.
 
 Then use web search only for what the sources don't cover: Dyson, Costco, Whole Foods,
-Amazon, items with no lead, and stores an item lists that the sources skipped.
+Amazon, items with no lead, and stores an item lists that the sources skipped. Kroger
+digital coupons are not in the Kroger API; Southern Savers' Kroger post still lists them.
 
 ### Search the web
 

@@ -15,14 +15,21 @@ Each watchlist item can name its sources under "sources" in watchlist.json:
                 Target, Walmart and more). "match" words must all appear in the ad title.
   "slickdeals": "kerrygold butter"
                 Slickdeals posts from the last settings.slickdeals_days days.
+  "kroger":     {"term": "kerrygold butter", "match": ["kerrygold", "salted"], "size": 8}
+                Shelf and sale price at the Kroger nearest settings.postal_code, from
+                Kroger's API (needs KROGER_CLIENT_ID and KROGER_CLIENT_SECRET). "match"
+                words must all appear in the brand and description; "size" keeps only
+                that package size.
 
-Shopify results are exact and become ready-made observations. Flipp and Slickdeals
+Shopify and Kroger results are exact and become ready-made observations. Flipp and Slickdeals
 results are leads: the scan still confirms the product, size and price.
 
 Writes out/sources.json ({"observations", "leads", "errors"}) and prints a short report.
 Usage: python3 scripts/fetch_sources.py [item-id ...]
 """
+import base64
 import json
+import os
 import re
 import sys
 import urllib.parse
@@ -112,11 +119,10 @@ def from_shopify(item, cfg, today):
 def from_flipp(item, cfg, postal_code, today):
     q = urllib.parse.urlencode({"locale": "en-us", "postal_code": postal_code, "q": cfg["query"]})
     data = json.loads(get(f"https://backflipp.wishabi.com/flipp/items/search?{q}"))
-    words = [w.lower() for w in cfg.get("match", [])]
     leads = []
     for ad in data.get("items", []):
         name = ad.get("name") or ""
-        if not all(w in name.lower() for w in words):
+        if not has_words(name, cfg.get("match", [])):
             continue
         if (ad.get("valid_to") or "9999")[:10] < today:
             continue
@@ -161,13 +167,95 @@ def from_slickdeals(item, query, days, today):
     return leads
 
 
+# ---------------------------------------------------------------- kroger
+
+
+class Kroger:
+    """Kroger's public product API: shelf and sale price at the nearest Kroger store.
+
+    Needs KROGER_CLIENT_ID and KROGER_CLIENT_SECRET (a free app at developer.kroger.com).
+    """
+    API = "https://api.kroger.com/v1"
+
+    def __init__(self, postal_code):
+        cid, secret = os.environ.get("KROGER_CLIENT_ID"), os.environ.get("KROGER_CLIENT_SECRET")
+        if not (cid and secret):
+            raise RuntimeError("KROGER_CLIENT_ID / KROGER_CLIENT_SECRET not set")
+        basic = base64.b64encode(f"{cid}:{secret}".encode()).decode()
+        req = urllib.request.Request(
+            f"{self.API}/connect/oauth2/token", method="POST",
+            data=b"grant_type=client_credentials&scope=product.compact",
+            headers={**UA, "Authorization": f"Basic {basic}",
+                     "Content-Type": "application/x-www-form-urlencoded"})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            self.token = json.loads(r.read())["access_token"]
+        stores = self.call("locations", {"filter.zipCode.near": postal_code, "filter.chain": "Kroger",
+                                         "filter.limit": 1})["data"]
+        if not stores:
+            raise LookupError(f"no Kroger store near {postal_code}")
+        s = stores[0]
+        self.location_id = s["locationId"]
+        self.store_name = f"Kroger ({s['address']['addressLine1']}, {s['address']['city']})"
+
+    def call(self, path, params):
+        req = urllib.request.Request(f"{self.API}/{path}?{urllib.parse.urlencode(params)}",
+                                     headers={**UA, "Authorization": f"Bearer {self.token}"})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            return json.loads(r.read())
+
+    def search(self, term):
+        return self.call("products", {"filter.term": term, "filter.locationId": self.location_id,
+                                      "filter.limit": 20})["data"]
+
+
+def has_words(text, words):
+    """True when every word or phrase appears in text as a whole word ("salted" is not in "unsalted")."""
+    return all(re.search(rf"(?<![\w']){re.escape(w.lower())}(?![\w'])", text.lower()) for w in words)
+
+
+def size_number(text):
+    m = re.search(r"\d+(?:\.\d+)?", text or "")
+    return float(m.group()) if m else None
+
+
+def from_kroger(item, cfg, kroger, today):
+    """Products whose description has every "match" word and a price at the store."""
+    observations = []
+    for p in kroger.search(cfg["term"]):
+        text = f"{p.get('brand', '')} {p.get('description', '')}"
+        if not has_words(text, cfg.get("match", [])):
+            continue
+        for it in p.get("items", []):
+            price = it.get("price") or {}
+            regular, promo = price.get("regular"), price.get("promo")
+            if not regular:
+                continue
+            size = cfg.get("size") or size_number(it.get("size"))
+            if cfg.get("size") and size_number(it.get("size")) not in (None, cfg["size"]):
+                continue  # a different package size
+            o = {
+                "item": item["id"],
+                "store": kroger.store_name,
+                "price": promo if promo and 0 < promo < regular else regular,
+                "regular_price": regular,
+                "url": f"https://www.kroger.com/p/-/{p.get('productId')}",
+                "note": f"{text.strip()} {it.get('size', '')} (Kroger API, {today}).".replace("  ", " "),
+            }
+            if item["kind"] == "grocery":
+                o["size"] = size or 1
+            observations.append(o)
+    return observations
+
+
 # ---------------------------------------------------------------- main
 
 
-def run_item(item, settings, today):
+def run_item(item, settings, today, kroger=None):
     src = item.get("sources") or {}
     observations, leads, errors = [], [], []
     jobs = []
+    if "kroger" in src and kroger:
+        jobs.append(("kroger", lambda: observations.extend(from_kroger(item, src["kroger"], kroger, today))))
     if "shopify" in src:
         jobs.append(("shopify", lambda: observations.extend(from_shopify(item, src["shopify"], today))))
     if "flipp" in src and settings.get("postal_code"):
@@ -188,11 +276,17 @@ def main(argv):
     settings = wl["settings"]
     items = [i for i in wl["items"] if not argv or i["id"] in argv]
     today = date.today().isoformat()
+    kroger, setup_errors = None, []
+    if any("kroger" in (i.get("sources") or {}) for i in items):
+        try:
+            kroger = Kroger(settings.get("postal_code"))
+        except Exception as e:
+            setup_errors.append(f"Kroger skipped: {type(e).__name__}: {e}")
     with ThreadPoolExecutor(max_workers=8) as pool:
-        results = list(pool.map(lambda i: run_item(i, settings, today), items))
+        results = list(pool.map(lambda i: run_item(i, settings, today, kroger), items))
     observations = [o for r in results for o in r[0]]
     leads = [lead for r in results for lead in r[1]]
-    errors = [e for r in results for e in r[2]]
+    errors = setup_errors + [e for r in results for e in r[2]]
     if not settings.get("postal_code"):
         errors.append("Flipp skipped: set settings.postal_code in watchlist.json")
 

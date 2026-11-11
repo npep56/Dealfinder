@@ -7,7 +7,7 @@
     "want_close_margin": 0.1,
     "deal_stale_days": 3,
     "dashboard_url": "https://claude.ai/artifact/E4gmQ9GaoJxnwuKJBM5qW7",
-    "postal_code": null,
+    "postal_code": "30152",
     "slickdeals_days": 14
   },
   "items": [
@@ -165,7 +165,14 @@
             "kerrygold"
           ]
         },
-        "slickdeals": "kerrygold"
+        "slickdeals": "kerrygold",
+        "kroger": {
+          "term": "kerrygold salted butter",
+          "match": [
+            "kerrygold",
+            "salted"
+          ]
+        }
       }
     },
     {
@@ -187,6 +194,14 @@
           "match": [
             "stonyfield"
           ]
+        },
+        "kroger": {
+          "term": "stonyfield lowfat vanilla yogurt",
+          "match": [
+            "stonyfield",
+            "vanilla"
+          ],
+          "size": 32
         }
       }
     },
@@ -209,6 +224,14 @@
           "match": [
             "natural bliss"
           ]
+        },
+        "kroger": {
+          "term": "natural bliss sweet cream creamer",
+          "match": [
+            "natural bliss",
+            "sweet cream"
+          ],
+          "size": 32
         }
       }
     },
@@ -231,6 +254,14 @@
           "match": [
             "califia"
           ]
+        },
+        "kroger": {
+          "term": "califia toasted coconut almondmilk",
+          "match": [
+            "califia",
+            "toasted coconut"
+          ],
+          "size": 48
         }
       }
     },
@@ -253,6 +284,14 @@
           "match": [
             "simply"
           ]
+        },
+        "kroger": {
+          "term": "simply lemonade",
+          "match": [
+            "simply",
+            "lemonade"
+          ],
+          "size": 52
         }
       }
     },
@@ -273,8 +312,16 @@
         "flipp": {
           "query": "cedar's hommus",
           "match": [
-            "cedar"
+            "cedar's"
           ]
+        },
+        "kroger": {
+          "term": "cedar's organic hommus",
+          "match": [
+            "cedar's",
+            "hommus"
+          ],
+          "size": 10
         }
       }
     },
@@ -299,7 +346,14 @@
             "just bare"
           ]
         },
-        "slickdeals": "just bare chicken"
+        "slickdeals": "just bare chicken",
+        "kroger": {
+          "term": "just bare lightly breaded chicken chunks",
+          "match": [
+            "just bare",
+            "chunks"
+          ]
+        }
       }
     },
     {
@@ -318,6 +372,14 @@
           "match": [
             "peanut butter"
           ]
+        },
+        "kroger": {
+          "term": "simple truth organic creamy peanut butter",
+          "match": [
+            "simple truth",
+            "creamy peanut butter"
+          ],
+          "size": 40
         }
       }
     },
@@ -359,6 +421,14 @@
           "match": [
             "back to nature"
           ]
+        },
+        "kroger": {
+          "term": "back to nature classic round crackers",
+          "match": [
+            "back to nature",
+            "round"
+          ],
+          "size": 6.5
         }
       }
     },
@@ -394,7 +464,14 @@
             "aloha"
           ]
         },
-        "slickdeals": "aloha protein bar"
+        "slickdeals": "aloha protein bar",
+        "kroger": {
+          "term": "aloha peanut butter cup protein bar",
+          "match": [
+            "aloha",
+            "peanut butter cup"
+          ]
+        }
       }
     },
     {
@@ -420,7 +497,15 @@
             "love crunch"
           ]
         },
-        "slickdeals": "love crunch granola"
+        "slickdeals": "love crunch granola",
+        "kroger": {
+          "term": "nature's path love crunch dark chocolate peanut butter",
+          "match": [
+            "love crunch",
+            "peanut butter"
+          ],
+          "size": 11.5
+        }
       }
     },
     {
@@ -484,7 +569,14 @@
             "chomps"
           ]
         },
-        "slickdeals": "chomps beef sticks"
+        "slickdeals": "chomps beef sticks",
+        "kroger": {
+          "term": "chomps original beef stick",
+          "match": [
+            "chomps",
+            "original"
+          ]
+        }
       }
     }
   ]

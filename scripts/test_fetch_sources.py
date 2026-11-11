@@ -70,5 +70,37 @@ class RunItemTests(unittest.TestCase):
         self.assertEqual((obs, len(leads), len(errors)), ([], 1, 1))
 
 
+class KrogerTests(unittest.TestCase):
+    PRODUCTS = [
+        {"productId": "1", "brand": "Kerrygold", "description": "Kerrygold Pure Irish Salted Butter",
+         "items": [{"size": "8 oz", "price": {"regular": 4.99, "promo": 3.99}}]},
+        {"productId": "2", "brand": "Kerrygold", "description": "Kerrygold Unsalted Butter",
+         "items": [{"size": "8 oz", "price": {"regular": 4.99, "promo": 0}}]},
+        {"productId": "3", "brand": "Kerrygold", "description": "Kerrygold Salted Butter Sticks",
+         "items": [{"size": "4 oz", "price": {"regular": 3.29, "promo": 0}}]},
+    ]
+
+    def kroger(self):
+        k = mock.Mock(store_name="Kroger (Main St, Kennesaw)")
+        k.search.return_value = self.PRODUCTS
+        return k
+
+    def test_match_words_size_and_promo(self):
+        item = {"id": "kg", "kind": "grocery"}
+        cfg = {"term": "kerrygold", "match": ["kerrygold", "salted"], "size": 8}
+        obs = fs.from_kroger(item, cfg, self.kroger(), "2026-11-11")
+        self.assertEqual([(o["price"], o["regular_price"], o["size"]) for o in obs], [(3.99, 4.99, 8)])
+
+    def test_size_read_from_package_when_not_given(self):
+        item = {"id": "kg", "kind": "grocery"}
+        obs = fs.from_kroger(item, {"term": "k", "match": ["salted"]}, self.kroger(), "2026-11-11")
+        self.assertEqual(sorted(o["size"] for o in obs), [4.0, 8.0])
+
+    def test_missing_keys_skip_kroger(self):
+        with mock.patch.dict(fs.os.environ, {}, clear=True):
+            with self.assertRaises(RuntimeError):
+                fs.Kroger("30152")
+
+
 if __name__ == "__main__":
     unittest.main()
