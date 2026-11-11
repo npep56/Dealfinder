@@ -269,6 +269,8 @@ def package_size(name, unit):
     """Size in the watchlist unit from a product name like "Salted Butter, 8 OZ" or "8 Count"."""
     if unit == "oz":
         m = re.search(r"(\d+(?:\.\d+)?)\s*(?:fl\.?\s*)?oz\b", name, re.I)
+    elif unit == "lb":
+        m = re.search(r"(\d+(?:\.\d+)?)\s*(?:lbs?|pounds?)\b", name, re.I)
     else:  # stick, bar: a pack count, else a single
         m = re.search(r"(\d+)\s*(?:count|ct|pk|pack|-pack|bars?|sticks?)\b", name, re.I)
         if not m:

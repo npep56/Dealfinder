@@ -94,7 +94,7 @@ The comments below explain each field; the real file is plain JSON without them.
       "item": "kerrygold-butter",   // id from watchlist.json (build fails on unknown ids)
       "store": "Kroger",
       "price": 3.99,                // what you pay for the package, after required coupons
-      "size": 8,                    // REQUIRED for groceries, in the item's unit (oz / bar / stick)
+      "size": 8,                    // REQUIRED for groceries, in the item's unit (oz / lb / bar / stick)
       "regular_price": 4.99,        // package regular price if shown; null if unknown
       "url": "https://…",
       "ends": "2026-11-17",         // if known

@@ -27,7 +27,7 @@ python3 -m unittest discover scripts
 
 Ask Claude ("add Hoka Clifton 10, size 10.5, alert under $110") or edit `watchlist.json`
 directly. Each item needs a unique `id`, a `kind` (`want` or `grocery`) and a `unit`
-(`item`, `oz`, `bar` or `stick`). Wants take a `target_price`, or `null` for "any real
+(`item`, `oz`, `lb`, `bar` or `stick`). Wants take a `target_price`, or `null` for "any real
 sale". Groceries are compared per unit.
 
 ## Where prices come from

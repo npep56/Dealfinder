@@ -721,6 +721,65 @@
           ]
         }
       }
+    },
+    {
+      "id": "wf365-vanilla-yogurt",
+      "name": "365 Organic Lowfat Vanilla Yogurt",
+      "variant": "32 oz tub, 1% milkfat",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": null,
+      "stores": [
+        "Whole Foods",
+        "Amazon"
+      ],
+      "sources": {
+        "wholefoods": {
+          "query": "365 organic vanilla low fat yogurt",
+          "match": [
+            "365",
+            "vanilla",
+            "low fat"
+          ],
+          "size": 32
+        }
+      }
+    },
+    {
+      "id": "scoop-away-litter",
+      "name": "Scoop Away Complete Performance Plus cat litter",
+      "variant": "Clumping, compare per lb (usual: 42 lb, 4 x 10.5 lb pouches)",
+      "kind": "grocery",
+      "unit": "lb",
+      "typical_unit_price": null,
+      "stores": [
+        "Walmart",
+        "Target",
+        "Kroger",
+        "Publix",
+        "Amazon",
+        "Costco",
+        "Sam's Club"
+      ],
+      "sources": {
+        "kroger": {
+          "term": "scoop away complete performance cat litter",
+          "match": [
+            "scoop away"
+          ],
+          "any": [
+            "complete performance",
+            "complete"
+          ]
+        },
+        "flipp": {
+          "query": "scoop away",
+          "match": [
+            "scoop away"
+          ]
+        },
+        "slickdeals": "scoop away litter"
+      }
     }
   ]
 }

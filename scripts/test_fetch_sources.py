@@ -114,6 +114,7 @@ class MatchAndSizeTests(unittest.TestCase):
         self.assertEqual(fs.package_size("Protein Bar 12pk, 1.98 OZ", "bar"), 12)
         self.assertEqual(fs.package_size("Original Beef Stick 8 Count, 1.15 OZ", "stick"), 8)
         self.assertEqual(fs.package_size("Original Beef Stick Sgl, 1.15 OZ", "stick"), 1)
+        self.assertEqual(fs.package_size("Scoop Away Cat Litter, 14 lbs.", "lb"), 14)
 
 
 class WholeFoodsTests(unittest.TestCase):
