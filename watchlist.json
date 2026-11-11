@@ -725,10 +725,10 @@
     {
       "id": "wf365-vanilla-yogurt",
       "name": "365 Organic Lowfat Vanilla Yogurt",
-      "variant": "32 oz tub, 1% milkfat",
+      "variant": "32 oz tub, 1% milkfat (usual: $4.79 at Whole Foods)",
       "kind": "grocery",
       "unit": "oz",
-      "typical_unit_price": null,
+      "typical_unit_price": 0.1497,
       "stores": [
         "Whole Foods",
         "Amazon"
