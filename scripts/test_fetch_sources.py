@@ -96,6 +96,20 @@ class KrogerTests(unittest.TestCase):
         obs = fs.from_kroger(item, {"term": "k", "match": ["salted"]}, self.kroger(), "2026-11-11")
         self.assertEqual(sorted(o["size"] for o in obs), [4.0, 8.0])
 
+    def test_quoted_keys_are_cleaned(self):
+        env = {"KROGER_CLIENT_ID": '"app-123"', "KROGER_CLIENT_SECRET": " 'sec' "}
+        seen = {}
+
+        def fake_urlopen(req, timeout):
+            seen["auth"] = req.get_header("Authorization")
+            raise fs.urllib.error.HTTPError(req.full_url, 401, "no", {}, None)
+
+        with mock.patch.dict(fs.os.environ, env, clear=True), \
+             mock.patch.object(fs.urllib.request, "urlopen", fake_urlopen):
+            with self.assertRaises(RuntimeError):
+                fs.Kroger("30152")
+        self.assertEqual(seen["auth"], "Basic " + fs.base64.b64encode(b"app-123:sec").decode())
+
     def test_missing_keys_skip_kroger(self):
         with mock.patch.dict(fs.os.environ, {}, clear=True):
             with self.assertRaises(RuntimeError):

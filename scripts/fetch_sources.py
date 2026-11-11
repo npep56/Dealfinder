@@ -186,7 +186,9 @@ class Kroger:
     API = "https://api.kroger.com/v1"
 
     def __init__(self, postal_code):
-        cid, secret = os.environ.get("KROGER_CLIENT_ID"), os.environ.get("KROGER_CLIENT_SECRET")
+        # Settings editors often keep quotes typed around a value: strip them and spaces.
+        cid, secret = (os.environ.get(k, "").strip().strip("\"'").strip()
+                       for k in ("KROGER_CLIENT_ID", "KROGER_CLIENT_SECRET"))
         if not (cid and secret):
             raise RuntimeError("KROGER_CLIENT_ID / KROGER_CLIENT_SECRET not set")
         basic = base64.b64encode(f"{cid}:{secret}".encode()).decode()
