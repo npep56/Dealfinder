@@ -748,10 +748,10 @@
     {
       "id": "scoop-away-litter",
       "name": "Scoop Away Complete Performance Plus cat litter",
-      "variant": "Clumping, compare per lb (usual: 42 lb, 4 x 10.5 lb pouches)",
+      "variant": "Clumping, compare per lb (usual: 42 lb 4-pack for $16.79, $0.40/lb)",
       "kind": "grocery",
       "unit": "lb",
-      "typical_unit_price": null,
+      "typical_unit_price": 0.3998,
       "stores": [
         "Walmart",
         "Target",
