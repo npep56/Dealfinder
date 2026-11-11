@@ -326,6 +326,24 @@
           "query": "simply lemonade",
           "match": [
             "simply"
+          ],
+          "exclude": [
+            "strawberry",
+            "raspberry",
+            "mango",
+            "peach",
+            "blueberry",
+            "watermelon",
+            "cherry",
+            "pink",
+            "light",
+            "spiked",
+            "tea",
+            "mint",
+            "ginger",
+            "cranberry",
+            "pineapple",
+            "zero"
           ]
         },
         "kroger": {
@@ -334,7 +352,25 @@
             "simply",
             "lemonade"
           ],
-          "size": 52
+          "size": 52,
+          "exclude": [
+            "strawberry",
+            "raspberry",
+            "mango",
+            "peach",
+            "blueberry",
+            "watermelon",
+            "cherry",
+            "pink",
+            "light",
+            "spiked",
+            "tea",
+            "mint",
+            "ginger",
+            "cranberry",
+            "pineapple",
+            "zero"
+          ]
         },
         "wholefoods": {
           "query": "simply lemonade",
@@ -342,7 +378,25 @@
             "simply",
             "lemonade"
           ],
-          "size": 52
+          "size": 52,
+          "exclude": [
+            "strawberry",
+            "raspberry",
+            "mango",
+            "peach",
+            "blueberry",
+            "watermelon",
+            "cherry",
+            "pink",
+            "light",
+            "spiked",
+            "tea",
+            "mint",
+            "ginger",
+            "cranberry",
+            "pineapple",
+            "zero"
+          ]
         }
       }
     },
@@ -561,7 +615,8 @@
             "aloha",
             "peanut butter cup"
           ],
-          "size": 12
+          "size": 12,
+          "unit_oz": 1.98
         },
         "wholefoods": {
           "query": "aloha peanut butter cup",
@@ -706,7 +761,8 @@
             "chomplings",
             "mini",
             "turkey"
-          ]
+          ],
+          "unit_oz": 1.15
         },
         "wholefoods": {
           "query": "chomps original beef stick",

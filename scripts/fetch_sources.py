@@ -243,9 +243,28 @@ def size_number(text):
     return float(m.group()) if m else None
 
 
+def kroger_size(text, size_text, unit, cfg):
+    """Package size in the watchlist unit from Kroger's size text ("8 oz", "4 ct / 8 oz", "9.2 oz")."""
+    count = re.search(r"(\d+)\s*(?:ct|count|pk|pack)\b", size_text or "", re.I)
+    count = int(count.group(1)) if count else 1
+    if unit == "oz":
+        oz = package_size(size_text or "", "oz") or size_number(size_text)
+        return oz * count if oz else None
+    if unit == "lb":
+        return package_size(size_text or "", "lb") or size_number(size_text)
+    # Sticks and bars: a pack count in the name or size, else total ounces / ounces per piece.
+    n = package_size(f"{text} {size_text or ''}", unit)
+    if n and n > 1:
+        return n
+    oz = package_size(size_text or "", "oz")
+    if oz and cfg.get("unit_oz"):
+        return max(1, round(oz / cfg["unit_oz"]))
+    return n or 1
+
+
 def from_kroger(item, cfg, kroger, today):
-    """Products whose description has every "match" word and a price at the store."""
-    observations = []
+    """Products whose description fits the item's rules, priced at the nearest Kroger."""
+    observations, seen = [], set()
     for p in kroger.search(cfg["term"]):
         text = f"{p.get('brand', '')} {p.get('description', '')}"
         if not matches(text, cfg):
@@ -255,9 +274,13 @@ def from_kroger(item, cfg, kroger, today):
             regular, promo = price.get("regular"), price.get("promo")
             if not regular:
                 continue
-            size = cfg.get("size") or size_number(it.get("size"))
-            if cfg.get("size") and size_number(it.get("size")) not in (None, cfg["size"]):
+            size = kroger_size(text, it.get("size"), item["unit"], cfg) if item["kind"] == "grocery" else None
+            if cfg.get("size") and size != cfg["size"]:
                 continue  # a different package size
+            key = (p.get("productId"), it.get("size"))
+            if key in seen:
+                continue
+            seen.add(key)
             o = {
                 "item": item["id"],
                 "store": kroger.store_name,
@@ -266,8 +289,8 @@ def from_kroger(item, cfg, kroger, today):
                 "url": f"https://www.kroger.com/p/-/{p.get('productId')}",
                 "note": f"{text.strip()} {it.get('size', '')} (Kroger API, {today}).".replace("  ", " "),
             }
-            if item["kind"] == "grocery":
-                o["size"] = size or 1
+            if size:
+                o["size"] = size
             observations.append(o)
     return observations
 

@@ -86,15 +86,28 @@ class KrogerTests(unittest.TestCase):
         return k
 
     def test_match_words_size_and_promo(self):
-        item = {"id": "kg", "kind": "grocery"}
+        item = {"id": "kg", "kind": "grocery", "unit": "oz"}
         cfg = {"term": "kerrygold", "match": ["kerrygold", "salted"], "size": 8}
         obs = fs.from_kroger(item, cfg, self.kroger(), "2026-11-11")
         self.assertEqual([(o["price"], o["regular_price"], o["size"]) for o in obs], [(3.99, 4.99, 8)])
 
     def test_size_read_from_package_when_not_given(self):
-        item = {"id": "kg", "kind": "grocery"}
+        item = {"id": "kg", "kind": "grocery", "unit": "oz"}
         obs = fs.from_kroger(item, {"term": "k", "match": ["salted"]}, self.kroger(), "2026-11-11")
         self.assertEqual(sorted(o["size"] for o in obs), [4.0, 8.0])
+
+    def test_kroger_sizes(self):
+        self.assertEqual(fs.kroger_size("Kerrygold Butter", "4 ct / 8 oz", "oz", {}), 32)
+        self.assertEqual(fs.kroger_size("Kerrygold Butter", "8 oz", "oz", {}), 8)
+        self.assertEqual(fs.kroger_size("Chomps Original Beef Sticks", "9.2 oz", "stick", {"unit_oz": 1.15}), 8)
+        self.assertEqual(fs.kroger_size("Chomps Original Beef Stick", "1.15 oz", "stick", {"unit_oz": 1.15}), 1)
+        self.assertEqual(fs.kroger_size("Scoop Away Litter", "42 lb", "lb", {}), 42)
+
+    def test_duplicate_products_are_listed_once(self):
+        k = self.kroger()
+        k.search.return_value = self.PRODUCTS[:1] * 3
+        obs = fs.from_kroger({"id": "kg", "kind": "grocery", "unit": "oz"}, {"term": "k", "match": ["salted"]}, k, "d")
+        self.assertEqual(len(obs), 1)
 
     def test_quoted_keys_are_cleaned(self):
         env = {"KROGER_CLIENT_ID": '<app-123>', "KROGER_CLIENT_SECRET": " 'sec' "}
