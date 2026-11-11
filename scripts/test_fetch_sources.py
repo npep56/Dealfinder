@@ -97,7 +97,7 @@ class KrogerTests(unittest.TestCase):
         self.assertEqual(sorted(o["size"] for o in obs), [4.0, 8.0])
 
     def test_quoted_keys_are_cleaned(self):
-        env = {"KROGER_CLIENT_ID": '"app-123"', "KROGER_CLIENT_SECRET": " 'sec' "}
+        env = {"KROGER_CLIENT_ID": '<app-123>', "KROGER_CLIENT_SECRET": " 'sec' "}
         seen = {}
 
         def fake_urlopen(req, timeout):

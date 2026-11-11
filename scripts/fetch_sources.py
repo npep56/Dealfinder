@@ -186,8 +186,8 @@ class Kroger:
     API = "https://api.kroger.com/v1"
 
     def __init__(self, postal_code):
-        # Settings editors often keep quotes typed around a value: strip them and spaces.
-        cid, secret = (os.environ.get(k, "").strip().strip("\"'").strip()
+        # Values pasted from a template keep the quotes or <angle brackets> around them.
+        cid, secret = (os.environ.get(k, "").strip().strip("\"'<>").strip()
                        for k in ("KROGER_CLIENT_ID", "KROGER_CLIENT_SECRET"))
         if not (cid and secret):
             raise RuntimeError("KROGER_CLIENT_ID / KROGER_CLIENT_SECRET not set")
