@@ -17,6 +17,7 @@ All scans live on the `claude/deal-checks-interface-rz1xgl` branch.
 ## Commands
 
 ```sh
+python3 scripts/fetch_sources.py    # exact store prices, weekly-ad and Slickdeals leads
 python3 scripts/build.py            # build out/ and print the notification text
 python3 scripts/build.py --check    # validate watchlist and scans only
 python3 -m unittest discover scripts
@@ -28,6 +29,19 @@ Ask Claude ("add Hoka Clifton 10, size 10.5, alert under $110") or edit `watchli
 directly. Each item needs a unique `id`, a `kind` (`want` or `grocery`) and a `unit`
 (`item`, `oz`, `bar` or `stick`). Wants take a `target_price`, or `null` for "any real
 sale". Groceries are compared per unit.
+
+## Where prices come from
+
+Each item's `sources` in `watchlist.json` say where to look first:
+
+- **Store product feeds** (`shopify`): Rothy's, Wolaco, FitcamX, Janji, ALOHA and Chomps
+  publish exact prices and stock for every size and color.
+- **Flipp** (`flipp`): this week's printed ads for Kroger, Publix, Target, Walmart and
+  more near `settings.postal_code`.
+- **Slickdeals** (`slickdeals`): posts from the last two weeks.
+
+The scan then searches the web for whatever those don't cover (Dyson, Costco, Whole
+Foods, Amazon).
 
 ## How deals are judged
 

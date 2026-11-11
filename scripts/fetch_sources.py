@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+"""Pull prices from structured sources before the web search part of a deal scan.
+
+Each watchlist item can name its sources under "sources" in watchlist.json:
+
+  "shopify":    {"store": "rothys.com", "handle": "womens-casual-clog-chestnut",
+                 "variant": ["Chestnut", "10"], "size_from_variant": false}
+                Exact price, compare-at price and stock for the matching variant, read
+                from the store's own product feed. Each entry in "variant" must equal one
+                of the variant's option values; "A|B" accepts either, "Front: 4K*" is a
+                prefix match. With size_from_variant, the first number in the variant
+                title is the pack size (e.g. "24 Pack").
+  "flipp":      {"query": "kerrygold", "match": ["kerrygold"]}
+                This week's printed store ads near settings.postal_code (Kroger, Publix,
+                Target, Walmart and more). "match" words must all appear in the ad title.
+  "slickdeals": "kerrygold butter"
+                Slickdeals posts from the last settings.slickdeals_days days.
+
+Shopify results are exact and become ready-made observations. Flipp and Slickdeals
+results are leads: the scan still confirms the product, size and price.
+
+Writes out/sources.json ({"observations", "leads", "errors"}) and prints a short report.
+Usage: python3 scripts/fetch_sources.py [item-id ...]
+"""
+import json
+import re
+import sys
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
+from datetime import date, datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "out"
+UA = {"User-Agent": "Mozilla/5.0 (deal scan; personal use)"}
+
+
+def get(url, timeout=25):
+    req = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read().decode("utf-8", "replace")
+
+
+# ---------------------------------------------------------------- shopify
+
+
+def option_matches(wanted, value):
+    value = value.strip().lower()
+    for alt in wanted.split("|"):
+        alt = alt.strip().lower()
+        if alt.endswith("*") and value.startswith(alt[:-1]) or alt == value:
+            return True
+    return False
+
+
+def variant_matches(wanted, values):
+    return all(any(option_matches(w, v) for v in values) for w in wanted)
+
+
+def shopify_variants(store, handle):
+    """Return [(title, option_values, price, compare_at, available)] for a product."""
+    base = f"https://{store}/products/{handle}"
+    try:  # .js has stock; prices in cents
+        p = json.loads(get(base + ".js"))
+        return p["title"], [
+            (v["title"], [v.get(f"option{i}") or "" for i in (1, 2, 3)], v["price"] / 100,
+             (v.get("compare_at_price") or 0) / 100 or None, v.get("available"))
+            for v in p["variants"]]
+    except (ValueError, KeyError, OSError):
+        p = json.loads(get(base + ".json"))["product"]  # no stock; prices as text
+        return p["title"], [
+            (v["title"], [v.get(f"option{i}") or "" for i in (1, 2, 3)], float(v["price"]),
+             float(v["compare_at_price"]) if v.get("compare_at_price") else None, None)
+            for v in p["variants"]]
+
+
+def from_shopify(item, cfg, today):
+    title, variants = shopify_variants(cfg["store"], cfg["handle"])
+    url = f"https://{cfg['store']}/products/{cfg['handle']}"
+    found = [v for v in variants if variant_matches(cfg.get("variant", []), v[1])]
+    if not found:
+        raise LookupError(f"no variant of '{title}' matches {cfg.get('variant')}")
+    observations = []
+    for vtitle, _, price, compare, available in found:
+        o = {
+            "item": item["id"],
+            "store": cfg["store"],
+            "price": price,
+            # The watchlist's regular price wins: some stores show a permanent "compare-at".
+            "regular_price": item.get("regular_price") or (compare if compare and compare > price else price),
+            "url": url,
+            "in_stock": available,
+            "note": f"{title}: {vtitle} (store product feed, {today}).",
+        }
+        if compare and compare > price:
+            o["note"] += f" Store shows compare-at ${compare:g}."
+        if cfg.get("size_from_variant"):
+            m = re.search(r"\d+", vtitle)
+            o["size"] = int(m.group()) if m else 1
+        if available is None:
+            del o["in_stock"]
+        observations.append(o)
+    return observations
+
+
+# ---------------------------------------------------------------- flipp
+
+
+def from_flipp(item, cfg, postal_code, today):
+    q = urllib.parse.urlencode({"locale": "en-us", "postal_code": postal_code, "q": cfg["query"]})
+    data = json.loads(get(f"https://backflipp.wishabi.com/flipp/items/search?{q}"))
+    words = [w.lower() for w in cfg.get("match", [])]
+    leads = []
+    for ad in data.get("items", []):
+        name = ad.get("name") or ""
+        if not all(w in name.lower() for w in words):
+            continue
+        if (ad.get("valid_to") or "9999")[:10] < today:
+            continue
+        deal = " ".join(x for x in (ad.get("pre_price_text"), ad.get("current_price") and f"${ad['current_price']}",
+                                    ad.get("post_price_text"), ad.get("sale_story")) if x)
+        leads.append({
+            "item": item["id"],
+            "source": "Flipp weekly ad",
+            "store": ad.get("merchant_name"),
+            "title": name,
+            "deal": deal or "in ad (price not listed)",
+            "valid": f"{(ad.get('valid_from') or '')[:10]} to {(ad.get('valid_to') or '')[:10]}",
+            "url": f"https://flipp.com/en-us/item/{ad.get('id')}",
+        })
+    return leads
+
+
+# ---------------------------------------------------------------- slickdeals
+
+
+def from_slickdeals(item, query, days, today):
+    q = urllib.parse.urlencode({"mode": "frontpage", "searcharea": "deals", "searchin": "first", "rss": 1, "q": query})
+    root = ET.fromstring(get(f"https://slickdeals.net/newsearch.php?{q}"))
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    leads = []
+    for post in root.iter("item"):
+        try:
+            posted = parsedate_to_datetime(post.findtext("pubDate"))
+        except (TypeError, ValueError):
+            continue
+        if posted < cutoff:
+            continue
+        leads.append({
+            "item": item["id"],
+            "source": "Slickdeals",
+            "store": "",
+            "title": post.findtext("title") or "",
+            "deal": "",
+            "valid": f"posted {posted.date()}",
+            "url": post.findtext("link") or "",
+        })
+    return leads
+
+
+# ---------------------------------------------------------------- main
+
+
+def run_item(item, settings, today):
+    src = item.get("sources") or {}
+    observations, leads, errors = [], [], []
+    jobs = []
+    if "shopify" in src:
+        jobs.append(("shopify", lambda: observations.extend(from_shopify(item, src["shopify"], today))))
+    if "flipp" in src and settings.get("postal_code"):
+        jobs.append(("flipp", lambda: leads.extend(from_flipp(item, src["flipp"], settings["postal_code"], today))))
+    if "slickdeals" in src:
+        jobs.append(("slickdeals", lambda: leads.extend(
+            from_slickdeals(item, src["slickdeals"], settings.get("slickdeals_days", 14), today))))
+    for name, job in jobs:
+        try:
+            job()
+        except Exception as e:  # one failing source must not stop the others
+            errors.append(f"{item['id']} {name}: {type(e).__name__}: {e}")
+    return observations, leads, errors
+
+
+def main(argv):
+    wl = json.loads((ROOT / "watchlist.json").read_text())
+    settings = wl["settings"]
+    items = [i for i in wl["items"] if not argv or i["id"] in argv]
+    today = date.today().isoformat()
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(lambda i: run_item(i, settings, today), items))
+    observations = [o for r in results for o in r[0]]
+    leads = [lead for r in results for lead in r[1]]
+    errors = [e for r in results for e in r[2]]
+    if not settings.get("postal_code"):
+        errors.append("Flipp skipped: set settings.postal_code in watchlist.json")
+
+    OUT.mkdir(exist_ok=True)
+    (OUT / "sources.json").write_text(json.dumps(
+        {"date": today, "observations": observations, "leads": leads, "errors": errors},
+        indent=1, ensure_ascii=False) + "\n")
+
+    print(f"{len(observations)} exact prices, {len(leads)} leads, {len(errors)} errors -> out/sources.json")
+    for o in observations:
+        stock = {True: "in stock", False: "SOLD OUT", None: "stock unknown"}[o.get("in_stock")]
+        size = f" ({o['size']} ct)" if "size" in o else ""
+        print(f"  = {o['item']}: ${o['price']:g}{size} at {o['store']}, {stock}")
+    for lead in leads:
+        print(f"  ? {lead['item']}: {lead['source']} {lead['store']} | {lead['title'][:70]} | {lead['deal']} | {lead['valid']}")
+    for e in errors:
+        print(f"  ! {e}")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

@@ -6,7 +6,9 @@
     "grocery_close_pct": 0.05,
     "want_close_margin": 0.1,
     "deal_stale_days": 3,
-    "dashboard_url": "https://claude.ai/artifact/E4gmQ9GaoJxnwuKJBM5qW7"
+    "dashboard_url": "https://claude.ai/artifact/E4gmQ9GaoJxnwuKJBM5qW7",
+    "postal_code": null,
+    "slickdeals_days": 14
   },
   "items": [
     {
@@ -18,8 +20,24 @@
       "regular_price": 160,
       "target_price": 127,
       "target_reason": "Beats the 20% student discount ($128)",
-      "stores": ["rothys.com", "Anthropologie", "Nordstrom", "Slickdeals"],
-      "notes": "Say if the sale is final sale. Only Chestnut counts."
+      "stores": [
+        "rothys.com",
+        "Anthropologie",
+        "Nordstrom",
+        "Slickdeals"
+      ],
+      "notes": "Say if the sale is final sale. Only Chestnut counts.",
+      "sources": {
+        "shopify": {
+          "store": "rothys.com",
+          "handle": "womens-casual-clog-chestnut",
+          "variant": [
+            "Chestnut",
+            "10"
+          ]
+        },
+        "slickdeals": "rothys casual clog"
+      }
     },
     {
       "id": "wolaco-distance-half-tight",
@@ -30,8 +48,24 @@
       "regular_price": null,
       "target_price": null,
       "target_reason": "No student discount: any real sale below regular price",
-      "stores": ["wolaco.com", "Retailers", "Slickdeals"],
-      "notes": ""
+      "stores": [
+        "wolaco.com",
+        "Retailers",
+        "Slickdeals"
+      ],
+      "notes": "",
+      "sources": {
+        "shopify": {
+          "store": "wolaco.com",
+          "handle": "distance-half-tight-black",
+          "variant": [
+            "Black",
+            "L",
+            "8 Inch Inseam"
+          ]
+        },
+        "slickdeals": "wolaco"
+      }
     },
     {
       "id": "fitcamx-p6000",
@@ -42,8 +76,24 @@
       "regular_price": 189,
       "target_price": 160,
       "target_reason": "Your alert price",
-      "stores": ["Amazon", "Walmart", "Newegg", "fitcamx.com", "Slickdeals"],
-      "notes": "Front-only 4K. Dual front+rear bundles do not count."
+      "stores": [
+        "Amazon",
+        "Walmart",
+        "Newegg",
+        "fitcamx.com",
+        "Slickdeals"
+      ],
+      "notes": "Front-only 4K. Dual front+rear bundles do not count.",
+      "sources": {
+        "shopify": {
+          "store": "fitcamx.com",
+          "handle": "fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+          "variant": [
+            "Front: 4K*"
+          ]
+        },
+        "slickdeals": "fitcamx"
+      }
     },
     {
       "id": "janji-trail-half-tight-lined",
@@ -54,8 +104,23 @@
       "regular_price": 112,
       "target_price": 90,
       "target_reason": "Your alert price (beats 20% student discount)",
-      "stores": ["janji.com", "REI", "Running retailers"],
-      "notes": "Must be the LINED version. REI's unlined version does not count."
+      "stores": [
+        "janji.com",
+        "REI",
+        "Running retailers"
+      ],
+      "notes": "Must be the LINED version. REI's unlined version does not count.",
+      "sources": {
+        "shopify": {
+          "store": "janji.com",
+          "handle": "ms-8-trail-half-tight-lined",
+          "variant": [
+            "Carbon|Midnight",
+            "L"
+          ]
+        },
+        "slickdeals": "janji"
+      }
     },
     {
       "id": "dyson-v15-detect",
@@ -66,8 +131,20 @@
       "regular_price": null,
       "target_price": null,
       "target_reason": "No verified US student offer: any real sale below dyson.com regular price",
-      "stores": ["dyson.com", "Amazon", "Best Buy", "Target", "Walmart", "Costco", "Kohl's", "Slickdeals"],
-      "notes": "Not refurbished/open-box; not Absolute, Extra or Submarine. Re-check Student Beans US / UNiDAYS US each run; if a V15 student offer is confirmed, only flag deals that beat it. Note model and included attachments."
+      "stores": [
+        "dyson.com",
+        "Amazon",
+        "Best Buy",
+        "Target",
+        "Walmart",
+        "Costco",
+        "Kohl's",
+        "Slickdeals"
+      ],
+      "notes": "Not refurbished/open-box; not Absolute, Extra or Submarine. Re-check Student Beans US / UNiDAYS US each run; if a V15 student offer is confirmed, only flag deals that beat it. Note model and included attachments.",
+      "sources": {
+        "slickdeals": "dyson v15 detect"
+      }
     },
     {
       "id": "kerrygold-butter",
@@ -76,7 +153,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Costco", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Costco",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "kerrygold butter",
+          "match": [
+            "kerrygold"
+          ]
+        },
+        "slickdeals": "kerrygold"
+      }
     },
     {
       "id": "stonyfield-vanilla-yogurt",
@@ -85,7 +175,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "stonyfield yogurt",
+          "match": [
+            "stonyfield"
+          ]
+        }
+      }
     },
     {
       "id": "natural-bliss-sweet-cream",
@@ -94,7 +197,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "natural bliss creamer",
+          "match": [
+            "natural bliss"
+          ]
+        }
+      }
     },
     {
       "id": "califia-toasted-coconut",
@@ -103,7 +219,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "califia",
+          "match": [
+            "califia"
+          ]
+        }
+      }
     },
     {
       "id": "simply-lemonade",
@@ -112,7 +241,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "simply lemonade",
+          "match": [
+            "simply"
+          ]
+        }
+      }
     },
     {
       "id": "cedars-hommus",
@@ -121,7 +263,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "cedar's hommus",
+          "match": [
+            "cedar"
+          ]
+        }
+      }
     },
     {
       "id": "just-bare-chunks",
@@ -130,7 +285,22 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Costco", "Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Costco",
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "just bare chicken",
+          "match": [
+            "just bare"
+          ]
+        },
+        "slickdeals": "just bare chicken"
+      }
     },
     {
       "id": "simple-truth-pb",
@@ -139,7 +309,17 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger"]
+      "stores": [
+        "Kroger"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "simple truth peanut butter",
+          "match": [
+            "peanut butter"
+          ]
+        }
+      }
     },
     {
       "id": "smash-kitchen-chips",
@@ -148,7 +328,17 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Walmart"]
+      "stores": [
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "smash kitchen",
+          "match": [
+            "smash"
+          ]
+        }
+      }
     },
     {
       "id": "back-to-nature-crackers",
@@ -157,7 +347,20 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "back to nature crackers",
+          "match": [
+            "back to nature"
+          ]
+        }
+      }
     },
     {
       "id": "aloha-pb-cup-bars",
@@ -166,7 +369,33 @@
       "kind": "grocery",
       "unit": "bar",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart", "Amazon", "Costco", "Target", "aloha.com"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart",
+        "Amazon",
+        "Costco",
+        "Target",
+        "aloha.com"
+      ],
+      "sources": {
+        "shopify": {
+          "store": "aloha.com",
+          "handle": "peanut-butter-cup-protein-bar",
+          "variant": [
+            "12-Bar Box"
+          ],
+          "size_from_variant": true
+        },
+        "flipp": {
+          "query": "aloha protein bar",
+          "match": [
+            "aloha"
+          ]
+        },
+        "slickdeals": "aloha protein bar"
+      }
     },
     {
       "id": "love-crunch-granola",
@@ -175,7 +404,24 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Kroger", "Publix", "Whole Foods", "Walmart", "Amazon", "Costco", "Target"]
+      "stores": [
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "Walmart",
+        "Amazon",
+        "Costco",
+        "Target"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "love crunch granola",
+          "match": [
+            "love crunch"
+          ]
+        },
+        "slickdeals": "love crunch granola"
+      }
     },
     {
       "id": "kirkland-mixed-nuts",
@@ -184,7 +430,12 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Costco"]
+      "stores": [
+        "Costco"
+      ],
+      "sources": {
+        "slickdeals": "kirkland mixed nuts"
+      }
     },
     {
       "id": "wf365-coffee",
@@ -193,7 +444,13 @@
       "kind": "grocery",
       "unit": "oz",
       "typical_unit_price": null,
-      "stores": ["Whole Foods", "Amazon"]
+      "stores": [
+        "Whole Foods",
+        "Amazon"
+      ],
+      "sources": {
+        "slickdeals": "365 whole foods coffee"
+      }
     },
     {
       "id": "chomps-original",
@@ -202,7 +459,33 @@
       "kind": "grocery",
       "unit": "stick",
       "typical_unit_price": null,
-      "stores": ["Costco", "Amazon", "Walmart", "Target", "Kroger", "Publix", "Whole Foods", "chomps.com"]
+      "stores": [
+        "Costco",
+        "Amazon",
+        "Walmart",
+        "Target",
+        "Kroger",
+        "Publix",
+        "Whole Foods",
+        "chomps.com"
+      ],
+      "sources": {
+        "shopify": {
+          "store": "chomps.com",
+          "handle": "original-beef-sticks",
+          "variant": [
+            "10 Pack|24 Pack"
+          ],
+          "size_from_variant": true
+        },
+        "flipp": {
+          "query": "chomps",
+          "match": [
+            "chomps"
+          ]
+        },
+        "slickdeals": "chomps beef sticks"
+      }
     }
   ]
 }

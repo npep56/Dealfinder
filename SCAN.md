@@ -11,6 +11,25 @@ instead of by feel.
 
 ## 1. Gather prices
 
+### Start with the structured sources
+
+Run `python3 scripts/fetch_sources.py` first (about 5 seconds). It reads the sources
+listed under each item's `"sources"` in `watchlist.json` and writes `out/sources.json`:
+
+- `observations`: exact prices and stock from the store's own product feed (Rothy's,
+  Wolaco, FitcamX, Janji, ALOHA, Chomps). Copy them into the scan file as they are.
+- `leads`: this week's printed store ads from Flipp (Kroger, Publix, Target, Walmart,
+  Walgreens and more, for `settings.postal_code`) and Slickdeals posts from the last two
+  weeks. Each lead is a hint, not a price: open it and confirm the exact product, size
+  and price before recording an observation (e.g. "Just Bare Chicken Breast Fillets" is
+  not the Lightly Breaded Chunks). Note leads that don't match in `notes`.
+- `errors`: sources that failed. Fill those in by hand below and list them in `gaps`.
+
+Then use web search only for what the sources don't cover: Dyson, Costco, Whole Foods,
+Amazon, items with no lead, and stores an item lists that the sources skipped.
+
+### Search the web
+
 Search the web (including slickdeals.net) for current sales, price drops, coupons,
 digital coupons and promo codes on every item in `watchlist.json`, at the stores
 listed for it. Also check Walmart for every item Walmart carries (except store brands
