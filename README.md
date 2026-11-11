@@ -43,8 +43,12 @@ Each item's `sources` in `watchlist.json` say where to look first:
   `KROGER_CLIENT_ID` and `KROGER_CLIENT_SECRET` environment variables (a free app at
   developer.kroger.com); without them this source is skipped.
 
-The scan then searches the web for whatever those don't cover (Dyson, Costco, Whole
-Foods, Amazon).
+- **Whole Foods** (`wholefoods`): regular, sale and Prime member prices at the store in
+  `settings.wholefoods_store` (Kennesaw), from the Whole Foods website's product search.
+  Set `settings.prime_member` to `true` to count Prime prices.
+
+Flipp also carries Costco's monthly savings book and Walmart's and Best Buy's ads. The
+scan then searches the web for whatever is left (Dyson, Amazon, Walmart online prices).
 
 ## How deals are judged
 

@@ -8,7 +8,12 @@
     "deal_stale_days": 3,
     "dashboard_url": "https://claude.ai/artifact/E4gmQ9GaoJxnwuKJBM5qW7",
     "postal_code": "30152",
-    "slickdeals_days": 14
+    "slickdeals_days": 14,
+    "wholefoods_store": {
+      "id": "10590",
+      "name": "Kennesaw, 1300 Ernest Barrett Pkwy"
+    },
+    "prime_member": false
   },
   "items": [
     {
@@ -178,6 +183,13 @@
             "kerrygold",
             "salted"
           ]
+        },
+        "wholefoods": {
+          "query": "kerrygold salted butter",
+          "match": [
+            "kerrygold",
+            "salted"
+          ]
         }
       }
     },
@@ -208,6 +220,15 @@
             "vanilla"
           ],
           "size": 32
+        },
+        "wholefoods": {
+          "query": "stonyfield vanilla low fat yogurt",
+          "match": [
+            "stonyfield",
+            "vanilla",
+            "low fat"
+          ],
+          "size": 32
         }
       }
     },
@@ -233,6 +254,14 @@
         },
         "kroger": {
           "term": "natural bliss sweet cream creamer",
+          "match": [
+            "natural bliss",
+            "sweet cream"
+          ],
+          "size": 32
+        },
+        "wholefoods": {
+          "query": "natural bliss sweet cream",
           "match": [
             "natural bliss",
             "sweet cream"
@@ -268,6 +297,14 @@
             "toasted coconut"
           ],
           "size": 48
+        },
+        "wholefoods": {
+          "query": "califia toasted coconut",
+          "match": [
+            "califia",
+            "toasted coconut"
+          ],
+          "size": 48
         }
       }
     },
@@ -298,6 +335,14 @@
             "lemonade"
           ],
           "size": 52
+        },
+        "wholefoods": {
+          "query": "simply lemonade",
+          "match": [
+            "simply",
+            "lemonade"
+          ],
+          "size": 52
         }
       }
     },
@@ -316,16 +361,40 @@
       ],
       "sources": {
         "flipp": {
-          "query": "cedar's hommus",
+          "query": "cedars hummus",
           "match": [
-            "cedar's"
+            "cedars"
           ]
         },
         "kroger": {
           "term": "cedar's organic hommus",
+          "match": [],
+          "size": 10,
+          "any": [
+            "hot honey",
+            "original",
+            "garlic"
+          ],
+          "exclude": [
+            "reserve",
+            "snack",
+            "roasted red pepper"
+          ]
+        },
+        "wholefoods": {
+          "query": "cedars hommus",
           "match": [
-            "cedar's",
-            "hommus"
+            "cedars"
+          ],
+          "any": [
+            "hot honey",
+            "original",
+            "garlic"
+          ],
+          "exclude": [
+            "reserve",
+            "snack pack",
+            "roasted red pepper"
           ],
           "size": 10
         }
@@ -355,6 +424,13 @@
         "slickdeals": "just bare chicken",
         "kroger": {
           "term": "just bare lightly breaded chicken chunks",
+          "match": [
+            "just bare",
+            "chunks"
+          ]
+        },
+        "wholefoods": {
+          "query": "just bare chicken chunks",
           "match": [
             "just bare",
             "chunks"
@@ -435,6 +511,14 @@
             "round"
           ],
           "size": 6.5
+        },
+        "wholefoods": {
+          "query": "back to nature classic round crackers",
+          "match": [
+            "back to nature",
+            "round"
+          ],
+          "size": 6.5
         }
       }
     },
@@ -476,7 +560,16 @@
           "match": [
             "aloha",
             "peanut butter cup"
-          ]
+          ],
+          "size": 12
+        },
+        "wholefoods": {
+          "query": "aloha peanut butter cup",
+          "match": [
+            "aloha",
+            "peanut butter cup"
+          ],
+          "size": 12
         }
       }
     },
@@ -506,6 +599,14 @@
         "slickdeals": "love crunch granola",
         "kroger": {
           "term": "nature's path love crunch dark chocolate peanut butter",
+          "match": [
+            "love crunch",
+            "peanut butter"
+          ],
+          "size": 11.5
+        },
+        "wholefoods": {
+          "query": "love crunch peanut butter",
           "match": [
             "love crunch",
             "peanut butter"
@@ -547,7 +648,14 @@
         "Amazon"
       ],
       "sources": {
-        "slickdeals": "365 whole foods coffee"
+        "slickdeals": "365 whole foods coffee",
+        "wholefoods": {
+          "query": "365 ground coffee",
+          "match": [
+            "ground coffee"
+          ],
+          "size": 24
+        }
       }
     },
     {
@@ -580,6 +688,11 @@
           "query": "chomps",
           "match": [
             "chomps"
+          ],
+          "exclude": [
+            "chomplings",
+            "mini",
+            "turkey"
           ]
         },
         "slickdeals": "chomps beef sticks",
@@ -588,6 +701,23 @@
           "match": [
             "chomps",
             "original"
+          ],
+          "exclude": [
+            "chomplings",
+            "mini",
+            "turkey"
+          ]
+        },
+        "wholefoods": {
+          "query": "chomps original beef stick",
+          "match": [
+            "chomps",
+            "original beef"
+          ],
+          "exclude": [
+            "chomplings",
+            "mini",
+            "turkey"
           ]
         }
       }

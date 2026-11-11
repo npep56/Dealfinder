@@ -102,5 +102,45 @@ class KrogerTests(unittest.TestCase):
                 fs.Kroger("30152")
 
 
+class MatchAndSizeTests(unittest.TestCase):
+    def test_any_and_exclude(self):
+        cfg = {"match": ["cedars"], "any": ["hot honey", "original"], "exclude": ["reserve"]}
+        self.assertTrue(fs.matches("Cedars Organic Hot Honey Hommus, 10 OZ", cfg))
+        self.assertFalse(fs.matches("Cedars Organic Cedar's Reserve Olive Hommus, 10 OZ", cfg))
+        self.assertFalse(fs.matches("Cedars Reserve Original Hommus", cfg))
+
+    def test_package_size(self):
+        self.assertEqual(fs.package_size("Salted Irish Butter, 8 OZ", "oz"), 8)
+        self.assertEqual(fs.package_size("Protein Bar 12pk, 1.98 OZ", "bar"), 12)
+        self.assertEqual(fs.package_size("Original Beef Stick 8 Count, 1.15 OZ", "stick"), 8)
+        self.assertEqual(fs.package_size("Original Beef Stick Sgl, 1.15 OZ", "stick"), 1)
+
+
+class WholeFoodsTests(unittest.TestCase):
+    SETTINGS = {"wholefoods_store": {"id": "10590", "name": "Kennesaw"}, "prime_member": False}
+    RESULTS = {"results": [
+        {"brand": "Kerrygold", "name": "Salted Butter Sticks, 8 OZ", "slug": "a", "regularPrice": 5.49,
+         "salePrice": 4.88, "incrementalSalePrice": 4.39, "saleEndDate": "2026-11-17T23:59:59Z"},
+        {"brand": "Kerrygold", "name": "Unsalted Butter Sticks, 8 OZ", "slug": "b", "regularPrice": 5.49},
+        {"brand": "Kerrygold", "name": "Salted Butter, 16 OZ", "slug": "c", "regularPrice": 9.99,
+         "salePrice": 8.99, "saleEndDate": "2026-11-01T23:59:59Z"},
+    ]}
+
+    def run_wf(self, settings, cfg):
+        item = {"id": "kg", "kind": "grocery", "unit": "oz"}
+        with mock.patch.object(fs, "get", return_value=__import__("json").dumps(self.RESULTS)):
+            return fs.from_wholefoods(item, cfg, settings, "2026-11-11")
+
+    def test_sale_price_and_expired_sale(self):
+        obs = self.run_wf(self.SETTINGS, {"query": "k", "match": ["kerrygold", "salted"]})
+        self.assertEqual([(o["price"], o["regular_price"], o["size"], o.get("ends")) for o in obs],
+                         [(4.88, 5.49, 8, "2026-11-17"), (9.99, 9.99, 16, None)])
+        self.assertIn("Prime members $4.39", obs[0]["note"])
+
+    def test_prime_price_for_members(self):
+        obs = self.run_wf(dict(self.SETTINGS, prime_member=True), {"query": "k", "match": ["salted"], "size": 8})
+        self.assertEqual([o["price"] for o in obs], [4.39])
+
+
 if __name__ == "__main__":
     unittest.main()
