@@ -244,12 +244,12 @@ def size_number(text):
 
 
 def kroger_size(text, size_text, unit, cfg):
-    """Package size in the watchlist unit from Kroger's size text ("8 oz", "4 ct / 8 oz", "9.2 oz")."""
-    count = re.search(r"(\d+)\s*(?:ct|count|pk|pack)\b", size_text or "", re.I)
-    count = int(count.group(1)) if count else 1
+    """Package size in the watchlist unit from Kroger's size text ("8 oz", "4 ct / 16 oz", "9.2 oz").
+    Kroger's ounces are the package total, also when a count is given."""
     if unit == "oz":
-        oz = package_size(size_text or "", "oz") or size_number(size_text)
-        return oz * count if oz else None
+        oz = package_size(size_text or "", "oz")
+        lb = package_size(size_text or "", "lb")
+        return oz or (lb * 16 if lb else None)
     if unit == "lb":
         return package_size(size_text or "", "lb") or size_number(size_text)
     # Sticks and bars: a pack count in the name or size, else total ounces / ounces per piece.

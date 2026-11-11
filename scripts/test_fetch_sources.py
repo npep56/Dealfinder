@@ -97,7 +97,8 @@ class KrogerTests(unittest.TestCase):
         self.assertEqual(sorted(o["size"] for o in obs), [4.0, 8.0])
 
     def test_kroger_sizes(self):
-        self.assertEqual(fs.kroger_size("Kerrygold Butter", "4 ct / 8 oz", "oz", {}), 32)
+        self.assertEqual(fs.kroger_size("Kerrygold Butter Sticks", "4 ct / 16 oz", "oz", {}), 16)
+        self.assertEqual(fs.kroger_size("Kerrygold Butter", "1 lb", "oz", {}), 16)
         self.assertEqual(fs.kroger_size("Kerrygold Butter", "8 oz", "oz", {}), 8)
         self.assertEqual(fs.kroger_size("Chomps Original Beef Sticks", "9.2 oz", "stick", {"unit_oz": 1.15}), 8)
         self.assertEqual(fs.kroger_size("Chomps Original Beef Stick", "1.15 oz", "stick", {"unit_oz": 1.15}), 1)
