@@ -716,10 +716,10 @@
     {
       "id": "chomps-original",
       "name": "Chomps Original Beef Sticks",
-      "variant": "Mild, 1.15 oz sticks, compare per stick",
+      "variant": "Mild, 1.15 oz sticks, compare per stick (usual: 12 for $16.99, $1.42/stick)",
       "kind": "grocery",
       "unit": "stick",
-      "typical_unit_price": null,
+      "typical_unit_price": 1.4158,
       "stores": [
         "Costco",
         "Amazon",
