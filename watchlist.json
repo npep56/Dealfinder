@@ -922,7 +922,8 @@
             "hand",
             "actionpac",
             "pac",
-            "pod"
+            "pod",
+            "ct"
           ]
         },
         "kroger": {
@@ -946,7 +947,8 @@
             "hand",
             "actionpac",
             "pac",
-            "pod"
+            "pod",
+            "ct"
           ]
         },
         "slickdeals": {
@@ -970,7 +972,8 @@
             "hand",
             "actionpac",
             "pac",
-            "pod"
+            "pod",
+            "ct"
           ]
         }
       }
