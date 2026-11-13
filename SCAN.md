@@ -69,8 +69,10 @@ it says in `data/costco-books/<valid_from>.json`. Daily scans reuse that file.
    `regular_price` to that regular price, and say in the note that the price is worked
    out from the discount. If no regular price is known, don't record an observation
    (the build needs a price); put the discount in `notes` instead.
-2. **When to look for a new book:** if no file covers the next 10 days, look for the
-   next book. Search the web (`Costco coupon book <Month> <year>`) for its dates, then
+2. **When to look for a new book:** every run, check the newest file in
+   `data/costco-books/`. If its `valid_to` is less than 10 days away (or there is no file),
+   look for the next book (the one starting the day after that `valid_to`). Keep looking on
+   every run until it's found. Don't go back for books that have already started. Search the web (`Costco coupon book <Month> <year>`) for its dates, then
    find the Slickdeals post for it, titled like "Costco Coupon Book - Nov 16 - Dec 20, 2026".
    Costco97, CostcoInsider, Costrefund, Costcoguides, Krazy Coupon Lady and
    daily.slickdeals.net can't be reached from this environment. The Slickdeals post can.
@@ -86,6 +88,9 @@ it says in `data/costco-books/<valid_from>.json`. Daily scans reuse that file.
    `source`, `read_on`, `coverage`, `matches`, `not_found` and `near_misses` (see the
    2026-11-16 file). If the screenshots look incomplete, say so in `coverage`, and look
    again on later runs for a fuller set. Commit it with the scan.
+   On the run that saves a new book, add one line to the notification (after the
+   summary text): `New Costco book <M/D>–<M/D>: <matches, e.g. "Scoop Away 42 lb $4.10
+   off"> (pages read: complete|partial)`, or `…: no watchlist items` if none match.
 5. Costco also runs separate holiday events (e.g. Holiday Savings, Oct 30 – Nov 30, in
    several windows). Check Slickdeals for posts on them during November.
 
@@ -170,7 +175,7 @@ When you learn an item's normal price with confidence, you may set
    push to the branch the session started on instead and say which branch in the
    notification.
 4. Send one PushNotification with the text of `out/summary.txt` (it already ends with the
-   dashboard link). Final reply: the same summary plus any gaps.
+   dashboard link), plus the new-Costco-book line if this run saved one. Final reply: the same summary plus any gaps.
 
 If the dashboard or git step fails, still send the notification and say in one line
 what failed.
