@@ -57,6 +57,38 @@ Costco, one for the "want" items, one for Amazon/Target/Slickdeals groceries).
 - walmart.com blocks automated fetching — don't work around it. For Walmart, use only
   what shows in search results or real Slickdeals posts.
 
+### Costco savings book (monthly)
+Costco's monthly savings ("coupon") book runs about 4–5 weeks (e.g. Nov 16 – Dec 20,
+2026) and is posted about a week before it starts. Read each book once and keep what
+it says in `data/costco-books/<valid_from>.json`. Daily scans reuse that file.
+
+1. **Each run:** if a file in `data/costco-books/` covers today, record an observation
+   for each of its `matches` (store "Costco", `ends` = `valid_to`, `code` "Costco
+   savings book", note "from the savings book, read <read_on>"). When the book prints only
+   "$X off", set `price` to Costco's last known regular price minus X,
+   `regular_price` to that regular price, and say in the note that the price is worked
+   out from the discount. If no regular price is known, don't record an observation
+   (the build needs a price); put the discount in `notes` instead.
+2. **When to look for a new book:** if no file covers the next 10 days, look for the
+   next book. Search the web (`Costco coupon book <Month> <year>`) for its dates, then
+   find the Slickdeals post for it, titled like "Costco Coupon Book - Nov 16 - Dec 20, 2026".
+   Costco97, CostcoInsider, Costrefund, Costcoguides, Krazy Coupon Lady and
+   daily.slickdeals.net can't be reached from this environment. The Slickdeals post can.
+3. **Reading the book:** the Slickdeals post holds the pages as image attachments.
+   Download them with Bash (`curl -sSL -A "Mozilla/5.0"` on the post, collect every
+   `attachment.php?attachmentid=…&d=…` link, download each as `https://slickdeals.net/<link>`,
+   and save them in the scratchpad with a `.png` name). Read them with a subagent so the images stay
+   out of the main context. Ask it for: the printed dates, how complete the pages look,
+   and every watchlist item (exact name, size, $ off, printed price, limit,
+   warehouse/online), plus close relatives as near-misses. Check each match against its
+   page image yourself before saving it.
+4. **Saving:** write `data/costco-books/<valid_from>.json` with `valid_from`, `valid_to`,
+   `source`, `read_on`, `coverage`, `matches`, `not_found` and `near_misses` (see the
+   2026-11-16 file). If the screenshots look incomplete, say so in `coverage`, and look
+   again on later runs for a fuller set. Commit it with the scan.
+5. Costco also runs separate holiday events (e.g. Holiday Savings, Oct 30 – Nov 30, in
+   several windows). Check Slickdeals for posts on them during November.
+
 ### Rules
 - Match the exact product, variant and size (Califia Cold Brew is not Toasted Coconut;
   Chomplings minis are not Original 1.15 oz sticks).

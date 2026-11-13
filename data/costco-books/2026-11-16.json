@@ -1,0 +1,28 @@
+{
+  "book": "Costco savings book",
+  "valid_from": "2026-11-16",
+  "valid_to": "2026-12-20",
+  "source": "https://slickdeals.net/f/20272695-costco-coupon-book-nov-16-dec-20-2026",
+  "read_on": "2026-11-13",
+  "coverage": "partial: 20 screenshots (cover + 19 pages, ~138 items). No Kirkland food, TV, toy, Dyson or meat/deli pages, and the cover's diamond bracelet is missing, so pages are likely missing.",
+  "matches": [
+    {
+      "item": "scoop-away-litter",
+      "printed": "Scoop Away Complete Performance Plus Cat Litter 42 lbs, Item 1714849, LIMIT 2",
+      "discount": 4.10,
+      "price": null,
+      "size": 42,
+      "channel": "warehouse + online",
+      "note": "Book prints SAVE $4.10 but no warehouse price. At the usual $16.79 that is $12.69 ($0.30/lb)."
+    }
+  ],
+  "not_found": [
+    "kirkland-mixed-nuts", "just-bare-chunks", "chomps-original", "kerrygold-butter",
+    "aloha-pb-cup-bars", "love-crunch-granola", "dyson-v15-detect", "fitcamx-p6000",
+    "stonyfield-vanilla-yogurt", "califia-toasted-coconut", "simply-lemonade", "cedars-hommus"
+  ],
+  "near_misses": [
+    "Shark PowerDetect Speed cordless stick vacuum $299.99 after $80 off (not Dyson).",
+    "No other cat litters; no Kirkland nuts; no Just Bare products in the pages read."
+  ]
+}
