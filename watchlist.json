@@ -836,6 +836,53 @@
         },
         "slickdeals": "scoop away litter"
       }
+    },
+    {
+      "id": "arm-hammer-oxiclean-max",
+      "name": "Arm & Hammer Plus OxiClean Max HE detergent",
+      "variant": "Liquid, Fresh Scent; compare per fl oz (usual: 200 fl oz / 200 loads for $14.99 at Costco, item #1626431)",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": 0.075,
+      "stores": [
+        "Costco",
+        "Walmart",
+        "Target",
+        "Kroger",
+        "Publix",
+        "Sam's Club",
+        "Amazon"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "arm & hammer detergent",
+          "match": [
+            "arm & hammer"
+          ],
+          "any": [
+            "detergent",
+            "oxiclean"
+          ]
+        },
+        "kroger": {
+          "term": "arm & hammer plus oxiclean max laundry detergent",
+          "match": [
+            "arm & hammer",
+            "oxiclean"
+          ],
+          "exclude": [
+            "pods",
+            "power paks",
+            "powder"
+          ]
+        },
+        "slickdeals": {
+          "query": "arm hammer detergent",
+          "match": [
+            "arm & hammer"
+          ]
+        }
+      }
     }
   ]
 }

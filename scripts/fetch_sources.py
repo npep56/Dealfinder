@@ -15,8 +15,9 @@ Each watchlist item can name its sources under "sources" in watchlist.json:
                 flavors) and "exclude": [...] (none of these words).)
                 This week's printed store ads near settings.postal_code (Kroger, Publix,
                 Target, Walmart and more). "match" words must all appear in the ad title.
-  "slickdeals": "kerrygold butter"
-                Slickdeals posts from the last settings.slickdeals_days days.
+  "slickdeals": "kerrygold butter"  or  {"query": "...", "match": ["arm & hammer"]}
+                Slickdeals posts from the last settings.slickdeals_days days; the object
+                form keeps only posts whose title fits the match rules.
   "kroger":     {"term": "kerrygold butter", "match": ["kerrygold", "salted"], "size": 8}
                 Shelf and sale price at the Kroger nearest settings.postal_code, from
                 Kroger's API (needs KROGER_CLIENT_ID and KROGER_CLIENT_SECRET). "match"
@@ -151,8 +152,12 @@ def from_flipp(item, cfg, postal_code, today):
 # ---------------------------------------------------------------- slickdeals
 
 
-def from_slickdeals(item, query, days, today):
-    q = urllib.parse.urlencode({"mode": "frontpage", "searcharea": "deals", "searchin": "first", "rss": 1, "q": query})
+def from_slickdeals(item, cfg, days, today):
+    """cfg is a search string, or {"query": ..., "match"/"any"/"exclude": ...} to filter post titles."""
+    if isinstance(cfg, str):
+        cfg = {"query": cfg}
+    q = urllib.parse.urlencode({"mode": "frontpage", "searcharea": "deals", "searchin": "first", "rss": 1,
+                                "q": cfg["query"]})
     root = ET.fromstring(get(f"https://slickdeals.net/newsearch.php?{q}"))
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     leads = []
@@ -161,7 +166,7 @@ def from_slickdeals(item, query, days, today):
             posted = parsedate_to_datetime(post.findtext("pubDate"))
         except (TypeError, ValueError):
             continue
-        if posted < cutoff:
+        if posted < cutoff or not matches(post.findtext("title") or "", cfg):
             continue
         leads.append({
             "item": item["id"],
