@@ -41,10 +41,10 @@
       "ok": true
     },
     {
-      "name": "Costco Nov 2026 savings book",
-      "covers": "",
-      "url": "",
-      "ok": false
+      "name": "Costco savings book Nov 16–Dec 20, 2026 (Slickdeals page images)",
+      "covers": "11/16–12/20",
+      "url": "https://slickdeals.net/f/20272695-costco-coupon-book-nov-16-dec-20-2026",
+      "ok": true
     },
     {
       "name": "Web search (Dyson, FitcamX, Costco)",
@@ -427,10 +427,11 @@
     "Target ad 11/8–11/15: Kerrygold 8 oz 10% off and select ALOHA bars 10% off (Target sells 5-count, not 12-pack); no base price confirmed.",
     "Walgreens Simply Lemonade 2/$5 runs 11/15–11/22 (size not shown in ad); check Sunday's run.",
     "Dyson V15 Detect: only refurbished Slickdeals posts ($300 Detect, $320 Total Clean Extra), which don't count. No 2026 sale on a new unit or US student offer found.",
-    "FitcamX P6000: fitcamx.com $189; no current US retailer price found today (yesterday's $170.10 Walmart snippet not re-confirmed)."
+    "FitcamX P6000: fitcamx.com $189; no current US retailer price found today (yesterday's $170.10 Walmart snippet not re-confirmed).",
+    "Next Costco book (11/16–12/20): Scoop Away Complete Performance Plus 42 lb $4.10 off, limit 2, warehouse + online (≈$12.69, $0.30/lb at the usual $16.79); it will be recorded from 11/16. No other watchlist items in the pages read (partial set, ~138 items). Closest vacuum: Shark PowerDetect stick vacuum $299.99."
   ],
   "gaps": [
-    "Costco November 2026 savings book couldn't be found; no Costco prices recorded.",
+    "Current Costco book (10/19–11/15) not found; the next book (11/16–12/20) was read from partial page images.",
     "walmart.com and amazon.com can't be fetched; there are no Walmart or Amazon prices.",
     "Southern Savers unadvertised-deals posts not checked; Kroger digital coupons were checked only through the Southern Savers ad post."
   ]
