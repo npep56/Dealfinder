@@ -883,6 +883,97 @@
           ]
         }
       }
+    },
+    {
+      "id": "cascade-dish-detergent",
+      "name": "Cascade dishwasher detergent (any variety)",
+      "variant": "Liquid, gel or powder, any Cascade line; compare per oz (usual: Platinum Fresh Scent 125 oz for $14.99 at Costco)",
+      "kind": "grocery",
+      "unit": "oz",
+      "typical_unit_price": 0.1199,
+      "stores": [
+        "Costco",
+        "Walmart",
+        "Target",
+        "Kroger",
+        "Publix",
+        "Sam's Club",
+        "Amazon"
+      ],
+      "sources": {
+        "flipp": {
+          "query": "cascade dishwasher detergent",
+          "match": [
+            "cascade"
+          ],
+          "exclude": [
+            "pods",
+            "pacs",
+            "actionpacs",
+            "action pacs",
+            "tabs",
+            "tablets",
+            "rinse",
+            "jet-dry",
+            "booster",
+            "cleaner",
+            "freshener",
+            "dish soap",
+            "hand",
+            "actionpac",
+            "pac",
+            "pod"
+          ]
+        },
+        "kroger": {
+          "term": "cascade dishwasher detergent gel",
+          "match": [
+            "cascade"
+          ],
+          "exclude": [
+            "pods",
+            "pacs",
+            "actionpacs",
+            "action pacs",
+            "tabs",
+            "tablets",
+            "rinse",
+            "jet-dry",
+            "booster",
+            "cleaner",
+            "freshener",
+            "dish soap",
+            "hand",
+            "actionpac",
+            "pac",
+            "pod"
+          ]
+        },
+        "slickdeals": {
+          "query": "cascade dishwasher",
+          "match": [
+            "cascade"
+          ],
+          "exclude": [
+            "pods",
+            "pacs",
+            "actionpacs",
+            "action pacs",
+            "tabs",
+            "tablets",
+            "rinse",
+            "jet-dry",
+            "booster",
+            "cleaner",
+            "freshener",
+            "dish soap",
+            "hand",
+            "actionpac",
+            "pac",
+            "pod"
+          ]
+        }
+      }
     }
   ]
 }
