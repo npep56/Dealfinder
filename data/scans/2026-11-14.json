@@ -1,0 +1,566 @@
+{
+  "date": "2026-11-14",
+  "run": "daily",
+  "time": "08:45",
+  "headline": "Kerrygold 8 oz still BOGO at Publix (~$2.65) and $4.39 at Whole Foods; FitcamX $170.10 at Walmart (snippet); no sales on the other want items.",
+  "sources": [
+    {
+      "name": "Store product feeds (rothys, wolaco, fitcamx, janji, aloha, chomps)",
+      "covers": "2026-11-14",
+      "url": "",
+      "ok": true
+    },
+    {
+      "name": "Kroger API (3600 Dallas Hwy SW, Marietta)",
+      "covers": "2026-11-14",
+      "url": "https://www.kroger.com/",
+      "ok": true
+    },
+    {
+      "name": "Whole Foods Kennesaw",
+      "covers": "2026-11-14",
+      "url": "https://www.wholefoodsmarket.com/",
+      "ok": true
+    },
+    {
+      "name": "Flipp weekly ads (30152) + Slickdeals RSS",
+      "covers": "11/08–11/22",
+      "url": "https://flipp.com/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Kroger weekly ad",
+      "covers": "11/11–11/17",
+      "url": "https://www.southernsavers.com/kroger-weekly-ad-11-11-11-17/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Kroger unadvertised deals",
+      "covers": "11/11–11/17",
+      "url": "https://www.southernsavers.com/kroger-unadvertised-deals-11-11-11-17/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Publix weekly ad",
+      "covers": "11/11–11/17 or 11/12–11/18",
+      "url": "https://www.southernsavers.com/publix-weekly-ad-11-11-11-17-or-11-12-11-18/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers: Publix unadvertised deals",
+      "covers": "11/11–11/17",
+      "url": "https://www.southernsavers.com/publix-unadvertised-deals-11-11-11-17/",
+      "ok": true
+    },
+    {
+      "name": "Target product pages",
+      "covers": "2026-11-14",
+      "url": "https://www.target.com/",
+      "ok": true
+    },
+    {
+      "name": "Costco Holiday Savings (costco.com + Slickdeals threads)",
+      "covers": "10/30–11/30",
+      "url": "https://slickdeals.net/f/20194254",
+      "ok": true
+    },
+    {
+      "name": "Web search snippets (Walmart, Amazon, Costco, Dyson, FitcamX)",
+      "covers": "undated snippets",
+      "url": "",
+      "ok": true
+    }
+  ],
+  "observations": [
+    {
+      "item": "rothys-casual-clog",
+      "store": "rothys.com",
+      "price": 160.0,
+      "regular_price": 160,
+      "url": "https://rothys.com/products/womens-casual-clog-chestnut",
+      "in_stock": true,
+      "note": "The Casual Clog - Chestnut: Chestnut / 10 (store product feed, 2026-11-14)."
+    },
+    {
+      "item": "wolaco-distance-half-tight",
+      "store": "wolaco.com",
+      "price": 128.0,
+      "regular_price": 128.0,
+      "url": "https://wolaco.com/products/distance-half-tight-black",
+      "note": "Distance Half Tight in Black: Black / L / 8 Inch Inseam (store product feed, 2026-11-14)."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "fitcamx.com",
+      "price": 189.0,
+      "regular_price": 189,
+      "url": "https://fitcamx.com/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "in_stock": true,
+      "note": "FITCAMX Dash Cam for Hyundai Santa Fe 2024-2026 (Rear Mirror Cover part number 96030-P6000): Front: 4K（2160P）64GB (store product feed, 2026-11-14). Store shows compare-at $219."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112.0,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "M's 8\" Trail Half Tight Lined: Midnight / L (store product feed, 2026-11-14)."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112.0,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "M's 8\" Trail Half Tight Lined: Carbon / L (store product feed, 2026-11-14)."
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 5.29,
+      "regular_price": 5.29,
+      "url": "https://www.kroger.com/p/-/0076770700214",
+      "note": "Kerrygold Kerrygold Irish Grass-Fed Salted Butter Sticks, 8oz 8 oz (Kroger API, 2026-11-14).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 9.99,
+      "regular_price": 9.99,
+      "url": "https://www.kroger.com/p/-/0076770701430",
+      "note": "Kerrygold Kerrygold Grass-Fed Pure Irish Salted Butter Sticks 4 ct / 16 oz (Kroger API, 2026-11-14).",
+      "size": 16.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 5.29,
+      "regular_price": 5.29,
+      "url": "https://www.kroger.com/p/-/0076770700106",
+      "note": "Kerrygold Kerrygold Irish Grass-Fed Salted Butter Foil 8 oz (Kroger API, 2026-11-14).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 6.29,
+      "regular_price": 6.29,
+      "url": "https://www.kroger.com/p/-/0076770700167",
+      "note": "Kerrygold Kerrygold Grass-Fed Pure Irish Salted Softer Butter Tub 8 oz (Kroger API, 2026-11-14).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-butter-sticks-8-oz-b01hxz021g",
+      "note": "Kerrygold Salted Butter Sticks, 8 OZ (Whole Foods site, 2026-11-14).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-irish-butter-8-oz-b0011ekwbq",
+      "note": "KERRYGOLD Salted Irish Butter, 8 OZ (Whole Foods site, 2026-11-14).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 9.99,
+      "regular_price": 9.99,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-irish-salted-butter-sticks-16-oz-b09xzfdrrk",
+      "note": "Kerrygold Irish Salted Butter Sticks, 16 OZ (Whole Foods site, 2026-11-14).",
+      "size": 16.0
+    },
+    {
+      "item": "stonyfield-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 6.39,
+      "regular_price": 6.39,
+      "url": "https://www.wholefoodsmarket.com/product/stonyfield-farm-organic-vanilla-low-fat-yogurt-32-oz-b00108cspq",
+      "note": "Stonyfield Farm Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-14).",
+      "size": 32.0
+    },
+    {
+      "item": "natural-bliss-sweet-cream",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 5.79,
+      "regular_price": 5.79,
+      "url": "https://www.kroger.com/p/-/0005000080164",
+      "note": "Coffee mate Natural Bliss Sweet Cream Flavored Coffee Creamer 32 fl oz (Kroger API, 2026-11-14).",
+      "size": 32.0
+    },
+    {
+      "item": "califia-toasted-coconut",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.03,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0085290900342",
+      "note": "Califia Farms Califia Farms Toasted Coconut Almond Milk 48 fl oz (Kroger API, 2026-11-14).",
+      "size": 48.0
+    },
+    {
+      "item": "simply-lemonade",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 3.29,
+      "regular_price": 3.29,
+      "url": "https://www.kroger.com/p/-/0002500004498",
+      "note": "Simply Simply® Lemonade Bottle 52 fl oz (Kroger API, 2026-11-14).",
+      "size": 52.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.99,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0004411540301",
+      "note": "Cedar's Cedar's Organic Original Hummus 10 oz (Kroger API, 2026-11-14).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.99,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0004411540321",
+      "note": "Cedar's Cedar's Organic Hot Honey Hummus 10 oz (Kroger API, 2026-11-14).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-original-hummus-10-oz-b07rcp6sm1",
+      "note": "Cedars Mediterranean Food Organic Original Hummus, 10 OZ (Whole Foods site, 2026-11-14).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-topped-garlic-hummus-10-oz-b07fw1xgq2",
+      "note": "Cedars Mediterranean Food Organic Topped Garlic Hummus, 10 OZ (Whole Foods site, 2026-11-14).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-hot-honey-hommus-with-toppings-10-oz-b0cn9pp8qw",
+      "note": "Cedars Mediterranean Food Organic Hot Honey Hommus with Toppings, 10 OZ (Whole Foods site, 2026-11-14).",
+      "size": 10.0
+    },
+    {
+      "item": "simple-truth-pb",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 10.99,
+      "regular_price": 10.99,
+      "url": "https://www.kroger.com/p/-/0001111089495",
+      "note": "Simple Truth Organic Simple Truth Organic® No Stir Creamy Peanut Butter Spread BIG DEAL! 40 oz (Kroger API, 2026-11-14).",
+      "size": 40.0
+    },
+    {
+      "item": "back-to-nature-crackers",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 3.49,
+      "regular_price": 3.49,
+      "url": "https://www.kroger.com/p/-/0081989801010",
+      "note": "Back to Nature Back to Nature® Classic Round Crackers 6.5 oz (Kroger API, 2026-11-14).",
+      "size": 6.5
+    },
+    {
+      "item": "back-to-nature-crackers",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.39,
+      "regular_price": 4.39,
+      "url": "https://www.wholefoodsmarket.com/product/back-to-nature-classic-round-crackers-65-oz-b0dd1wc81c",
+      "note": "Back to Nature Classic Round Crackers, 6.5 OZ (Whole Foods site, 2026-11-14).",
+      "size": 6.5
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "Whole Foods Kennesaw",
+      "price": 29.99,
+      "regular_price": 29.99,
+      "url": "https://www.wholefoodsmarket.com/product/aloha-organic-peanut-butter-cup-protein-bar-12pk-198-oz-b08zvhh13j",
+      "note": "Aloha Organic Peanut Butter Cup Protein Bar 12pk, 1.98 OZ (Whole Foods site, 2026-11-14).",
+      "size": 12.0
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "aloha.com",
+      "price": 34.99,
+      "regular_price": 34.99,
+      "url": "https://aloha.com/products/peanut-butter-cup-protein-bar",
+      "in_stock": true,
+      "note": "Peanut Butter Cup - Protein Bars: 12-Bar Box (store product feed, 2026-11-14).",
+      "size": 12
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 5.79,
+      "regular_price": 5.79,
+      "url": "https://www.kroger.com/p/-/0005844916207",
+      "note": "Nature's Path Organic Nature's Path Love Crunch Dark Chocolate & Peanut Butter Granola 11.5 oz (Kroger API, 2026-11-14).",
+      "size": 11.5
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Whole Foods Kennesaw",
+      "price": 6.29,
+      "regular_price": 6.29,
+      "url": "https://www.wholefoodsmarket.com/product/natures-path-organic-peanut-butter-dark-chocolate-love-crunch-granola-115-oz-b01b395dda",
+      "note": "Natures Path Organic Peanut Butter Dark Chocolate Love Crunch Granola, 11.5 OZ (Whole Foods site, 2026-11-14).",
+      "size": 11.5
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 16.99,
+      "regular_price": 16.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-pacific-rim-ground-coffee-24-oz-b01kl4hwws",
+      "note": "365 by Whole Foods Market Pacific Rim Ground Coffee, 24 OZ (Whole Foods site, 2026-11-14).",
+      "size": 24.0
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 19.99,
+      "regular_price": 19.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-buzz-free-decaf-ground-coffee-24-oz-b06xz25cmk",
+      "note": "365 by Whole Foods Market Buzz Free Decaf Ground Coffee, 24 OZ (Whole Foods site, 2026-11-14).",
+      "size": 24.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 19.99,
+      "regular_price": 19.99,
+      "url": "https://www.kroger.com/p/-/0085001589252",
+      "note": "Chomps Chomps® Original Flavor Beef Snack Sticks 9.2 oz (Kroger API, 2026-11-14).",
+      "size": 8
+    },
+    {
+      "item": "chomps-original",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 2.99,
+      "regular_price": 2.99,
+      "url": "https://www.kroger.com/p/-/0085658400418",
+      "note": "Chomps Chomps® Original Grass Fed and Finished Beef Stick 1.15 oz (Kroger API, 2026-11-14).",
+      "size": 1
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 15.59,
+      "regular_price": 19.49,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-8-count-115-oz-b08z9nbc77",
+      "note": "Chomps Original Beef Stick 8 Count, 1.15 OZ (Whole Foods site, 2026-11-14).",
+      "ends": "2026-11-17",
+      "size": 8.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 2.38,
+      "regular_price": 2.99,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-sgl-115-oz-grassfed-and-finished-beef-stick-with-zero-sugar-keto-and-paleo-friendly-whole30-lowcarb-snack-10g-protein-b07l6r17ds",
+      "note": "Chomps Original Beef Stick Sgl, 1.15 OZ | Grass-Fed And Finished Beef Stick With Zero Sugar, Keto And Paleo Friendly, Whole30, Low-Carb Snack, 10G Protein (Whole Foods site, 2026-11-14).",
+      "ends": "2026-11-17",
+      "size": 1
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 25.6,
+      "regular_price": 25.6,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 10 Pack (store product feed, 2026-11-14).",
+      "size": 10
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 54.99,
+      "regular_price": 54.99,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 24 Pack (store product feed, 2026-11-14).",
+      "size": 24
+    },
+    {
+      "item": "wf365-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.79,
+      "regular_price": 4.79,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-organic-vanilla-low-fat-yogurt-32-oz-b074h5y3tm",
+      "note": "365 by Whole Foods Market Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-14).",
+      "size": 32.0
+    },
+    {
+      "item": "arm-hammer-oxiclean-max",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 10.99,
+      "regular_price": 10.99,
+      "url": "https://www.kroger.com/p/-/0003320094265",
+      "note": "Arm & Hammer ARM & HAMMER Plus OxiClean Max Force Deep Clean Stain Liquid Detergent Sparkling Clean 75 fl oz (Kroger API, 2026-11-14).",
+      "size": 75.0
+    },
+    {
+      "item": "cascade-dish-detergent",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 8.99,
+      "regular_price": 8.99,
+      "url": "https://www.kroger.com/p/-/0003700043357",
+      "note": "Cascade Cascade Complete Citrus Breeze Scent Dishwasher Detergent Gel 75 fl oz (Kroger API, 2026-11-14).",
+      "size": 75.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Publix",
+      "price": 2.65,
+      "size": 8,
+      "regular_price": 5.29,
+      "url": "https://www.southernsavers.com/publix-weekly-ad-11-11-11-17-or-11-12-11-18/",
+      "ends": "2026-11-17",
+      "code": "BOGO (buy 2)",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "deal",
+      "note": "Kerrygold Pure Irish Butter 8 oz BOGO ($5.29 each, ~$2.65 each when you buy 2). The ad doesn't say salted or unsalted. Ends 11/17 or 11/18 depending on area."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "Walmart",
+      "price": 170.1,
+      "regular_price": 189.0,
+      "url": "https://www.walmart.com/ip/Fitcamx-4K-Dash-Cam-Suitable-Hyundai-Santa-Fe-2024-2026-Part-No-P6000-SE-SEL-Limited-Calligraphy-XRT-OEM-Look-UHD-2160P-Video-WiFi-APP-64GB-Card/19036008845",
+      "note": "Search snippet only (walmart.com can't be read): FitcamX 4K front, Santa Fe 2024-2026 P6000, 64GB, sold by FITCAMX storefront, $170.10 (was $189). Undated; stock not shown."
+    },
+    {
+      "item": "dyson-v15-detect",
+      "store": "Target",
+      "price": 849.99,
+      "regular_price": 849.99,
+      "url": "https://www.target.com/p/dyson-cordfree-detect-carpet-cleaner-v15-9-8-34-cleaning-path-yellow-silver/-/A-95085838",
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Dyson V15 Detect Cordless Stick Vacuum, new, full price on Target's page."
+    },
+    {
+      "item": "simply-lemonade",
+      "store": "Walmart",
+      "price": 2.97,
+      "size": 52,
+      "regular_price": null,
+      "url": "https://www.walmart.com/ip/Simply-Non-GMO-All-Natural-Lemonade-Juice-52-fl-oz-Bottle/757977763",
+      "note": "Search snippet only (walmart.com can't be read)."
+    },
+    {
+      "item": "smash-kitchen-chips",
+      "store": "Walmart",
+      "price": 3.77,
+      "size": 10,
+      "regular_price": null,
+      "url": "https://www.walmart.com/",
+      "note": "Search snippet only (walmart.com can't be read): Smash Kitchen Yellow Corn Organic Tortilla Chips 10 oz $3.77."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Target",
+      "price": 2.69,
+      "size": 1,
+      "regular_price": null,
+      "url": "https://www.target.com/p/chomps-original-beef-1-15oz/-/A-85832624",
+      "in_stock": true,
+      "note": "Chomps Original Beef 1.15 oz single stick (Target page)."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Amazon",
+      "price": 2.33,
+      "size": 1,
+      "regular_price": 2.59,
+      "url": "https://www.amazon.com/dp/B07L6R17DS",
+      "note": "Search snippet only (Amazon page 503): Original Mild 1.15 oz single sold by Whole Foods, $2.59, $2.33 with Prime."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Costco",
+      "price": 21.99,
+      "size": 12,
+      "regular_price": 21.99,
+      "url": "https://www.costco.com/chomps-original-beef-sticks,-mild,-12-individually-wrapped-sticks.product.100741625.html",
+      "note": "Search snippet only (costco.com showed no price): 12 x 1.15 oz Mild, $21.99 (one category snippet said $19.99)."
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Target",
+      "price": 6.19,
+      "size": 11.5,
+      "regular_price": null,
+      "url": "https://www.target.com/p/nature-s-path-love-crunch-dark-chocolate-and-peanut-butter-11-5oz/-/A-48637736",
+      "in_stock": true,
+      "note": "Target page, no sale."
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "Amazon",
+      "price": 29.99,
+      "size": 12,
+      "regular_price": null,
+      "url": "https://www.amazon.com/dp/B08ZVHH13J",
+      "note": "Search snippet only (Amazon page 503): 12 x 1.98 oz, Whole Foods listing."
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Amazon",
+      "price": 18.98,
+      "size": 24,
+      "regular_price": null,
+      "url": "https://www.amazon.com/dp/B06XZ25CMK",
+      "note": "Search snippet only (Amazon page 503): 365 Buzz Free Decaf ground 24 oz."
+    },
+    {
+      "item": "arm-hammer-oxiclean-max",
+      "store": "Costco",
+      "price": 17.99,
+      "size": 200,
+      "regular_price": 17.99,
+      "url": "https://www.costco.com/p/-/arm-hammer-plus-oxiclean-max-he-liquid-laundry-detergent-fresh-200-loads-200-fl-oz/4000119129",
+      "note": "Search snippet only (costco.com showed no price): 200 fl oz Fresh $17.99; one category snippet showed $14.99 after $3 off, not confirmed or dated."
+    }
+  ],
+  "notes": [
+    "Publix BOGO: Arm & Hammer Laundry Detergent 24–67 oz $7.49 (~$3.74 each); the ad doesn't name the Plus OxiClean Max Fresh variant, so not recorded.",
+    "Publix 'buy 2 get $5 off' Cascade (Flipp lead) not found on Southern Savers; may be in the Publix grocery flyer or digital coupons.",
+    "Kroger ad near-misses: Califia Cold Brew 48 oz $3.99 (not Toasted Coconut); Chomplings 6 ct $6.99 less $1.50 Ibotta (not Original sticks); Jif 40 oz $4.99 (not Simple Truth).",
+    "Publix near-miss: Just Bare Chicken Breast Fillets 18 oz BOGO (not Chunks). Food Lion 'Just Bare Chicken' $8.99 lead doesn't say which product.",
+    "Target: Arm & Hammer Deep Clean Stain Max Force 75 oz $9.19 with BOGO 25% off laundry (different variant); Cascade ActionPacs are pods (skipped); ALOHA PB Cup is only a 5-count ($9.53).",
+    "Walgreens Simply Lemonade 2/$5 runs 11/15–11/22 (size not shown); check tomorrow.",
+    "Dyson V15 Detect: Target $849.99 full price; only refurbished Slickdeals posts; an undated Walmart snippet showed $649.99 (not confirmed). No US student offer confirmed.",
+    "Wolaco: an undated snippet mentions a Black Friday code BLACKFRIDAY25 (25% off), likely last year's; black L still $128 in feed.",
+    "REI HOLIDAY2026 20% off member code covers only the unlined Janji (doesn't count).",
+    "Costco savings book 11/16–12/20 (Scoop Away 42 lb $4.10 off) will be recorded from 11/16."
+  ],
+  "gaps": [
+    "walmart.com and amazon.com pages couldn't be read; Walmart/Amazon prices are search snippets only.",
+    "costco.com product pages loaded without prices (or 429); Costco prices are snippets.",
+    "dyson.com, Newegg, REI and Best Buy product pages returned 403/503; Kohl's, Nordstrom, Anthropologie, wolaco.com (web), Student Beans and UNiDAYS are outside the session's network allowlist.",
+    "Publix grocery/personal-care flyer not found on Southern Savers."
+  ]
+}
