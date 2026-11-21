@@ -40,6 +40,11 @@ class JudgeTests(unittest.TestCase):
         self.assertEqual(build.judge_want(TIGHT, {"price": 100, "regular_price": 128}, SETTINGS)[0], "Deal")
         self.assertEqual(build.judge_want(TIGHT, {"price": 128, "regular_price": 128}, SETTINGS)[0], "Watching")
 
+    def test_gift_is_judged_like_a_want(self):
+        gift = dict(TIGHT, id="g", kind="gift", regular_price=79)
+        self.assertEqual(build.judge(gift, {"price": 59}, SETTINGS, [])[0], "Deal")
+        self.assertEqual(build.blank_row(gift)["kind"], "Gift")
+
     def test_want_without_any_reference_uses_assessment(self):
         self.assertEqual(build.judge_want(TIGHT, {"price": 90, "assessment": "close"}, SETTINGS)[0], "Close")
 

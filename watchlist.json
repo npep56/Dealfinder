@@ -977,6 +977,284 @@
           ]
         }
       }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-fleece-vest",
+      "name": "Sara: Hoktown-style fleece vest",
+      "variant": "American Vintage Hoktown or a look-alike; burgundy, green, pink or brown; women's M",
+      "regular_price": 265,
+      "target_price": null,
+      "target_reason": "Any real sale on the American Vintage original; look-alikes from $25 are fine too",
+      "stores": [
+        "American Vintage",
+        "Nordstrom",
+        "eBay",
+        "Poshmark",
+        "Look-alikes"
+      ],
+      "notes": "Sara says cheaper look-alikes are totally fine; eBay/Poshmark worth a look for the original.",
+      "sources": {
+        "slickdeals": {
+          "query": "american vintage hoktown",
+          "match": [
+            "hoktown"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-duluth-overalls",
+      "name": "Sara: Duluth Heirloom Gardening Bib Overalls",
+      "variant": "Women's, Roasted Clove or Brick, M",
+      "regular_price": 99.5,
+      "target_price": null,
+      "target_reason": "Duluth runs frequent sales: any real sale",
+      "stores": [
+        "duluthtrading.com"
+      ],
+      "notes": "Only the women's Heirloom Gardening Bib Overalls; color Roasted Clove or Brick; size M.",
+      "sources": {
+        "slickdeals": {
+          "query": "duluth overalls",
+          "match": [
+            "duluth"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-monki-scarf",
+      "name": "Sara: Monki chunky knit scarf",
+      "variant": "Burgundy and pink plaid (alt: JJXX tassel scarf, baby pink)",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "Any real sale (ASOS)",
+      "stores": [
+        "ASOS",
+        "Monki"
+      ],
+      "notes": "Alternative: JJXX tassel scarf in baby pink at ASOS.",
+      "sources": {}
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-llbean-wellie-clogs",
+      "name": "Sara: L.L.Bean Bean Light Wellie Garden Clogs",
+      "variant": "Women's, Warm Gold, 9.5",
+      "regular_price": 79,
+      "target_price": null,
+      "target_reason": "Any real sale or L.L.Bean code",
+      "stores": [
+        "llbean.com"
+      ],
+      "notes": "Color Warm Gold only; size 9.5.",
+      "sources": {
+        "slickdeals": {
+          "query": "l.l.bean wellie clog",
+          "match": [
+            "wellie"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-salomon-xt6",
+      "name": "Sara: Salomon XT-6 sneakers",
+      "variant": "Size 9.5 women's (XT-6 is unisex: check the size chart); any colorway",
+      "regular_price": 190,
+      "target_price": 140,
+      "target_reason": "Older colorways sell around $110-135 (e.g. Kith)",
+      "stores": [
+        "salomon.com",
+        "Kith",
+        "END.",
+        "REI",
+        "Zappos",
+        "Nordstrom",
+        "Slickdeals"
+      ],
+      "notes": "Any colorway she'd like; confirm 9.5 women's is available.",
+      "sources": {
+        "slickdeals": {
+          "query": "salomon xt-6",
+          "match": [
+            "xt-6"
+          ]
+        },
+        "flipp": {
+          "query": "salomon xt-6",
+          "match": [
+            "salomon"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-rhode",
+      "name": "Sara: rhode products",
+      "variant": "Pocket Blush ($25), Glazing Milk ($48 / mini $20), peptide lip tints, Barrier Butter",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "Any discount, value set or gift-with-purchase at Sephora or rhodeskin.com",
+      "stores": [
+        "Sephora",
+        "rhodeskin.com"
+      ],
+      "notes": "rhode rarely discounts; flag Sephora Savings Event eligibility, holiday sets or gifts with purchase.",
+      "sources": {
+        "slickdeals": {
+          "query": "rhode skin",
+          "match": [
+            "rhode"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-candle-rack",
+      "name": "Sara: Candle Dipping Rack Carousel",
+      "variant": "Kline Honey Bee Farm, Large (15 pairs); extension rod sold separately",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "Any sale or code at Kline Honey Bee Farm",
+      "stores": [
+        "Kline Honey Bee Farm"
+      ],
+      "notes": "For dipping beeswax candles; the large holds 15 pairs.",
+      "sources": {}
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-seed-to-bloom",
+      "name": "Sara: From Seed to Bloom (Milli Proust)",
+      "variant": "Hardcover",
+      "regular_price": 30,
+      "target_price": 22,
+      "target_reason": "Usually $23-30",
+      "stores": [
+        "ThriftBooks",
+        "Target",
+        "Amazon",
+        "Barnes & Noble",
+        "Bookshop.org"
+      ],
+      "notes": "Hardcover only.",
+      "sources": {
+        "flipp": {
+          "query": "from seed to bloom",
+          "match": [
+            "seed to bloom"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-treasures-dark",
+      "name": "Sara: Treasures in the Dark (Katherine Wolf)",
+      "variant": "Hardcover",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "Lowest new hardcover price; any real sale",
+      "stores": [
+        "Barnes & Noble",
+        "Amazon",
+        "Target",
+        "Bookshop.org"
+      ],
+      "notes": "Hardcover only.",
+      "sources": {}
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-hobonichi-2027",
+      "name": "Sara: Hobonichi Techo 2027 Original",
+      "variant": "A6, English, book only (covers sold separately)",
+      "regular_price": 20,
+      "target_price": null,
+      "target_reason": "Any real sale; also note stock, since 2027 books sell out",
+      "stores": [
+        "hobonichi.com",
+        "Amazon",
+        "JetPens",
+        "Etsy"
+      ],
+      "notes": "Book only. Flag low stock.",
+      "sources": {}
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-photo-printer",
+      "name": "Sara: Instant photo printer",
+      "variant": "Kodak Step Slim (~$80 at Staples) or Canon IVY 2 mini (~$100-109 at Walmart)",
+      "regular_price": 80,
+      "target_price": 70,
+      "target_reason": "Either model at $70 or less",
+      "stores": [
+        "Staples",
+        "Walmart",
+        "Target",
+        "Best Buy",
+        "Amazon"
+      ],
+      "notes": "Dad's pick: whichever looks best.",
+      "sources": {
+        "flipp": {
+          "query": "photo printer",
+          "match": [
+            "printer"
+          ],
+          "any": [
+            "kodak",
+            "canon ivy",
+            "ivy"
+          ]
+        },
+        "slickdeals": {
+          "query": "canon ivy kodak step printer",
+          "match": [
+            "printer"
+          ],
+          "any": [
+            "ivy",
+            "kodak"
+          ]
+        }
+      }
+    },
+    {
+      "kind": "gift",
+      "unit": "item",
+      "id": "sara-flower-supplies",
+      "name": "Sara: Flower arranging supplies",
+      "variant": "Velvet ribbon, flower vessels, ceramic flower frogs, frog glue, green floral tape, bouquet wrapping paper",
+      "regular_price": null,
+      "target_price": null,
+      "target_reason": "Sitewide sales or codes at her favorite shops",
+      "stores": [
+        "Oh Flora Store",
+        "Camilia Supply",
+        "The Floral Society"
+      ],
+      "notes": "Favorites: Oh Flora Store and Camilia Supply (ships from Canada). Any store is fine.",
+      "sources": {}
     }
   ]
 }

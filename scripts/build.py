@@ -8,7 +8,7 @@ Writes to out/:
   summary.txt   the push-notification text for the latest run
 
 Every run judges deals by the same fixed rules (thresholds live in watchlist.json):
-  want     Deal  : price <= target_price, or below regular price when there is no target
+  want/gift Deal : price <= target_price, or below regular price when there is no target
            Close : within want_close_margin of the target
   grocery  Deal  : unit price at least grocery_deal_pct below the normal unit price
            Close : at least grocery_close_pct below it
@@ -33,7 +33,8 @@ OUT = ROOT / "out"
 STATUSES = ("Deal", "Close", "Watching", "No price yet")
 RANK = {status: i for i, status in enumerate(STATUSES)}
 ASSESSMENT_STATUS = {"deal": "Deal", "close": "Close", "none": "Watching"}
-KINDS = ("want", "grocery")
+KINDS = ("want", "gift", "grocery")
+KIND_LABEL = {"want": "Want", "gift": "Gift", "grocery": "Grocery"}
 
 
 class DataError(Exception):
@@ -166,7 +167,7 @@ def judge_grocery(item, o, settings, past_regulars):
 
 
 def judge(item, o, settings, past_regulars):
-    if item["kind"] == "want":
+    if item["kind"] in ("want", "gift"):
         return judge_want(item, o, settings)
     return judge_grocery(item, o, settings, past_regulars)
 
@@ -179,7 +180,7 @@ def blank_row(item):
         "id": item["id"],
         "name": item["name"],
         "variant": item.get("variant", ""),
-        "kind": "Want" if item["kind"] == "want" else "Grocery",
+        "kind": KIND_LABEL[item["kind"]],
         "unit": item["unit"],
         "stores": ", ".join(item.get("stores", [])),
         "target": item.get("target_price"),
