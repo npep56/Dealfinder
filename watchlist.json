@@ -1278,6 +1278,33 @@
         }
       },
       "url": "https://www.quince.com/women/italian-pebbled-leather-continental-wallet?color=cognac&gender=women"
+    },
+    {
+      "id": "sara-red-sox-dad-hat",
+      "name": "Sara: Mitchell & Ness Red Sox dad hat",
+      "variant": "Navy, unstructured 'Dad Hat' (Late Night 1904 Dad line), red sock 'BOSTON' logo",
+      "kind": "gift",
+      "unit": "item",
+      "regular_price": 30.0,
+      "target_price": null,
+      "target_reason": "Any price at or under $30 new; resale only if new or like-new",
+      "stores": [
+        "mitchellandness.com",
+        "Lids",
+        "Fanatics",
+        "eBay",
+        "Mercari",
+        "Poshmark"
+      ],
+      "notes": "Must be the navy dad hat with the red sock 'BOSTON' logo (photo from Sara). Report whether it's in stock anywhere, even at full price. A 2013 World Series Champions Red Sox cap is a welcome alternative.",
+      "sources": {
+        "slickdeals": {
+          "query": "mitchell ness red sox",
+          "match": [
+            "red sox"
+          ]
+        }
+      }
     }
   ]
 }
