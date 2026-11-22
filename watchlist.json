@@ -1258,17 +1258,17 @@
     },
     {
       "id": "gift-quince-wallet",
-      "name": "Gift: Quince women's brown leather wallet",
-      "variant": "Italian Pebbled Leather Compact Wallet, Cognac (alt: Italian Leather Handwoven Continental Wallet in a brown)",
+      "name": "Mala: Quince Italian Pebbled Leather Continental Wallet",
+      "variant": "Cognac, women's (zip-around continental)",
       "kind": "gift",
       "unit": "item",
-      "regular_price": 49.9,
+      "regular_price": 52.0,
       "target_price": null,
       "target_reason": "Any real sale or sitewide code at quince.com",
       "stores": [
         "quince.com"
       ],
-      "notes": "Women's wallet, brown (Cognac). Gift for someone other than Sara; must arrive by Christmas.",
+      "notes": "Gift for Mala; must arrive by Christmas. Cognac only (other colors sometimes $49.90).",
       "sources": {
         "slickdeals": {
           "query": "quince",
@@ -1276,7 +1276,8 @@
             "quince"
           ]
         }
-      }
+      },
+      "url": "https://www.quince.com/women/italian-pebbled-leather-continental-wallet?color=cognac&gender=women"
     }
   ]
 }
