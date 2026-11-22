@@ -1296,7 +1296,7 @@
         "Mercari",
         "Poshmark"
       ],
-      "notes": "Must be the navy dad hat with the red sock 'BOSTON' logo (photo from Sara). Report whether it's in stock anywhere, even at full price. A 2013 World Series Champions Red Sox cap is a welcome alternative.",
+      "notes": "Must be the navy dad hat with the red sock 'BOSTON' logo (photo from Sara). Report whether it's in stock anywhere, even at full price. A 2013 World Series Champions Red Sox cap is a welcome alternative. Known listing: eBay item 157850800206 (eBay blocks automated page reads; use search results).",
       "sources": {
         "slickdeals": {
           "query": "mitchell ness red sox",
@@ -1304,7 +1304,8 @@
             "red sox"
           ]
         }
-      }
+      },
+      "url": "https://www.ebay.com/itm/157850800206"
     }
   ]
 }
