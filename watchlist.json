@@ -1255,6 +1255,28 @@
       ],
       "notes": "Favorites: Oh Flora Store and Camilia Supply (ships from Canada). Any store is fine.",
       "sources": {}
+    },
+    {
+      "id": "gift-quince-wallet",
+      "name": "Gift: Quince women's brown leather wallet",
+      "variant": "Italian Pebbled Leather Compact Wallet, Cognac (alt: Italian Leather Handwoven Continental Wallet in a brown)",
+      "kind": "gift",
+      "unit": "item",
+      "regular_price": 49.9,
+      "target_price": null,
+      "target_reason": "Any real sale or sitewide code at quince.com",
+      "stores": [
+        "quince.com"
+      ],
+      "notes": "Women's wallet, brown (Cognac). Gift for someone other than Sara; must arrive by Christmas.",
+      "sources": {
+        "slickdeals": {
+          "query": "quince",
+          "match": [
+            "quince"
+          ]
+        }
+      }
     }
   ]
 }

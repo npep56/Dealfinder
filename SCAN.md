@@ -94,9 +94,10 @@ it says in `data/costco-books/<valid_from>.json`. Daily scans reuse that file.
 5. Costco also runs separate holiday events (e.g. Holiday Savings, Oct 30 – Nov 30, in
    several windows). Check Slickdeals for posts on them during November.
 
-### Gifts for Sara (kind "gift")
-- Items whose id starts with `sara-` are Christmas gifts. Her sizes: shoes 9.5,
-  overalls M, shirts and tops M. Match the color and size in each item's `variant`.
+### Gifts (kind "gift")
+- Every "gift" item is a Christmas gift. Items whose id starts with `sara-` are for
+  Sara; her sizes: shoes 9.5, overalls M, shirts and tops M. Match the color and size
+  in each item's `variant`.
 - Gifts must arrive by Christmas: note in each observation whether standard shipping
   arrives by Dec 20 if the store says so, and flag any deal that won't.
 - Look-alikes and secondhand are fine where the item says so (the fleece vest:
