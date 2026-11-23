@@ -242,6 +242,8 @@ def build(settings, items, scans):
     stale_days = settings.get("deal_stale_days", 3)
     rows = []
     for item in items.values():
+        if item.get("active") is False:
+            continue  # removed from the watchlist; its history stays
         row = blank_row(item)
         past = [h["unit_price"] for h in history if h["item"] == item["id"]]
         if past:

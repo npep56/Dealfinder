@@ -380,7 +380,7 @@ def run_item(item, settings, today, kroger=None):
 def main(argv):
     wl = json.loads((ROOT / "watchlist.json").read_text())
     settings = wl["settings"]
-    items = [i for i in wl["items"] if not argv or i["id"] in argv]
+    items = [i for i in wl["items"] if i.get("active") is not False and (not argv or i["id"] in argv)]
     today = date.today().isoformat()
     kroger, setup_errors = None, []
     if any("kroger" in (i.get("sources") or {}) for i in items):

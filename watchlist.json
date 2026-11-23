@@ -42,7 +42,8 @@
           ]
         },
         "slickdeals": "rothys casual clog"
-      }
+      },
+      "active": false
     },
     {
       "id": "wolaco-distance-half-tight",
@@ -70,7 +71,8 @@
           ]
         },
         "slickdeals": "wolaco"
-      }
+      },
+      "active": false
     },
     {
       "id": "fitcamx-p6000",

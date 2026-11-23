@@ -73,6 +73,14 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(len(history), 3)
         self.assertEqual([r["date"] for r in runs], ["2026-11-09", "2026-11-08"])
 
+    def test_inactive_items_are_hidden_but_scans_still_load(self):
+        items = dict(ITEMS, clog=dict(CLOG, active=False))
+        scans = [scan("2026-11-09", {"item": "clog", "store": "A", "price": 120})]
+        scans[0]["label"] = "daily"
+        rows, history, _ = build.build(SETTINGS, items, scans)
+        self.assertNotIn("clog", [r["id"] for r in rows])
+        self.assertEqual(len(history), 1)
+
     def test_stale_deal_drops_to_watching(self):
         scans = [scan("2026-11-01", {"item": "clog", "store": "A", "price": 120}), scan("2026-11-09")]
         for s in scans:
