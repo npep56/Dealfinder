@@ -81,6 +81,15 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("clog", [r["id"] for r in rows])
         self.assertEqual(len(history), 1)
 
+    def test_skip_stores_are_ignored(self):
+        items = dict(ITEMS, clog=dict(CLOG, skip_stores=["Kith"]))
+        scans = [scan("2026-11-22", {"item": "clog", "store": "Kith", "price": 100},
+                      {"item": "clog", "store": "REI", "price": 160})]
+        scans[0]["label"] = "daily"
+        rows, history, _ = build.build(SETTINGS, items, scans)
+        clog = next(r for r in rows if r["id"] == "clog")
+        self.assertEqual((clog["store"], clog["status"], len(history)), ("REI", "Watching", 1))
+
     def test_stale_deal_drops_to_watching(self):
         scans = [scan("2026-11-01", {"item": "clog", "store": "A", "price": 120}), scan("2026-11-09")]
         for s in scans:

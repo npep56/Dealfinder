@@ -1084,7 +1084,7 @@
         "Nordstrom",
         "Slickdeals"
       ],
-      "notes": "Any colorway she'd like; confirm 9.5 women's is available.",
+      "notes": "Any colorway she'd like; confirm 9.5 women's is available. Kith's $100 sale is sold out in her size (checked 11/23), so Kith is skipped; tell Claude if it restocks.",
       "sources": {
         "slickdeals": {
           "query": "salomon xt-6",
@@ -1098,7 +1098,10 @@
             "salomon"
           ]
         }
-      }
+      },
+      "skip_stores": [
+        "Kith"
+      ]
     },
     {
       "kind": "gift",

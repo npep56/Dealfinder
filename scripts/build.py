@@ -203,6 +203,12 @@ def blank_row(item):
     }
 
 
+def skipped_store(item, o):
+    """True for a store the item lists under "skip_stores" (e.g. sold out there)."""
+    store = o["store"].lower()
+    return any(skip.lower() in store for skip in item.get("skip_stores", []))
+
+
 def usable(o, scan):
     return o.get("in_stock") is not False and not (o.get("ends") and o["ends"] < scan["date"])
 
@@ -219,7 +225,7 @@ def build(settings, items, scans):
     for s in scans:
         this_run = {}
         for o in s.get("observations", []):
-            if not usable(o, s):
+            if not usable(o, s) or skipped_store(items[o["item"]], o):
                 continue
             item = items[o["item"]]
             status, pct, compare = judge(item, o, settings, regulars.get(o["item"], []))

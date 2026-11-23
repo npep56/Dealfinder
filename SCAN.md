@@ -106,6 +106,7 @@ it says in `data/costco-books/<valid_from>.json`. Daily scans reuse that file.
 
 ### Rules
 - Skip items with `"active": false`: they were removed from the watchlist.
+- Don't record prices from a store listed in an item's `skip_stores` (sold out there).
 - Match the exact product, variant and size (Califia Cold Brew is not Toasted Coconut;
   Chomplings minis are not Original 1.15 oz sticks).
 - Only record prices you can see on a retailer page, a store weekly ad (including the
