@@ -1311,6 +1311,32 @@
         }
       },
       "url": "https://www.ebay.com/itm/157850800206"
+    },
+    {
+      "id": "sara-athleta-clouds-vest",
+      "name": "Sara: Athleta In the Clouds Vest (Hoktown alternative)",
+      "variant": "Women's M; the color in your link (Athleta product 1174538022, color code 802)",
+      "kind": "gift",
+      "unit": "item",
+      "regular_price": 129.0,
+      "target_price": null,
+      "target_reason": "Any real sale below the $129 list price; best price wins",
+      "stores": [
+        "athleta.gap.com",
+        "Gap Inc. sites",
+        "eBay",
+        "Poshmark"
+      ],
+      "url": "https://athleta.gap.com/browse/product.do?pid=1174538022&vid=2",
+      "notes": "Alternative to the Hoktown fleece vest; buy one or the other. Athleta stacks extra % off codes on sale items: report the final price with any code. Size M; confirm the color matches the link.",
+      "sources": {
+        "slickdeals": {
+          "query": "athleta",
+          "match": [
+            "athleta"
+          ]
+        }
+      }
     }
   ]
 }
