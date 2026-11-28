@@ -1,0 +1,849 @@
+{
+  "date": "2026-11-28",
+  "run": "daily",
+  "time": "09:05",
+  "headline": "Quiet Saturday after Black Friday: Duluth Heirloom bib overalls $69.97 (30% off through 12/2; color/size unconfirmed) is the one new deal; Cedar's hummus $2.49 at Kroger and Publix Natural Bliss BOGO still on; Dyson V15 Detect holds at $599.99.",
+  "sources": [
+    {
+      "name": "Store product feeds (fitcamx, janji, aloha, chomps)",
+      "covers": "2026-11-28",
+      "url": "",
+      "ok": true
+    },
+    {
+      "name": "Kroger API (3600 Dallas Hwy SW, Marietta)",
+      "covers": "2026-11-28",
+      "url": "https://www.kroger.com/",
+      "ok": true
+    },
+    {
+      "name": "Whole Foods Kennesaw",
+      "covers": "2026-11-28",
+      "url": "https://www.wholefoodsmarket.com/",
+      "ok": true
+    },
+    {
+      "name": "Flipp weekly ads (30152) + Slickdeals RSS",
+      "covers": "2026-11-28",
+      "url": "https://flipp.com/",
+      "ok": true
+    },
+    {
+      "name": "Costco savings book (saved 11/13)",
+      "covers": "11/16-12/20",
+      "url": "https://slickdeals.net/f/20272695-costco-coupon-book-nov-16-dec-20-2026",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers home page",
+      "covers": "find current Kroger/Publix/Walmart posts (checked 11/28)",
+      "url": "https://www.southernsavers.com/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers Kroger Weekly Ad 11/27-12/1 (posted 11/24/2026)",
+      "covers": "Kroger ad + digital coupons",
+      "url": "https://www.southernsavers.com/kroger-weekly-ad-11-27-12-1/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers Publix Weekly Ad 11/27-12/1 or 11/27-12/2 (posted 11/23/2026)",
+      "covers": "Publix ad",
+      "url": "https://www.southernsavers.com/publix-weekly-ad-11-27-12-1-or-11-27-12-2/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers Kroger eCoupons category",
+      "covers": "Kroger digital coupons (newest post still 11/8)",
+      "url": "https://www.southernsavers.com/kroger/ecoupons-kroger/",
+      "ok": true
+    },
+    {
+      "name": "Southern Savers Walmart Ad Deals 11/23-11/29 (posted 11/24/2026)",
+      "covers": "Walmart ad",
+      "url": "https://www.southernsavers.com/walmart-ad-deals-11-23-11-29/",
+      "ok": true
+    },
+    {
+      "name": "Target product pages (8)",
+      "covers": "simply-lemonade, chomps-original x2, aloha-pb-cup-bars, love-crunch-granola, cascade-dish-detergent x3",
+      "url": "https://www.target.com/",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals search newest",
+      "covers": "cascade, arm hammer detergent, chomps, scoop away, kerrygold, aloha protein, just bare, natural bliss, kirkland mixed nuts, love crunch, 365 coffee, califia",
+      "url": "https://slickdeals.net/newsearch.php?sort=newest",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals Costco November & Black Friday Savings thread",
+      "covers": "Costco holiday event 10/30-11/30",
+      "url": "https://slickdeals.net/f/20194254",
+      "ok": true
+    },
+    {
+      "name": "Target product page (Dyson V15 Detect, TCIN 95085838)",
+      "covers": "dyson-v15-detect",
+      "url": "https://www.target.com/p/-/A-95085838",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals search 'dyson v15 detect' (newest)",
+      "covers": "dyson-v15-detect",
+      "url": "https://slickdeals.net/newsearch.php?q=dyson+v15+detect&searcharea=deals&searchin=first&sort=newest",
+      "ok": true
+    },
+    {
+      "name": "Best Buy V15 Detect listings (search snippets only; bestbuy.com 503 on 11/26-11/27, not retried)",
+      "covers": "dyson-v15-detect",
+      "url": "https://www.bestbuy.com/product/dyson-v15-detect-cordless-vacuum-with-8-accessories-yellow-nickel/J3ZCSYCVPL",
+      "ok": false
+    },
+    {
+      "name": "Amazon V15 Detect / Detect Plus (search snippets only; amazon.com 503 on 11/27, not retried)",
+      "covers": "dyson-v15-detect, fitcamx-p6000",
+      "url": "https://www.amazon.com/dp/B0CT97D9R2",
+      "ok": false
+    },
+    {
+      "name": "dyson.com Black Friday / Cyber Monday deals (search snippets only; 403 on 11/27, not retried)",
+      "covers": "dyson-v15-detect",
+      "url": "https://www.dyson.com/deals/cyber-monday-deals",
+      "ok": false
+    },
+    {
+      "name": "Student Beans US (Dyson)",
+      "covers": "dyson-v15-detect",
+      "url": "https://www.studentbeans.com/us/search?q=dyson",
+      "ok": false
+    },
+    {
+      "name": "UNiDAYS US (Dyson)",
+      "covers": "dyson-v15-detect",
+      "url": "https://www.myunidays.com/US/en-US/partners/dyson/view",
+      "ok": false
+    },
+    {
+      "name": "FitcamX P6000 product page",
+      "covers": "fitcamx-p6000",
+      "url": "https://fitcamx.com/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals search 'fitcamx' (newest)",
+      "covers": "fitcamx-p6000",
+      "url": "https://slickdeals.net/newsearch.php?q=fitcamx&searcharea=deals&searchin=first&sort=newest",
+      "ok": true
+    },
+    {
+      "name": "Janji product page and Black Friday collection",
+      "covers": "janji-trail-half-tight-lined",
+      "url": "https://janji.com/collections/black-friday",
+      "ok": true
+    },
+    {
+      "name": "REI Janji Trail Half Tight (search snippets)",
+      "covers": "janji-trail-half-tight-lined",
+      "url": "https://www.rei.com/product/230744/janji-trail-8-half-tights-mens",
+      "ok": true
+    },
+    {
+      "name": "Target product pages (Treasures in the Dark A-89464301, From Seed to Bloom A-84914012, JoyLab High Pile Vest A-94676954)",
+      "covers": "sara-treasures-dark, sara-seed-to-bloom, sara-fleece-vest (look-alike)",
+      "url": "https://www.target.com/",
+      "ok": true
+    },
+    {
+      "name": "Target search (canon ivy 2 mini photo printer; kodak step slim printer)",
+      "covers": "sara-photo-printer",
+      "url": "https://www.target.com/s?searchTerm=kodak+step+slim+printer",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals search newest (duluth, l.l.bean, athleta, quince, salomon xt-6, rhode, photo printer, canon ivy, kodak step, hobonichi, mitchell ness)",
+      "covers": "all gift items",
+      "url": "https://slickdeals.net/newsearch.php?sort=newest",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals Duluth Trading Black Friday Sale post 20419656 (posted 11/27)",
+      "covers": "sara-duluth-overalls",
+      "url": "https://slickdeals.net/f/20419656-duluth-trading-black-friday-sale-buck-naked-boxer-briefs-17-47-free-swingin-flannel-27-48-fire-hose-limber-jac-44-98-more",
+      "ok": true
+    },
+    {
+      "name": "Slickdeals Duluth e-gift card + 30% off thread 20387529",
+      "covers": "sara-duluth-overalls",
+      "url": "https://slickdeals.net/f/20387529",
+      "ok": true
+    },
+    {
+      "name": "sephora.com rhode brand page",
+      "covers": "sara-rhode",
+      "url": "https://www.sephora.com/brand/rhode-hailey-bieber",
+      "ok": false
+    },
+    {
+      "name": "salomon.com US Black Friday page",
+      "covers": "sara-salomon-xt6",
+      "url": "https://www.salomon.com/en-us/shop/promotions/black-friday-sale.html",
+      "ok": false
+    },
+    {
+      "name": "Web search snippets",
+      "covers": "Duluth, Athleta, Quince, L.L.Bean, Salomon XT-6, rhode/Sephora, Hobonichi, floral shops, Kline (Small Business Saturday)",
+      "url": "",
+      "ok": true
+    }
+  ],
+  "observations": [
+    {
+      "item": "fitcamx-p6000",
+      "store": "fitcamx.com",
+      "price": 189.0,
+      "regular_price": 189,
+      "url": "https://fitcamx.com/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "in_stock": true,
+      "note": "FITCAMX Dash Cam for Hyundai Santa Fe 2024-2026 (Rear Mirror Cover part number 96030-P6000): Front: 4K（2160P）64GB / New (store product feed, 2026-11-28). Store shows compare-at $219."
+    },
+    {
+      "item": "fitcamx-p6000",
+      "store": "fitcamx.com",
+      "price": 109.0,
+      "regular_price": 189,
+      "url": "https://fitcamx.com/products/fitcamx-dash-cam-for-hyundai-santa-fe-2024-2025-rear-mirror-cover-part-number-96030-p6000",
+      "in_stock": false,
+      "note": "FITCAMX Dash Cam for Hyundai Santa Fe 2024-2026 (Rear Mirror Cover part number 96030-P6000): Front: 4K（2160P）64GB / Certified Refurbished (store product feed, 2026-11-28). Store shows compare-at $219."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 112.0,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": false,
+      "note": "M's 8\" Trail Half Tight Lined: Midnight / L (store product feed, 2026-11-28)."
+    },
+    {
+      "item": "janji-trail-half-tight-lined",
+      "store": "janji.com",
+      "price": 100.8,
+      "regular_price": 112,
+      "url": "https://janji.com/products/ms-8-trail-half-tight-lined",
+      "in_stock": true,
+      "note": "M's 8\" Trail Half Tight Lined: Carbon / L (store product feed, 2026-11-28). Store shows compare-at $112."
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.49,
+      "regular_price": 5.29,
+      "url": "https://www.kroger.com/p/-/0076770700214",
+      "note": "Kerrygold Kerrygold Irish Grass-Fed Salted Butter Sticks, 8oz 8 oz (Kroger API, 2026-11-28).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 3.99,
+      "regular_price": 5.29,
+      "url": "https://www.kroger.com/p/-/0076770700106",
+      "note": "Kerrygold Kerrygold Irish Grass-Fed Salted Butter Foil 8 oz (Kroger API, 2026-11-28).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 9.99,
+      "regular_price": 9.99,
+      "url": "https://www.kroger.com/p/-/0076770701430",
+      "note": "Kerrygold Kerrygold Grass-Fed Pure Irish Salted Butter Sticks 4 ct / 16 oz (Kroger API, 2026-11-28).",
+      "size": 16.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 6.29,
+      "regular_price": 6.29,
+      "url": "https://www.kroger.com/p/-/0076770700167",
+      "note": "Kerrygold Kerrygold Grass-Fed Pure Irish Salted Softer Butter Tub 8 oz (Kroger API, 2026-11-28).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-butter-sticks-8-oz-b01hxz021g",
+      "note": "Kerrygold Salted Butter Sticks, 8 OZ (Whole Foods site, 2026-11-28).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-salted-irish-butter-8-oz-b0011ekwbq",
+      "note": "KERRYGOLD Salted Irish Butter, 8 OZ (Whole Foods site, 2026-11-28).",
+      "size": 8.0
+    },
+    {
+      "item": "kerrygold-butter",
+      "store": "Whole Foods Kennesaw",
+      "price": 9.99,
+      "regular_price": 9.99,
+      "url": "https://www.wholefoodsmarket.com/product/kerrygold-irish-salted-butter-sticks-16-oz-b09xzfdrrk",
+      "note": "Kerrygold Irish Salted Butter Sticks, 16 OZ (Whole Foods site, 2026-11-28).",
+      "size": 16.0
+    },
+    {
+      "item": "stonyfield-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 6.39,
+      "regular_price": 6.39,
+      "url": "https://www.wholefoodsmarket.com/product/stonyfield-farm-organic-vanilla-low-fat-yogurt-32-oz-b00108cspq",
+      "note": "Stonyfield Farm Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-28).",
+      "size": 32.0
+    },
+    {
+      "item": "natural-bliss-sweet-cream",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 5.79,
+      "regular_price": 5.79,
+      "url": "https://www.kroger.com/p/-/0005000080164",
+      "note": "Coffee mate Natural Bliss Sweet Cream Flavored Coffee Creamer 32 fl oz (Kroger API, 2026-11-28).",
+      "size": 32.0
+    },
+    {
+      "item": "califia-toasted-coconut",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.99,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0085290900342",
+      "note": "Califia Farms Califia Farms Toasted Coconut Almond Milk 48 fl oz (Kroger API, 2026-11-28).",
+      "size": 48.0
+    },
+    {
+      "item": "simply-lemonade",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 3.29,
+      "regular_price": 3.29,
+      "url": "https://www.kroger.com/p/-/0002500004498",
+      "note": "Simply Simply® Lemonade Bottle 52 fl oz (Kroger API, 2026-11-28).",
+      "size": 52.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 2.49,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0004411540301",
+      "note": "Cedar's Cedar's Organic Original Hummus 10 oz (Kroger API, 2026-11-28).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 2.49,
+      "regular_price": 4.99,
+      "url": "https://www.kroger.com/p/-/0004411540321",
+      "note": "Cedar's Cedar's Organic Hot Honey Hummus 10 oz (Kroger API, 2026-11-28).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-original-hummus-10-oz-b07rcp6sm1",
+      "note": "Cedars Mediterranean Food Organic Original Hummus, 10 OZ (Whole Foods site, 2026-11-28).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-topped-garlic-hummus-10-oz-b07fw1xgq2",
+      "note": "Cedars Mediterranean Food Organic Topped Garlic Hummus, 10 OZ (Whole Foods site, 2026-11-28).",
+      "size": 10.0
+    },
+    {
+      "item": "cedars-hommus",
+      "store": "Whole Foods Kennesaw",
+      "price": 5.49,
+      "regular_price": 5.49,
+      "url": "https://www.wholefoodsmarket.com/product/cedars-mediterranean-food-organic-hot-honey-hommus-with-toppings-10-oz-b0cn9pp8qw",
+      "note": "Cedars Mediterranean Food Organic Hot Honey Hommus with Toppings, 10 OZ (Whole Foods site, 2026-11-28).",
+      "size": 10.0
+    },
+    {
+      "item": "simple-truth-pb",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 10.99,
+      "regular_price": 10.99,
+      "url": "https://www.kroger.com/p/-/0001111089495",
+      "note": "Simple Truth Organic Simple Truth Organic® No Stir Creamy Peanut Butter Spread BIG DEAL! 40 oz (Kroger API, 2026-11-28).",
+      "size": 40.0
+    },
+    {
+      "item": "back-to-nature-crackers",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 3.49,
+      "regular_price": 3.49,
+      "url": "https://www.kroger.com/p/-/0081989801010",
+      "note": "Back to Nature Back to Nature® Classic Round Crackers 6.5 oz (Kroger API, 2026-11-28).",
+      "size": 6.5
+    },
+    {
+      "item": "back-to-nature-crackers",
+      "store": "Whole Foods Kennesaw",
+      "price": 3.28,
+      "regular_price": 4.39,
+      "url": "https://www.wholefoodsmarket.com/product/back-to-nature-classic-round-crackers-65-oz-b0dd1wc81c",
+      "note": "Back to Nature Classic Round Crackers, 6.5 OZ (Whole Foods site, 2026-11-28).",
+      "ends": "2026-12-01",
+      "size": 6.5
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "aloha.com",
+      "price": 34.99,
+      "regular_price": 34.99,
+      "url": "https://aloha.com/products/peanut-butter-cup-protein-bar",
+      "in_stock": true,
+      "note": "Peanut Butter Cup - Protein Bars: 12-Bar Box (store product feed, 2026-11-28).",
+      "size": 12
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 4.99,
+      "regular_price": 5.79,
+      "url": "https://www.kroger.com/p/-/0005844916207",
+      "note": "Nature's Path Organic Nature's Path Love Crunch Dark Chocolate & Peanut Butter Granola 11.5 oz (Kroger API, 2026-11-28).",
+      "size": 11.5
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.53,
+      "regular_price": 6.29,
+      "url": "https://www.wholefoodsmarket.com/product/natures-path-organic-peanut-butter-dark-chocolate-love-crunch-granola-115-oz-b01b395dda",
+      "note": "Natures Path Organic Peanut Butter Dark Chocolate Love Crunch Granola, 11.5 OZ (Whole Foods site, 2026-11-28).",
+      "ends": "2026-12-01",
+      "size": 11.5
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 16.99,
+      "regular_price": 16.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-pacific-rim-ground-coffee-24-oz-b01kl4hwws",
+      "note": "365 by Whole Foods Market Pacific Rim Ground Coffee, 24 OZ (Whole Foods site, 2026-11-28).",
+      "size": 24.0
+    },
+    {
+      "item": "wf365-coffee",
+      "store": "Whole Foods Kennesaw",
+      "price": 19.99,
+      "regular_price": 19.99,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-buzz-free-decaf-ground-coffee-24-oz-b06xz25cmk",
+      "note": "365 by Whole Foods Market Buzz Free Decaf Ground Coffee, 24 OZ (Whole Foods site, 2026-11-28).",
+      "size": 24.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 19.99,
+      "regular_price": 19.99,
+      "url": "https://www.kroger.com/p/-/0085001589252",
+      "note": "Chomps Chomps® Original Flavor Beef Snack Sticks 9.2 oz (Kroger API, 2026-11-28).",
+      "size": 8
+    },
+    {
+      "item": "chomps-original",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 2.99,
+      "regular_price": 2.99,
+      "url": "https://www.kroger.com/p/-/0085658400418",
+      "note": "Chomps Chomps® Original Grass Fed and Finished Beef Stick 1.15 oz (Kroger API, 2026-11-28).",
+      "size": 1
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 2.99,
+      "regular_price": 2.99,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-sgl-115-oz-grassfed-and-finished-beef-stick-with-zero-sugar-keto-and-paleo-friendly-whole30-lowcarb-snack-10g-protein-b07l6r17ds",
+      "note": "Chomps Original Beef Stick Sgl, 1.15 OZ | Grass-Fed And Finished Beef Stick With Zero Sugar, Keto And Paleo Friendly, Whole30, Low-Carb Snack, 10G Protein (Whole Foods site, 2026-11-28).",
+      "size": 1
+    },
+    {
+      "item": "chomps-original",
+      "store": "Whole Foods Kennesaw",
+      "price": 16.29,
+      "regular_price": 19.49,
+      "url": "https://www.wholefoodsmarket.com/product/chomps-original-beef-stick-8-count-115-oz-finished-and-grassfed-beef-sticks-with-zero-sugar-keto-and-paleo-friendly-whole30-lowcarb-snack-10g-protein-b08z9nbc77",
+      "note": "Chomps Original Beef Stick 8 Count, 1.15 OZ | Finished And Grass-Fed Beef Sticks With Zero Sugar, Keto And Paleo Friendly, Whole30, Low-Carb Snack, 10G Protein (Whole Foods site, 2026-11-28).",
+      "ends": "2026-12-01",
+      "size": 8.0
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 25.6,
+      "regular_price": 25.6,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 10 Pack (store product feed, 2026-11-28).",
+      "size": 10
+    },
+    {
+      "item": "chomps-original",
+      "store": "chomps.com",
+      "price": 54.99,
+      "regular_price": 54.99,
+      "url": "https://chomps.com/products/original-beef-sticks",
+      "in_stock": true,
+      "note": "Original Beef: 24 Pack (store product feed, 2026-11-28).",
+      "size": 24
+    },
+    {
+      "item": "wf365-vanilla-yogurt",
+      "store": "Whole Foods Kennesaw",
+      "price": 4.79,
+      "regular_price": 4.79,
+      "url": "https://www.wholefoodsmarket.com/product/365-by-whole-foods-market-organic-vanilla-low-fat-yogurt-32-oz-b074h5y3tm",
+      "note": "365 by Whole Foods Market Organic Vanilla Low Fat Yogurt, 32 OZ (Whole Foods site, 2026-11-28).",
+      "size": 32.0
+    },
+    {
+      "item": "arm-hammer-oxiclean-max",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 10.99,
+      "regular_price": 10.99,
+      "url": "https://www.kroger.com/p/-/0003320094265",
+      "note": "Arm & Hammer ARM & HAMMER Plus OxiClean Max Force Deep Clean Stain Liquid Detergent Sparkling Clean 75 fl oz (Kroger API, 2026-11-28).",
+      "size": 75.0
+    },
+    {
+      "item": "cascade-dish-detergent",
+      "store": "Kroger (3600 Dallas Hwy SW, Marietta)",
+      "price": 8.99,
+      "regular_price": 8.99,
+      "url": "https://www.kroger.com/p/-/0003700043357",
+      "note": "Cascade Cascade Complete Citrus Breeze Scent Dishwasher Detergent Gel 75 fl oz (Kroger API, 2026-11-28).",
+      "size": 75.0
+    },
+    {
+      "item": "scoop-away-litter",
+      "store": "Costco",
+      "price": 12.69,
+      "size": 42,
+      "regular_price": 16.79,
+      "url": "https://slickdeals.net/f/20272695-costco-coupon-book-nov-16-dec-20-2026",
+      "ends": "2026-12-20",
+      "code": "Costco savings book",
+      "final_sale": false,
+      "in_stock": true,
+      "note": "from the savings book, read 2026-11-13: SAVE $4.10, limit 2, warehouse + online. Price worked out from the discount off the usual $16.79."
+    },
+    {
+      "item": "natural-bliss-sweet-cream",
+      "store": "Publix",
+      "price": 3.245,
+      "size": 32,
+      "regular_price": 6.49,
+      "url": "https://www.southernsavers.com/publix-weekly-ad-11-27-12-1-or-11-27-12-2/",
+      "ends": "2026-12-02",
+      "code": "BOGO (buy 2)",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "deal",
+      "note": "Page read 11/28: Southern Savers Publix ad 11/27-12/1 or 12/2: 'Natural Bliss Coffee Creamer, 32 oz bot., at $6.49 ($3.24)' BOGO; confirms Flipp lead (11/25-12/02). Flavor not named; Sweet Cream assumed included. $0.101/oz buying 2 vs Kroger $5.79. Unchanged from 11/27."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Walmart",
+      "price": 2.48,
+      "size": 1,
+      "regular_price": null,
+      "url": "https://www.southernsavers.com/walmart-ad-deals-11-23-11-29/",
+      "ends": "2026-11-29",
+      "code": "$0.25 Walmart Cash when you buy 2 (limit 1)",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Southern Savers Walmart ad 11/23-11/29: 'Chomps Meat Sticks, 1.15 oz, $2.48' ($2.35 each with the Walmart Cash WYB 2). Flavor not named (Original assumed). Above the usual $1.42/stick. Ad ends tomorrow."
+    },
+    {
+      "item": "simply-lemonade",
+      "store": "Target",
+      "price": 2.99,
+      "size": 52,
+      "regular_price": null,
+      "url": "https://www.target.com/p/simply-lemonade-52-fl-oz/-/A-13183166",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: 52 fl oz $2.99, in stock, no sale or Circle offer. Unchanged."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Target",
+      "price": 2.69,
+      "size": 1,
+      "regular_price": null,
+      "url": "https://www.target.com/p/chomps-original-beef-1-15oz/-/A-85832624",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Original Beef 1.15 oz stick $2.69, in stock, no offer (page promos apply to other products). Unchanged."
+    },
+    {
+      "item": "chomps-original",
+      "store": "Target",
+      "price": 18.49,
+      "size": 8,
+      "regular_price": null,
+      "url": "https://www.target.com/p/chomps-original-beef-8ct-9-2oz/-/A-87802842",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Original Beef 8 ct (9.2 oz) $18.49 = $2.31/stick, in stock, no offer. Unchanged."
+    },
+    {
+      "item": "aloha-pb-cup-bars",
+      "store": "Target",
+      "price": 10.59,
+      "size": 5,
+      "regular_price": null,
+      "url": "https://www.target.com/p/aloha-peanut-butter-cup-nutrition-bars-9-88oz/-/A-92167763",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Peanut Butter Cup 5-ct (9.88 oz) $10.59 = $2.12/bar, in stock, no offer. Unchanged."
+    },
+    {
+      "item": "love-crunch-granola",
+      "store": "Target",
+      "price": 6.19,
+      "size": 11.5,
+      "regular_price": null,
+      "url": "https://www.target.com/p/nature-s-path-love-crunch-dark-chocolate-and-peanut-butter/-/A-94797933",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Dark Chocolate & PB 11.5 oz $6.19, in stock, no offer. Unchanged."
+    },
+    {
+      "item": "cascade-dish-detergent",
+      "store": "Target",
+      "price": 7.99,
+      "size": 75,
+      "regular_price": null,
+      "url": "https://www.target.com/p/cascade-complete-dishwasher-detergent-gel-citrus-breeze-scent-75oz/-/A-13044037",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Complete Gel Citrus Breeze 75 oz $7.99 ($0.107/oz), in stock, only 5% Circle Card. Unchanged."
+    },
+    {
+      "item": "cascade-dish-detergent",
+      "store": "Target",
+      "price": 6.99,
+      "size": 75,
+      "regular_price": null,
+      "url": "https://www.target.com/p/-/A-13044214",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Complete Powder Fresh 75 oz $6.99 ($0.093/oz), in stock, only 5% Circle Card (page coupon is for Platinum Plus pods, excluded). Unchanged."
+    },
+    {
+      "item": "cascade-dish-detergent",
+      "store": "Target",
+      "price": 10.99,
+      "size": 120,
+      "regular_price": null,
+      "url": "https://www.target.com/p/-/A-81432759",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read 11/28: Complete Gel Fresh 120 fl oz $10.99 ($0.092/oz), in stock, only 5% Circle Card. Unchanged."
+    },
+    {
+      "item": "dyson-v15-detect",
+      "store": "Target",
+      "price": 599.99,
+      "size": null,
+      "regular_price": 849.99,
+      "url": "https://www.target.com/p/-/A-95085838",
+      "ends": null,
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "note": "Page read 2026-11-28: base V15 Detect (Fluffy Optic + Digital Motorbar heads, Mini Motorized tool; 3 accessories), '$250 off', in stock, no end date, not labeled refurbished. Unchanged from 11/26-11/27."
+    },
+    {
+      "item": "dyson-v15-detect",
+      "store": "Best Buy",
+      "price": 599.99,
+      "size": null,
+      "regular_price": 849.99,
+      "url": "https://www.bestbuy.com/product/dyson-v15-detect-cordless-vacuum-with-8-accessories-yellow-nickel/J3ZCSYCVPL",
+      "ends": null,
+      "code": "",
+      "final_sale": false,
+      "in_stock": null,
+      "note": "Snippet only (bestbuy.com 503 on 11/26-11/27, not retried): base V15 Detect with 8 accessories, Yellow/Nickel, $599.99, 'Save $250' vs comparable value $849.99, 'Black Friday is here / 24-Hour Flash Sale' banner. Snapshot undated, so not certain it is today's price. Same as 11/27."
+    },
+    {
+      "item": "sara-treasures-dark",
+      "store": "Target",
+      "price": 13.88,
+      "size": null,
+      "regular_price": 24.99,
+      "url": "https://www.target.com/p/treasures-in-the-dark-by-katherine-wolf-hardcover/-/A-89464301",
+      "ends": null,
+      "code": "Buy 2 get 1 free select books & music (optional)",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "deal",
+      "note": "Page read 11/28. Hardcover $13.88 (MSRP $24.99), In Stock; unchanged from 11/27, no Black Friday/Cyber label. Buy 2 get 1 free select books & music and 5% Circle Card still shown. No delivery date on the product page today; Target search showed 'Arrives Wed, Dec 2' on 11/27 (before Dec 20)."
+    },
+    {
+      "item": "sara-seed-to-bloom",
+      "store": "Target",
+      "price": 23.71,
+      "size": null,
+      "regular_price": 32.5,
+      "url": "https://www.target.com/p/from-seed-to-bloom-by-milli-proust-hardcover/-/A-84914012",
+      "ends": null,
+      "code": "Buy 2 get 1 free select books & music (optional)",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "close",
+      "note": "Page read 11/28. Hardcover $23.71 (MSRP $32.50), In Stock; unchanged, no Black Friday/Cyber price. Buy 2 get 1 free select books & music still shown (pairs with Treasures in the Dark); 5% Circle Card = $22.52. No delivery date on the page, so Dec 20 not confirmed by the store (other Target items ship by Dec 2-3). Target $22."
+    },
+    {
+      "item": "sara-photo-printer",
+      "store": "Target",
+      "price": 98.99,
+      "size": null,
+      "regular_price": 119.99,
+      "url": "https://www.target.com/s?searchTerm=canon+ivy+2+mini+photo+printer",
+      "ends": null,
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read (search) 11/28. Canon IVY 2 Blush Pink (A-95279827) $98.99, was $119.99, 'New lower price'; unchanged, no Black Friday/Cyber label. 'Shipping arrives Thu, Dec 3', ships free (before Dec 20). IVY 2 Pure White (A-1009708014) $143.99. Above the $70 target."
+    },
+    {
+      "item": "sara-photo-printer",
+      "store": "Target",
+      "price": 89.99,
+      "size": null,
+      "regular_price": null,
+      "url": "https://www.target.com/s?searchTerm=kodak+step+slim+printer",
+      "ends": null,
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "none",
+      "note": "Page read (search) 11/28. Kodak Step Slim White (A-87516776) $89.99, no sale tag; Barbie Step Slim editions $99.99+. 'Shipping arrives Thu, Dec 3' (before Dec 20). Unchanged. (Non-Slim Kodak Step printers are $79.99, not the Slim.)"
+    },
+    {
+      "item": "sara-fleece-vest",
+      "store": "Look-alikes",
+      "price": 24.0,
+      "size": null,
+      "regular_price": 40.0,
+      "url": "https://www.target.com/p/-/A-94676954",
+      "ends": null,
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "deal",
+      "note": "Page read 11/28. Target JoyLab Women's High Pile Vest (new), Light Blue/Maroon/White; $24, reg $40 ('$16 off'), no end date; unchanged since 11/24. Maroon M stock not shown (In Stock shown only for default Light Blue XXS). No delivery date on the page; other Target items show Dec 3 shipping."
+    },
+    {
+      "item": "sara-duluth-overalls",
+      "store": "duluthtrading.com",
+      "price": 69.97,
+      "size": null,
+      "regular_price": 100.0,
+      "url": "https://slickdeals.net/f/20419656-duluth-trading-black-friday-sale-buck-naked-boxer-briefs-17-47-free-swingin-flannel-27-48-fire-hose-limber-jac-44-98-more",
+      "ends": "2026-12-02",
+      "code": "",
+      "final_sale": false,
+      "in_stock": true,
+      "assessment": "deal",
+      "note": "NEW. Slickdeals post 11/27 (not expired): Duluth Black Friday sale, 30% off everything else (prices as marked, exclusions apply), 50% off Dam Busters, runs through Dec 2, 2026; lists Women's Heirloom Gardening Bib Overalls $69.97 (retail $100). Roasted Clove/Brick and size M availability not confirmed (duluthtrading.com doesn't resolve), so in_stock assumed. Free standard shipping $50+; no delivery date given, but ordering by Dec 2 should normally arrive before Dec 20 (not stated by the store). Optional stack: $100 e-gift card + $25 bonus via CashStar (Slickdeals 20387529, mixed stacking reports)."
+    }
+  ],
+  "notes": [
+    "Costco book valid to 12/20 (22 days away, >10); no new book search needed.",
+    "Southern Savers 11/28: no new Kroger weekly ad, eCoupon (newest still 11/8 Kellogg's Mega Deal) or Kroger/Publix unadvertised-deal post for watchlist items. New posts since 11/27 are Kohl's BF, Publix Huggies, Lowe's, Walgreens 11/29-12/5, CVS 11/29-12/12, Rubbermaid at Walmart: none are watchlist groceries.",
+    "Kroger 11/27-12/1 ad re-read 11/28: still no watchlist matches. Near-misses unchanged: Coffee-Mate Creamer 32 oz $2.99 (not Natural Bliss), Sabra hummus BOGO (not Cedar's), Perdue frozen chicken 27-29 oz $4.99 (not Just Bare).",
+    "Publix 11/27-12/1 or 12/2 ad re-read 11/28: Natural Bliss 32 oz BOGO $6.49 confirmed again (recorded). Califia line is 'Califia Farms Organic Almondmilk, or Oatmilk or Coconutmilk, or Almondmilk Creamer, 25.4 or 48 oz, at $6.79 ($3.39)' - Organic line only, Toasted Coconut not included; not recorded. Just Bare line is 'Lightly Breaded Chicken Breast, or Oven-Roasted Chicken Breast Bites or Strips, 19.2 or 24 oz, $10.99' - no Chunks SKU at Publix; not recorded. Arm & Hammer 'Laundry Detergent, or Paks or Sheets, 75 to 110 oz, at $12.79 ($6.39)' BOGO - variants not named, Plus OxiClean Max at Publix unconfirmed; not recorded (if Max is included: $0.058-0.085/oz). No Cascade line in the post.",
+    "Flipp lead Publix Cascade $12.99 (11/25-12/02): not in the Southern Savers Publix post; web search found no dated Publix Cascade price (Publix listings found are pods/ActionPacs, which are excluded). Not recorded.",
+    "Flipp lead Kroger 'Just Bare Frozen Chicken $14.99 With Card' (11/27-12/02): not in the Southern Savers Kroger post; only a Sept 2026 Kroger ad line '36 oz' found. Product (Chunks?) unconfirmed; not recorded.",
+    "Flipp lead Lidl Califia almond milk $3.49: Lidl is not a listed store for the item and no Toasted Coconut flavor named; not recorded.",
+    "Flipp leads CVS 'Simply Juice or Lemonade 11.5 oz' BOGO 50% and Walgreens single-serve Simply 2/$4 (both 11/29-12/06): single-serve sizes, not 52 oz, and stores not listed; not recorded.",
+    "Flipp leads Dollar General A&H 45.5-67 oz $3, Walgreens A&H/OxiClean $9.99, CVS A&H 27.5-28 oz $3.99: stores not listed for the item and Plus OxiClean Max not named; not recorded.",
+    "Slickdeals lead Jack Link's 20-pk beef sticks $9.60 S&S: not Chomps; not recorded.",
+    "Walmart ad 11/23-11/29 re-read 11/28: unchanged (Chomps 1.15 oz $2.48 recorded; Stonyfield YoBaby 4 ct and Litter Genie litter are not watchlist items). No newer Walmart ad post yet; next week's ad (from 11/30) not posted.",
+    "Target: all 8 pages unchanged on 11/28; no sale or Circle offers (5% Circle Card only on Cascade).",
+    "Slickdeals newest (through 11/28): nothing new for watchlist groceries. Cascade: Complete ActionPacs 100 ct $18 Amazon 11/26 (pods, excluded). Arm & Hammer: newest is A&H Multi-Cat litter 40 lb $13 Chewy (11/28, not Scoop Away or detergent); no Plus OxiClean Max post since Oct 5. Chomps: Jack Link's only. Scoop Away: Multi-Cat only. Kerrygold: all expired. ALOHA PB Cup: only the expired 8/30 post. Just Bare, Natural Bliss, Kirkland mixed nuts, Love Crunch: no relevant posts. 365 coffee: only expired whole-bean posts. Califia: all expired (barista/oat).",
+    "Costco November & Black Friday Savings (Slickdeals 20194254, 10/30-11/30, not marked expired): no update since the 11/27 wave (TCL TV, Litter-Robot EVO $75 off, Ninja AutoBarista, DeWalt vac). No watchlist grocery items.",
+    "Dyson Slickdeals newest (11/28): nothing new since 11/24. Live V15 posts are eBay refurbs $292-$352 (excluded) or Total Clean Extra/Submarine (excluded models); Woot new V15 Detect $450 (11/20) is expired. Amazon V15 Detect Pro $535 (6/22) shows not expired but is a June post for the Pro model, not counted.",
+    "Dyson Best Buy Flipp lead 'V15 Detect + Dok' $599.99 (11/27-11/30): flipp.com fails DNS and bestbuy.com 503, so not confirmed; the Best Buy product-page snippet for the Dok bundle (J3ZCSY25Y6, SKU 6675887) shows $699.99 ('Save $200' vs $899.99), undated. Not recorded. The Dok bundle is base V15 Detect plus a floor dock, so it would qualify if $599.99 is confirmed; at $599.99 it ties Target/Best Buy base price with an extra dock.",
+    "Dyson Amazon: snippets only. V15 Detect Plus (B0CT97D9R2) snippet shows $825.99 and a $549 third-party price, but the snapshot references October delivery dates, so stale; not recorded. Renewed listings excluded. A non-Plus V15 Detect $489.99 snippet is from a different, undated page; not recorded.",
+    "Dyson dyson.com: snippets only show a V15 Detect Absolute Black Friday bundle (excluded model); no base V15 Detect / Detect Plus price seen.",
+    "Dyson Costco/Kohl's/Walmart not re-checked today (costco.com 429, kohls.com DNS, walmart.com not fetched); 11/27 found no new base V15 Detect at Costco.",
+    "Ollie's Flipp lead 'DYSON V15 CORDLESS VACUUM' $299.99 (11/23-12/01, 'theirs new $649.99'): flipp.com fails DNS, model and condition can't be confirmed (likely closeout/refurb at that price); not recorded.",
+    "FitcamX: page read 11/28 confirms the feed (P6000 Front 4K 64GB New $189, compare-at $219, in stock). No Black Friday/Cyber Monday banner or code; only 'Subscribe and get 5% off' newsletter signup (would be about $179.55, still above the $160 target). Slickdeals 'fitcamx' is still only the expired July 2024 Amazon post. Web search found no verified FitcamX holiday code (only coupon aggregators, ignored). Not duplicated.",
+    "FitcamX Amazon/Newegg: not re-checked by page (amazon.com 503); 11/27 found only front+rear bundles on Newegg.",
+    "Janji: Black Friday still live, 'BLACK FRIDAY IS HERE! UP TO 40% OFF SITEWIDE', no code or end date; 40%+ off items final sale; Janji Collective 15% ($25 one-time) is the only other offer. M's 8\" Trail Half Tight Lined page shows $112, no compare-at; not in /collections/black-friday. The feed shows Midnight (black) L $112 now out of stock and Carbon L $100.80 (not black). Not duplicated.",
+    "Janji REI: REI lists only the unlined Trail 8\" Half Tights ($98, liner 'No') and Trail Half Tight 6\"; neither counts (unlined).",
+    "Target gift pages all unchanged on Small Business Saturday: no Black Friday or Cyber labels on the books, printers or JoyLab vest. Target printer search now shows 'Shipping arrives Thu, Dec 3' (was Dec 1).",
+    "Duluth: new Slickdeals Black Friday post (11/27, through 12/2) explicitly lists the women's Heirloom Gardening Bib Overalls at $69.97 - recorded. Newest Duluth posts otherwise boxer briefs/flannels. The 11/24 CashStar gift-card thread has no new comments since 11/26 (payment errors, mixed stacking).",
+    "L.L.Bean: Slickdeals newest still the 11/25 '15% off $80' (GIFT15 per yesterday's scan, through 12/1) post; no new Black Friday/Cyber code, no clog post. llbean.com not readable; Wellie Clog Warm Gold 9.5 price not seen. With 15% off the $79 list, about $67.15 (worked out, not seen; check the $80 minimum - clog alone may fall just short).",
+    "Athleta: Slickdeals 'athleta' newest are gift-card redemptions only (Capital One 25% off select gift cards, 11/27). Snippets: Athleta BF page says 'Black Friday is a wrap'; In the Clouds Vest $77.40 / $79.97 snippets are undated and not tied to color 802/M. Nothing recorded.",
+    "Quince: Slickdeals 'quince' has no Quince sale post (only perfume/Amazon items). Rank & Style 'up to 30% off' BF 2026 still unverified. No Cognac wallet price.",
+    "Salomon XT-6: Slickdeals 0 results; salomon.com US Cyber Deals snippet still 'Black Friday 2026 is coming'; Footpatrol BF snippets look like 2025. Kith skipped.",
+    "rhode: Slickdeals 'rhode' has no rhode beauty posts. Sephora Pocket Pair Lip + Cheek set snippets show $38 ($45 value) and $55 ($68 value), undated, one color out of stock; no 2026 rhode Black Friday sale announced. Not recorded.",
+    "Photo printer: Slickdeals 'photo printer' newest through 11/28 has no Canon IVY or Kodak Step Slim (Canon PIXMA, Cricut StickerPix $119, HP Sprocket Panorama $137.99). 'canon ivy' and 'kodak step' searches: only expired 2023-2025 posts.",
+    "Hobonichi: Slickdeals 0 results; snippets: Dromgoole's $39 sold out, Boston General Store $39 (stock unknown), Present & Correct sold out. Low-stock risk continues.",
+    "Red Sox dad hat: Slickdeals 'mitchell ness' has no Red Sox or sitewide code posts. Not found.",
+    "Small Business Saturday: search found no sale or code for Camilia Supply, Oh Flora Store, The Floral Society or Kline Honey Bee Farm.",
+    "No new gift leads in out/sources.json (Flipp/Slickdeals feeds) for 11/28."
+  ],
+  "gaps": [
+    "flipp.com not opened (DNS per 11/27); Flipp leads confirmed only via Southern Savers posts and search.",
+    "No current Southern Savers Kroger digital-coupon post (newest 11/8), so Kroger digital coupons are unverified beyond those in the ad post.",
+    "walmart.com not fetched (policy); no Walmart grocery prices beyond the Southern Savers ad post.",
+    "publix.com prices not readable; Publix variant inclusion (Natural Bliss flavor, A&H Plus OxiClean Max, Cascade lead) unconfirmed.",
+    "Amazon, Costco.com not retried (503/429 on 11/27); no Amazon/Costco page prices for groceries beyond the savings book.",
+    "www.studentbeans.com and www.myunidays.com fail DNS (ENOTFOUND) again: Dyson student offer not checked; they need allowing in the session's network settings.",
+    "bestbuy.com, amazon.com, dyson.com, costco.com not fetched today (503/503/403/429 on 11/27); Best Buy Dyson price is snippet-only, no Amazon/dyson.com/Costco price recorded.",
+    "flipp.com fails DNS: Best Buy V15 Detect + Dok $599.99 and Ollie's $299.99 leads unconfirmed.",
+    "walmart.com not fetched (policy); kohls.com fails DNS.",
+    "www.sephora.com and www.salomon.com fail DNS (ENOTFOUND) and need allowing in the session's network settings; stopped trying new sites after these. Yesterday's failing hosts (llbean.com, duluthtrading.com, athleta.gap.com, quince.com, rhodeskin.com, asos.com, barnesandnoble.com, thriftbooks.com, klinehoneybeefarm.com, camiliasupply.com, ohflorastore.com, fwrd.com, 1101.com, jetpens.com, amazon.com) not retried.",
+    "No current price for: sara-athleta-clouds-vest, gift-quince-wallet (Cognac), sara-salomon-xt6 (W9.5), sara-llbean-wellie-clogs, sara-rhode, sara-hobonichi-2027, sara-red-sox-dad-hat, sara-monki-scarf, sara-candle-rack, sara-flower-supplies.",
+    "Duluth overalls price is from a Slickdeals post; Roasted Clove/Brick in M stock and delivery date unconfirmed (duluthtrading.com unreachable).",
+    "Dec 20 delivery not shown on the Target product pages for the two books or the JoyLab vest (search pages show Dec 3 shipping)."
+  ]
+}
